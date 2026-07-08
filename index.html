@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Training Culture Polska – programy treningowe, diety i szkolenia dla zawodników i amatorów. Budujemy mistrzów." />
+  <meta property="og:title" content="Training Culture Polska – Budujemy Mistrzów" />
+  <meta property="og:description" content="Programy treningowe, plany żywieniowe, szkolenia i społeczność dla ludzi, którzy chcą się rozwijać." />
+  <meta property="og:type" content="website" />
+  <title>Training Culture Polska – Budujemy Mistrzów</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    🔥 NOWY PROGRAM: TC HYBRID PL — PIERWSZE 7 DNI GRATIS
+    <a href="#programy">Sprawdź teraz →</a>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-wrapper">
+      <a href="/" class="nav-logo">Training <span>Culture</span> PL</a>
+
+      <nav class="nav-menu" aria-label="Główna nawigacja">
+        <div class="nav-item">
+          <a href="#programy" class="nav-link" data-section="programy">
+            Programy <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#programy">TC Cross Training</a>
+            <a href="#programy">TC Hybrid</a>
+            <a href="#programy">TC Siłownia</a>
+            <a href="#programy">TC Bieg</a>
+            <a href="#programy">TC Funkcjonalny</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#dieta" class="nav-link" data-section="dieta">
+            Żywienie <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#dieta">Plany Dietetyczne</a>
+            <a href="#dieta">Suplementacja</a>
+            <a href="#dieta">Kalkulatory</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#szkolenia" class="nav-link" data-section="szkolenia">
+            Szkolenia <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#szkolenia">Trener Personalny</a>
+            <a href="#szkolenia">Żywienie Sportowe</a>
+            <a href="#szkolenia">CrossFit L1</a>
+            <a href="#szkolenia">Metodyka Treningu</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#spolecznosc" class="nav-link" data-section="spolecznosc">Społeczność</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#porady" class="nav-link" data-section="porady">Blog & Porady</a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" title="Wyszukaj" aria-label="Wyszukaj">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <button class="nav-icon-btn" title="Moje konto" aria-label="Moje konto">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </button>
+        <a href="#newsletter" class="nav-cta">Dołącz za darmo</a>
+        <button class="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" role="dialog" aria-label="Menu mobilne">
+    <div class="mobile-nav-link" data-toggle="mob-programy">
+      Programy <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-programy">
+      <a href="#programy">TC Cross Training</a>
+      <a href="#programy">TC Hybrid</a>
+      <a href="#programy">TC Siłownia</a>
+      <a href="#programy">TC Bieg</a>
+      <a href="#programy">TC Funkcjonalny</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-dieta">
+      Żywienie <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-dieta">
+      <a href="#dieta">Plany Dietetyczne</a>
+      <a href="#dieta">Suplementacja</a>
+      <a href="#dieta">Kalkulatory</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-szkol">
+      Szkolenia <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-szkol">
+      <a href="#szkolenia">Trener Personalny</a>
+      <a href="#szkolenia">Żywienie Sportowe</a>
+      <a href="#szkolenia">CrossFit L1</a>
+      <a href="#szkolenia">Metodyka Treningu</a>
+    </div>
+
+    <a href="#spolecznosc" class="mobile-nav-link">Społeczność</a>
+    <a href="#porady" class="mobile-nav-link">Blog & Porady</a>
+
+    <div class="mobile-cta">
+      <a href="#newsletter" class="btn-primary">Dołącz za darmo →</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">Training Culture Polska — Edycja 2025</div>
+
+      <h1 class="hero-title">
+        Budujemy
+        <span class="line-accent">Mistrzów</span>
+        <span class="line-outline">Razem</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Profesjonalne programy treningowe, spersonalizowane plany żywieniowe
+        i szkolenia certyfikowane — wszystko po polsku, dla polskiej społeczności.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#programy" class="btn-primary">
+          Przeglądaj programy →
+        </a>
+        <a href="#newsletter" class="btn-secondary">
+          7 dni za darmo
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">2<span>K+</span></div>
+          <div class="hero-stat-label">Aktywnych zawodników</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">15<span>+</span></div>
+          <div class="hero-stat-label">Programów treningowych</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">98<span>%</span></div>
+          <div class="hero-stat-label">Zadowolonych klientów</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">5<span>+</span></div>
+          <div class="hero-stat-label">Lat doświadczenia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- PROGRAMS SECTION -->
+  <section class="programs-section" id="programy">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <div class="section-label">Nasze programy</div>
+          <h2 class="section-title">Znajdź Swój<br><span>Program</span></h2>
+        </div>
+        <p style="max-width:360px; color: var(--gray-muted); font-size: 14px; line-height:1.7;">
+          Każdy program jest zbudowany przez certyfikowanych trenerów i dostosowany do różnych poziomów zaawansowania.
+        </p>
+      </div>
+
+      <div class="programs-grid">
+        <!-- Card 1 -->
+        <div class="program-card">
+          <div class="program-card-inner">
+            <div class="program-card-bg"></div>
+            <div class="program-card-overlay"></div>
+            <div class="program-card-icon">🏋️</div>
+            <div class="program-card-number">01</div>
+            <div class="program-card-content">
+              <div class="program-card-tag">Bestseller</div>
+              <h3 class="program-card-title">TC Cross Training</h3>
+              <p class="program-card-desc">Kompleksowy trening funkcjonalny. Siła, wytrzymałość i kondycja w jednym.</p>
+              <span class="program-card-cta">Kup program</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="program-card">
+          <div class="program-card-inner">
+            <div class="program-card-bg"></div>
+            <div class="program-card-overlay"></div>
+            <div class="program-card-icon">⚡</div>
+            <div class="program-card-number">02</div>
+            <div class="program-card-content">
+              <div class="program-card-tag">Nowość</div>
+              <h3 class="program-card-title">TC Hybrid PL</h3>
+              <p class="program-card-desc">Połączenie treningu siłowego i biegowego dla wszechstronnych sportowców.</p>
+              <span class="program-card-cta">Kup program</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="program-card">
+          <div class="program-card-inner">
+            <div class="program-card-bg"></div>
+            <div class="program-card-overlay"></div>
+            <div class="program-card-icon">🏃</div>
+            <div class="program-card-number">03</div>
+            <div class="program-card-content">
+              <div class="program-card-tag">Popularny</div>
+              <h3 class="program-card-title">TC Bieg</h3>
+              <p class="program-card-desc">Od 5km do maratonu. Programy biegowe dla każdego poziomu.</p>
+              <span class="program-card-cta">Kup program</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="program-card">
+          <div class="program-card-inner">
+            <div class="program-card-bg"></div>
+            <div class="program-card-overlay"></div>
+            <div class="program-card-icon">💪</div>
+            <div class="program-card-number">04</div>
+            <div class="program-card-content">
+              <div class="program-card-tag">Klasyk</div>
+              <h3 class="program-card-title">TC Siłownia</h3>
+              <p class="program-card-desc">Prymitywny trening siłowy. Przysiad, martwy ciąg, wyciskanie — mistrzostwo w podstawach.</p>
+              <span class="program-card-cta">Kup program</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 48px;">
+        <a href="#programy" class="btn-outline-accent">Zobacz wszystkie programy →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US SECTION -->
+  <section class="why-section" id="porady">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-visual">
+          <div class="why-visual-main">
+            <div class="why-big-number">98%</div>
+            <div class="why-big-label">Wskaźnik ukończenia programów</div>
+          </div>
+          <div class="why-badges">
+            <div class="why-badge">
+              <div class="why-badge-icon">🏆</div>
+              <div class="why-badge-value"><span>200+</span></div>
+              <div class="why-badge-label">Medali zawodników</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">📋</div>
+              <div class="why-badge-value"><span>15+</span></div>
+              <div class="why-badge-label">Programów</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">⭐</div>
+              <div class="why-badge-value">4.<span>9</span></div>
+              <div class="why-badge-label">Średnia ocena</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">👥</div>
+              <div class="why-badge-value"><span>2K+</span></div>
+              <div class="why-badge-label">Społeczność</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-content">
+          <div>
+            <div class="section-label">Dlaczego Training Culture PL?</div>
+            <h2 class="section-title">Metoda która<br><span>działa</span></h2>
+          </div>
+
+          <div class="why-features">
+            <div class="why-feature">
+              <div class="why-feature-num">01</div>
+              <div class="why-feature-body">
+                <h4>Programy od certyfikowanych trenerów</h4>
+                <p>Każdy plan tworzony przez specjalistów z wieloletnim doświadczeniem i certyfikatami międzynarodowymi.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">02</div>
+              <div class="why-feature-body">
+                <h4>Spersonalizowane podejście</h4>
+                <p>Programy dostosowane do Twojego poziomu, celów i dostępnego sprzętu. Bez zbędnych komplikacji.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">03</div>
+              <div class="why-feature-body">
+                <h4>Aktywna społeczność</h4>
+                <p>Dołącz do tysięcy Polaków, którzy trenują razem, motywują się nawzajem i dzielą się wynikami.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">04</div>
+              <div class="why-feature-body">
+                <h4>Wsparcie 7 dni w tygodniu</h4>
+                <p>Nasz team jest dostępny codziennie — pytaj o treningi, dietę i motywację kiedy tylko potrzebujesz.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="#programy" class="btn-primary">Zacznij dzisiaj →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUTRITION SECTION -->
+  <section class="nutrition-section" id="dieta">
+    <div class="container">
+      <div class="section-label">Żywienie sportowe</div>
+      <h2 class="section-title">Jedzenie to<br><span>Paliwo</span></h2>
+
+      <div class="nutrition-grid">
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">🥗</div>
+          <h3 class="nutrition-card-title">Plany Żywieniowe</h3>
+          <p class="nutrition-card-text">
+            Spersonalizowane jadłospisy opracowane przez dietetyków sportowych.
+            Dostosowane do Twoich celów: masa, redukcja lub utrzymanie formy.
+            Pełna lista zakupów i przepisy w zestawie.
+          </p>
+          <span class="nutrition-card-tag">Od 99 zł / miesiąc</span>
+        </div>
+
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">💊</div>
+          <h3 class="nutrition-card-title">Suplementacja</h3>
+          <p class="nutrition-card-text">
+            Przewodnik po suplementach — co działa, co jest marketingiem,
+            a co może zaszkodzić. Oparte na badaniach naukowych, nie na reklamach.
+          </p>
+          <span class="nutrition-card-tag">Gratis w planie Premium</span>
+        </div>
+
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">📊</div>
+          <h3 class="nutrition-card-title">Kalkulatory & Narzędzia</h3>
+          <p class="nutrition-card-text">
+            Oblicz swoje zapotrzebowanie kaloryczne, makroskładniki i nawodnienie.
+            Interaktywne narzędzia dostępne 24/7 dla wszystkich użytkowników.
+          </p>
+          <span class="nutrition-card-tag">Dostęp bezpłatny</span>
+        </div>
+
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">👨‍⚕️</div>
+          <h3 class="nutrition-card-title">Konsultacje Online</h3>
+          <p class="nutrition-card-text">
+            Umów się na konsultację 1:1 z dietetykiem sportowym. Analiza składu ciała,
+            indywidualny plan i follow-up po 4 tygodniach.
+          </p>
+          <span class="nutrition-card-tag">Umów bezpłatną rozmowę</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES SECTION -->
+  <section class="courses-section" id="szkolenia">
+    <div class="container">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; margin-bottom:64px;">
+        <div>
+          <div class="section-label">TC University</div>
+          <h2 class="section-title">Szkol się z<br><span>Najlepszymi</span></h2>
+        </div>
+        <a href="#szkolenia" class="btn-outline-accent">Wszystkie szkolenia →</a>
+      </div>
+
+      <div class="courses-list">
+        <div class="course-item">
+          <div class="course-item-num">01</div>
+          <div class="course-item-icon">🏋️‍♂️</div>
+          <div class="course-item-content">
+            <div class="course-item-title">Trener Personalny — Kurs Certyfikowany</div>
+            <div class="course-item-meta">12 tygodni · Online + Praktyki · Certyfikat uznawany w UE</div>
+          </div>
+          <div class="course-item-badge">Bestseller</div>
+          <div class="course-item-arrow">→</div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-item-num">02</div>
+          <div class="course-item-icon">🥦</div>
+          <div class="course-item-content">
+            <div class="course-item-title">Żywienie w Sporcie — Podstawy i Zaawansowane</div>
+            <div class="course-item-meta">8 tygodni · 100% Online · Dostęp dożywotni</div>
+          </div>
+          <div class="course-item-badge">Nowość</div>
+          <div class="course-item-arrow">→</div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-item-num">03</div>
+          <div class="course-item-icon">🎽</div>
+          <div class="course-item-content">
+            <div class="course-item-title">CrossFit Level 1 — Przygotowanie do Egzaminu</div>
+            <div class="course-item-meta">6 tygodni · Weekend + Online · 95% zdawalność</div>
+          </div>
+          <div class="course-item-badge">Polecany</div>
+          <div class="course-item-arrow">→</div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-item-num">04</div>
+          <div class="course-item-icon">📐</div>
+          <div class="course-item-content">
+            <div class="course-item-title">Metodyka Treningu Funkcjonalnego</div>
+            <div class="course-item-meta">4 tygodnie · Online · Idealne dla trenerów siłowni</div>
+          </div>
+          <div class="course-item-badge">Popularny</div>
+          <div class="course-item-arrow">→</div>
+        </div>
+
+        <div class="course-item">
+          <div class="course-item-num">05</div>
+          <div class="course-item-icon">🧠</div>
+          <div class="course-item-content">
+            <div class="course-item-title">Psychologia Sportu — Mentalna Siła Zawodnika</div>
+            <div class="course-item-meta">5 tygodni · Online + Live sesje · Grupowe mentorstwo</div>
+          </div>
+          <div class="course-item-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY / CULT SECTION -->
+  <section class="cult-section" id="spolecznosc">
+    <div class="cult-big-text">KULT</div>
+    <div class="container">
+      <div class="cult-content">
+        <div class="section-label" style="display:inline-block; margin-bottom:20px;">Społeczność</div>
+        <h2 class="cult-title">Dołącz do<br><span>Kultu</span></h2>
+        <p class="cult-sub">
+          Nie jesteś sam. Tysiące Polaków trenuje razem z Training Culture każdego dnia.
+          Motywacja, wyniki, wsparcie — codziennie w Twojej kieszeni.
+        </p>
+
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="#newsletter" class="btn-primary">Dołącz teraz →</a>
+          <a href="#newsletter" class="btn-secondary">Darmowa próba 7 dni</a>
+        </div>
+
+        <div class="cult-socials">
+          <a href="#" class="cult-social-btn">
+            <span class="social-icon">📸</span> Instagram
+          </a>
+          <a href="#" class="cult-social-btn">
+            <span class="social-icon">▶️</span> YouTube
+          </a>
+          <a href="#" class="cult-social-btn">
+            <span class="social-icon">🎵</span> TikTok
+          </a>
+          <a href="#" class="cult-social-btn">
+            <span class="social-icon">💬</span> WhatsApp Grupa
+          </a>
+          <a href="#" class="cult-social-btn">
+            <span class="social-icon">🎙️</span> Podcast
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-label">Opinie</div>
+      <h2 class="section-title">Co mówią<br><span>nasi zawodnicy</span></h2>
+    </div>
+
+    <div class="testimonials-track-wrap" style="margin-top:64px;">
+      <div class="testimonials-track">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"TC Hybrid zmienił moje życie. W 12 tygodni poprawiłem swój rekord na 10km o 4 minuty i jednocześnie zwiększyłem max w przysiadzie o 20kg."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MK</div>
+            <div>
+              <div class="testimonial-name">Marek Kowalski</div>
+              <div class="testimonial-role">Zawodnik CrossFit · Warszawa</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Nareszcie program w języku polskim z prawdziwym wsparciem. Trenerzy odpowiadają w ciągu godziny. Polecam każdemu kto poważnie traktuje sport."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AN</div>
+            <div>
+              <div class="testimonial-name">Anna Nowak</div>
+              <div class="testimonial-role">Biegaczka · Kraków</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Kurs Trener Personalny – najlepsza inwestycja jaką zrobiłem. Certyfikat, wiedza i kontakty. Teraz prowadzę własną siłownię."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">PT</div>
+            <div>
+              <div class="testimonial-name">Piotr Tomczyk</div>
+              <div class="testimonial-role">Trener Personalny · Poznań</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Plan żywieniowy robił się sam — dietetyk cały czas monitorował postępy. Straciłam 8kg tłuszczu zachowując mięśnie. Niesamowite efekty."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">KW</div>
+            <div>
+              <div class="testimonial-name">Katarzyna Wiśniewska</div>
+              <div class="testimonial-role">Fitness · Wrocław</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Społeczność TC to coś wyjątkowego. Nigdy nie czuję się sam z treningiem. Codziennie motywacja, wspólne wyzwania i świetni ludzie."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RS</div>
+            <div>
+              <div class="testimonial-name">Robert Sikora</div>
+              <div class="testimonial-role">Trójboista · Gdańsk</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Po 6 miesiącach z TC: przeszłam z kanapy do pierwszego maratonu. Program biegowy jest ułożony perfekcyjnie. Każdy tydzień ma sens."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">ML</div>
+            <div>
+              <div class="testimonial-name">Monika Lewandowska</div>
+              <div class="testimonial-role">Maratonka · Łódź</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER SECTION -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="container">
+      <div class="newsletter-grid">
+        <div>
+          <div class="section-label">Bądź na bieżąco</div>
+          <h2 class="section-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">
+            Dostań 7 dni<br><span>za darmo</span>
+          </h2>
+          <p style="color:var(--gray-muted); font-size:14px; margin-top:16px; margin-bottom:0; line-height:1.7;">
+            Zapisz się i otrzymaj bezpłatny dostęp próbny oraz cotygodniowe treści: porady treningowe, przepisy i motywację.
+          </p>
+
+          <form class="newsletter-form-group" id="newsletterForm" novalidate>
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Twój adres e-mail"
+              required
+              aria-label="Adres email"
+            />
+            <button type="submit" class="newsletter-submit">
+              Dołącz →
+            </button>
+          </form>
+          <p class="newsletter-note">
+            Rejestrując się, akceptujesz naszą <a href="#" style="color:var(--accent)">Politykę Prywatności</a>.
+            Możesz zrezygnować w każdej chwili. Zero spamu.
+          </p>
+        </div>
+
+        <div class="newsletter-perks">
+          <div class="newsletter-perk">
+            <div class="newsletter-perk-icon">🎯</div>
+            <div class="newsletter-perk-text">
+              <h4>7-dniowy Próbny Dostęp</h4>
+              <p>Pełny dostęp do wszystkich programów przez 7 dni — bez karty kredytowej.</p>
+            </div>
+          </div>
+          <div class="newsletter-perk">
+            <div class="newsletter-perk-icon">📧</div>
+            <div class="newsletter-perk-text">
+              <h4>Cotygodniowy Newsletter</h4>
+              <p>Porady treningowe, przepisy, badania naukowe i motywacja co tydzień.</p>
+            </div>
+          </div>
+          <div class="newsletter-perk">
+            <div class="newsletter-perk-icon">🎁</div>
+            <div class="newsletter-perk-text">
+              <h4>Darmowy E-book Startowy</h4>
+              <p>"Pierwsze 30 dni w Training Culture" — kompletny przewodnik dla nowych.</p>
+            </div>
+          </div>
+          <div class="newsletter-perk">
+            <div class="newsletter-perk-icon">👥</div>
+            <div class="newsletter-perk-text">
+              <h4>Dostęp do Społeczności</h4>
+              <p>Dołącz do zamkniętej grupy na Facebooku z tysiącami aktywnych zawodników.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Training <span>Culture</span> PL</h3>
+          <p>
+            Polska społeczność sportowców — od amatorów po zawodowców.
+            Trenujemy razem, rozwijamy się razem, wygrywamy razem.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" title="Instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="YouTube" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="TikTok" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.67a8.16 8.16 0 0 0 4.77 1.52V6.7a4.86 4.86 0 0 1-1-.01z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="Spotify" aria-label="Spotify Podcast">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 13.5a8 8 0 0 1 8 0M6.5 10a11 11 0 0 1 11 0M9.5 17a5 5 0 0 1 5 0"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programy</h4>
+          <ul>
+            <li><a href="#programy">TC Cross Training</a></li>
+            <li><a href="#programy">TC Hybrid PL</a></li>
+            <li><a href="#programy">TC Bieg</a></li>
+            <li><a href="#programy">TC Siłownia</a></li>
+            <li><a href="#programy">TC Funkcjonalny</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>TC University</h4>
+          <ul>
+            <li><a href="#szkolenia">Trener Personalny</a></li>
+            <li><a href="#szkolenia">Żywienie Sportowe</a></li>
+            <li><a href="#szkolenia">CrossFit L1</a></li>
+            <li><a href="#szkolenia">Metodyka Treningu</a></li>
+            <li><a href="#szkolenia">Psychologia Sportu</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Firma</h4>
+          <ul>
+            <li><a href="#porady">Blog & Porady</a></li>
+            <li><a href="#spolecznosc">Społeczność</a></li>
+            <li><a href="mailto:info@trainingculture.pl">Kontakt</a></li>
+            <li><a href="#">Partnerstwa</a></li>
+            <li><a href="#">Prasa</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2025 Training Culture Polska. Wszelkie prawa zastrzeżone.
+          Kontakt: <a href="mailto:info@trainingculture.pl">info@trainingculture.pl</a>
+        </div>
+        <div class="footer-legal">
+          <a href="#">Polityka Prywatności</a>
+          <a href="#">Pliki Cookies</a>
+          <a href="#">Regulamin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Zgoda na pliki cookie">
+    <p>
+      Używamy plików cookies, aby zapewnić najlepsze doświadczenia na naszej stronie.
+      Klikając "Akceptuj", wyrażasz zgodę na ich użycie.
+      <a href="#">Dowiedz się więcej.</a>
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-accept" id="cookieAccept">Akceptuj</button>
+      <button class="cookie-decline" id="cookieDecline">Odrzuć</button>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
