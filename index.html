@@ -852,6 +852,36 @@
     </div>
   </div>
 
+  <!-- PROGRAM MODAL -->
+  <div class="program-modal-overlay" id="programModal" role="dialog" aria-modal="true" aria-label="Szczegóły programu">
+    <div class="program-modal">
+      <button class="program-modal-close" id="programModalClose" aria-label="Zamknij">×</button>
+      <div class="program-modal-image" id="modalImage">
+        <span class="program-modal-img-icon" id="modalIcon"></span>
+      </div>
+      <div class="program-modal-body">
+        <div class="program-modal-tag" id="modalTag"></div>
+        <h2 class="program-modal-title" id="modalTitle"></h2>
+        <p class="program-modal-lead" id="modalLead"></p>
+        <div class="program-modal-sections">
+          <div class="program-modal-section">
+            <h4>Co zawiera</h4>
+            <ul id="modalContents"></ul>
+          </div>
+          <div class="program-modal-section">
+            <h4>Dla kogo</h4>
+            <p id="modalForWho"></p>
+          </div>
+          <div class="program-modal-section">
+            <h4>Po co</h4>
+            <p id="modalWhyFor"></p>
+          </div>
+        </div>
+        <a href="#newsletter" class="btn-primary program-modal-cta" id="modalCta">Wypróbuj 7 dni za darmo →</a>
+      </div>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
