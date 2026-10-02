@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Szkolenia dla trenerów i zawodników oraz campy treningowe Training Culture. Opisy kursów i galeria zdjęć." />
+  <meta property="og:title" content="Szkolenia i Campy – Training Culture" />
+  <meta property="og:description" content="Programy treningowe, szkolenia, campy i odzież sportowa dla ludzi, którzy chcą osiągnąć swój pełny potencjał." />
+  <meta property="og:type" content="website" />
+  <title>Szkolenia i Campy – Training Culture</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    🔥 NOWY PROGRAM: TC HYBRID PL — PIERWSZE 7 DNI GRATIS
+    <a href="index.html#programy" data-link="plans">Sprawdź teraz →</a>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-wrapper">
+      <a href="index.html" class="nav-logo">Training <span>Culture</span> PL</a>
+
+      <nav class="nav-menu" aria-label="Główna nawigacja">
+        <div class="nav-item">
+          <a href="index.html#programy" class="nav-link">
+            Programy <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="index.html#programy">CrossFit</a>
+            <a href="index.html#programy">Hybrydowy</a>
+            <a href="index.html#programy">Hyrox</a>
+            <a href="index.html#programy">Trening Siłowy</a>
+            <a href="index.html#programy">Gimnastyka</a>
+            <a href="index.html#programy">Weightlifting</a>
+            <a href="index.html#programy">Mobility</a>
+            <a href="index.html#programy">Rehab</a>
+            <a href="index.html#programy">Bieganie</a>
+            <a href="index.html#programy">Trening Chwytu</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="index.html#dieta" class="nav-link">
+            Żywienie <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="index.html#dieta">Plany Dietetyczne</a>
+            <a href="index.html#dieta">Suplementacja</a>
+            <a href="index.html#dieta">Kalkulatory</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="szkolenia.html" class="nav-link active" aria-current="page">
+            Szkolenia & Campy <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="#trener-personalny">Trener Personalny</a>
+            <a href="#zywienie-sportowe">Żywienie Sportowe</a>
+            <a href="#crossfit-l1">CrossFit L1</a>
+            <a href="#metodyka-treningu">Metodyka Treningu</a>
+            <a href="#campy">Campy Treningowe</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="index.html#spolecznosc" class="nav-link">Społeczność</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="index.html#porady" class="nav-link">Blog & Porady</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/ranking/" class="nav-link">Ranking</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/sklep/" class="nav-link">
+            Sklep <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+            <a href="/sklep/?kategoria=odziez">Odzież</a>
+            <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" title="Wyszukaj" aria-label="Wyszukaj">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <a href="/konto/" class="nav-icon-btn" title="Moje konto" aria-label="Moje konto">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="/sklep/" class="nav-icon-btn" title="Sklep" aria-label="Sklep">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </a>
+        <a href="index.html#newsletter" class="nav-cta">Dołącz za darmo</a>
+        <button class="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" role="dialog" aria-label="Menu mobilne">
+    <div class="mobile-nav-link" data-toggle="mob-programy">
+      Programy <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-programy">
+      <a href="index.html#programy">CrossFit</a>
+      <a href="index.html#programy">Hybrydowy</a>
+      <a href="index.html#programy">Hyrox</a>
+      <a href="index.html#programy">Trening Siłowy</a>
+      <a href="index.html#programy">Gimnastyka</a>
+      <a href="index.html#programy">Weightlifting</a>
+      <a href="index.html#programy">Mobility</a>
+      <a href="index.html#programy">Rehab</a>
+      <a href="index.html#programy">Bieganie</a>
+      <a href="index.html#programy">Trening Chwytu</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-dieta">
+      Żywienie <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-dieta">
+      <a href="index.html#dieta">Plany Dietetyczne</a>
+      <a href="index.html#dieta">Suplementacja</a>
+      <a href="index.html#dieta">Kalkulatory</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-szkol">
+      Szkolenia & Campy <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-szkol">
+      <a href="#trener-personalny">Trener Personalny</a>
+      <a href="#zywienie-sportowe">Żywienie Sportowe</a>
+      <a href="#crossfit-l1">CrossFit L1</a>
+      <a href="#metodyka-treningu">Metodyka Treningu</a>
+      <a href="#campy">Campy Treningowe</a>
+      <a href="szkolenia.html">Wszystkie szkolenia i galeria</a>
+    </div>
+
+    <a href="index.html#spolecznosc" class="mobile-nav-link">Społeczność</a>
+    <a href="index.html#porady" class="mobile-nav-link">Blog & Porady</a>
+    <a href="/ranking/" class="mobile-nav-link">Ranking</a>
+    <a href="/konto/" class="mobile-nav-link">Moje konto</a>
+    <div class="mobile-nav-link" data-toggle="mob-sklep">
+      Sklep <span class="m-arrow">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-sklep">
+      <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+      <a href="/sklep/?kategoria=odziez">Odzież</a>
+      <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+      <a href="/sklep/">Cały sklep</a>
+    </div>
+
+    <div class="mobile-cta">
+      <a href="index.html#newsletter" class="btn-primary">Dołącz za darmo →</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container page-hero-content">
+      <div class="section-label">TC University · Szkolenia & Campy</div>
+      <h1 class="section-title">Szkol się z<br><span>Najlepszymi</span></h1>
+      <p class="page-hero-sub">
+        Kursy dla trenerów i zawodników oraz campy treningowe, na których trenujesz, uczysz się
+        i poznajesz ludzi z tą samą zajawką. Zobacz, co robimy — i dołącz do kolejnej edycji.
+      </p>
+      <div class="hero-actions">
+        <a href="#lista" class="btn-primary">Zobacz szkolenia →</a>
+        <a href="#galeria" class="btn-secondary">Galeria zdjęć</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES DETAILS -->
+  <section class="courses-section courses-details" id="lista">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <div class="section-label">Szkolenia</div>
+          <h2 class="section-title">Wybierz<br><span>Szkolenie</span></h2>
+        </div>
+        <p class="section-lead">
+          Każde szkolenie łączy wiedzę teoretyczną z praktyką na sali. Prowadzą je trenerzy z wieloletnim doświadczeniem zawodniczym i szkoleniowym.
+        </p>
+      </div>
+
+      <div class="course-details-list">
+        <article class="course-detail" id="trener-personalny">
+          <div class="course-detail-head">
+            <div class="course-item-num">01</div>
+            <div class="course-item-icon">🏋️‍♂️</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">Trener Personalny — Kurs Certyfikowany</h3>
+              <div class="course-item-meta">12 tygodni · Online + Praktyki · Certyfikat uznawany w UE</div>
+            </div>
+            <div class="course-item-badge">Bestseller</div>
+          </div>
+          <div class="course-detail-body">
+            <p>Kompletna ścieżka dla osób, które chcą zawodowo prowadzić treningi. Anatomia i fizjologia wysiłku, technika ruchów bazowych, planowanie treningu i praca z klientem.</p>
+            <ul class="course-detail-points">
+              <li>Moduły online + zajęcia praktyczne na sali</li>
+              <li>Programowanie treningu dla różnych celów i poziomów</li>
+              <li>Egzamin końcowy i certyfikat</li>
+            </ul>
+            <a href="mailto:info@trainingculture.pl?subject=Szkolenie%3A%20Trener%20Personalny" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>
+
+        <article class="course-detail" id="zywienie-sportowe">
+          <div class="course-detail-head">
+            <div class="course-item-num">02</div>
+            <div class="course-item-icon">🥦</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">Żywienie w Sporcie — Podstawy i Zaawansowane</h3>
+              <div class="course-item-meta">8 tygodni · 100% Online · Dostęp dożywotni</div>
+            </div>
+            <div class="course-item-badge">Nowość</div>
+          </div>
+          <div class="course-detail-body">
+            <p>Jak jeść pod trening siłowy, wytrzymałościowy i hybrydowy. Bilans energetyczny, makroskładniki, nawodnienie, suplementacja i żywienie w dniu zawodów.</p>
+            <ul class="course-detail-points">
+              <li>Lekcje wideo w swoim tempie</li>
+              <li>Gotowe narzędzia i kalkulatory</li>
+              <li>Studia przypadków zawodników</li>
+            </ul>
+            <a href="mailto:info@trainingculture.pl?subject=Szkolenie%3A%20%C5%BBywienie%20w%20Sporcie" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>
+
+        <article class="course-detail" id="crossfit-l1">
+          <div class="course-detail-head">
+            <div class="course-item-num">03</div>
+            <div class="course-item-icon">🎽</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">CrossFit Level 1 — Przygotowanie do Egzaminu</h3>
+              <div class="course-item-meta">6 tygodni · Weekend + Online · 95% zdawalność</div>
+            </div>
+            <div class="course-item-badge">Polecany</div>
+          </div>
+          <div class="course-detail-body">
+            <p>Przygotowanie teoretyczne i praktyczne do egzaminu CrossFit Level 1. Dziewięć ruchów fundamentalnych, metodyka nauczania i prowadzenia zajęć grupowych.</p>
+            <ul class="course-detail-points">
+              <li>Weekendowe zajęcia praktyczne</li>
+              <li>Próbne testy egzaminacyjne</li>
+              <li>Korekta techniki na wideo</li>
+            </ul>
+            <a href="mailto:info@trainingculture.pl?subject=Szkolenie%3A%20CrossFit%20L1" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>
+
+        <article class="course-detail" id="metodyka-treningu">
+          <div class="course-detail-head">
+            <div class="course-item-num">04</div>
+            <div class="course-item-icon">📐</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">Metodyka Treningu Funkcjonalnego</h3>
+              <div class="course-item-meta">4 tygodnie · Online · Idealne dla trenerów siłowni</div>
+            </div>
+            <div class="course-item-badge">Popularny</div>
+          </div>
+          <div class="course-detail-body">
+            <p>Jak budować skuteczne jednostki i mikrocykle treningu funkcjonalnego. Dobór ćwiczeń, skalowanie, progresja i prowadzenie grup o różnym poziomie.</p>
+            <ul class="course-detail-points">
+              <li>Gotowe szablony planowania</li>
+              <li>Skalowanie ćwiczeń dla każdego poziomu</li>
+              <li>Analiza realnych programów TC</li>
+            </ul>
+            <a href="mailto:info@trainingculture.pl?subject=Szkolenie%3A%20Metodyka%20Treningu" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>
+
+        <article class="course-detail" id="psychologia-sportu">
+          <div class="course-detail-head">
+            <div class="course-item-num">05</div>
+            <div class="course-item-icon">🧠</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">Psychologia Sportu — Mentalna Siła Zawodnika</h3>
+              <div class="course-item-meta">5 tygodni · Online + Live sesje · Grupowe mentorstwo</div>
+            </div>
+          </div>
+          <div class="course-detail-body">
+            <p>Motywacja, koncentracja, radzenie sobie ze stresem startowym i budowanie nawyków. Narzędzia, które pomagają wygrywać w głowie, zanim wygrasz na zawodach.</p>
+            <ul class="course-detail-points">
+              <li>Sesje live z prowadzącym</li>
+              <li>Ćwiczenia mentalne do codziennego treningu</li>
+              <li>Grupowe mentorstwo</li>
+            </ul>
+            <a href="mailto:info@trainingculture.pl?subject=Szkolenie%3A%20Psychologia%20Sportu" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPS -->
+  <section class="why-section" id="campy">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-visual">
+          <div class="why-visual-main">
+            <div class="why-big-number">🏕️</div>
+            <div class="why-big-label">Campy Training Culture</div>
+          </div>
+          <div class="why-badges">
+            <div class="why-badge">
+              <div class="why-badge-icon">📅</div>
+              <div class="why-badge-value"><span>10+</span></div>
+              <div class="why-badge-label">Lat doświadczenia</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">👥</div>
+              <div class="why-badge-value"><span>2K+</span></div>
+              <div class="why-badge-label">Zawodników na świecie</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">📋</div>
+              <div class="why-badge-value"><span>30+</span></div>
+              <div class="why-badge-label">Programów</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-content">
+          <div>
+            <div class="section-label">Campy treningowe</div>
+            <h2 class="section-title">Co nas<br><span>wyróżnia</span></h2>
+          </div>
+
+          <div class="why-features">
+            <div class="why-feature">
+              <div class="why-feature-num">01</div>
+              <div class="why-feature-body">
+                <h4>Trening na najwyższym poziomie</h4>
+                <p>Kilka jednostek dziennie pod okiem trenerów TC — siła, gimnastyka, weightlifting, wytrzymałość i mobility.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">02</div>
+              <div class="why-feature-body">
+                <h4>Wiedza, którą zabierasz do domu</h4>
+                <p>Wykłady i warsztaty z techniki, programowania, żywienia i regeneracji — nie tylko trenujesz, ale rozumiesz dlaczego.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">03</div>
+              <div class="why-feature-body">
+                <h4>Indywidualna korekta</h4>
+                <p>Małe grupy, analiza wideo i uwagi do Twojej techniki. Wyjeżdżasz z planem pracy na kolejne miesiące.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">04</div>
+              <div class="why-feature-body">
+                <h4>Ludzie i atmosfera</h4>
+                <p>Społeczność zawodników z całego świata. Wspólne treningi, rywalizacja i znajomości na lata.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="mailto:info@trainingculture.pl?subject=Campy%20treningowe" class="btn-primary">Zapytaj o najbliższy camp →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="galeria">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <div class="section-label">Galeria</div>
+          <h2 class="section-title">Z naszych<br><span>Szkoleń i Campów</span></h2>
+        </div>
+        <p class="section-lead">
+          Kliknij zdjęcie, aby je powiększyć.
+        </p>
+      </div>
+
+      <!-- Zdjęcia dodaje się w js/config.js (TC_GALLERY), pliki w images/szkolenia/ -->
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cult-section">
+    <div class="container">
+      <div class="cult-content">
+        <div class="section-label" style="display:inline-block; margin-bottom:20px;">Kontakt</div>
+        <h2 class="cult-title">Dołącz do<br><span>Kolejnej Edycji</span></h2>
+        <p class="cult-sub">
+          Napisz do nas — podamy najbliższe terminy, ceny i odpowiemy na wszystkie pytania.
+        </p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="mailto:info@trainingculture.pl?subject=Szkolenia%20i%20campy" class="btn-primary">Napisz do nas →</a>
+          <a href="index.html#programy" class="btn-secondary">Zobacz programy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia">
+    <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Zamknij">×</button>
+    <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Poprzednie zdjęcie">‹</button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImg" src="" alt="" />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Następne zdjęcie">›</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Training <span>Culture</span> PL</h3>
+          <p>
+            Polska społeczność sportowców — od amatorów po zawodowców.
+            Trenujemy razem, rozwijamy się razem, wygrywamy razem.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" title="Instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="YouTube" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="TikTok" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.67a8.16 8.16 0 0 0 4.77 1.52V6.7a4.86 4.86 0 0 1-1-.01z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="Spotify" aria-label="Spotify Podcast">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 13.5a8 8 0 0 1 8 0M6.5 10a11 11 0 0 1 11 0M9.5 17a5 5 0 0 1 5 0"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programy</h4>
+          <ul>
+            <li><a href="index.html#programy">CrossFit</a></li>
+            <li><a href="index.html#programy">Hybrydowy</a></li>
+            <li><a href="index.html#programy">Hyrox</a></li>
+            <li><a href="index.html#programy">Trening Siłowy</a></li>
+            <li><a href="index.html#programy">Weightlifting</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Szkolenia & Campy</h4>
+          <ul>
+            <li><a href="#trener-personalny">Trener Personalny</a></li>
+            <li><a href="#zywienie-sportowe">Żywienie Sportowe</a></li>
+            <li><a href="#crossfit-l1">CrossFit L1</a></li>
+            <li><a href="#metodyka-treningu">Metodyka Treningu</a></li>
+            <li><a href="#campy">Campy Treningowe</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sklep</h4>
+          <ul>
+            <li><a href="/sklep/?kategoria=obuwie">Obuwie</a></li>
+            <li><a href="/sklep/?kategoria=odziez">Odzież</a></li>
+            <li><a href="/sklep/?kategoria=akcesoria">Akcesoria</a></li>
+            <li><a href="index.html#programy" data-link="plans">Plany treningowe</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Firma</h4>
+          <ul>
+            <li><a href="/ranking/">Ranking</a></li>
+            <li><a href="index.html#porady">Blog & Porady</a></li>
+            <li><a href="index.html#spolecznosc">Społeczność</a></li>
+            <li><a href="mailto:info@trainingculture.pl">Kontakt</a></li>
+            <li><a href="#">Partnerstwa</a></li>
+            <li><a href="#">Prasa</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2025 Training Culture Polska. Wszelkie prawa zastrzeżone.
+          Kontakt: <a href="mailto:info@trainingculture.pl">info@trainingculture.pl</a>
+        </div>
+        <div class="footer-legal">
+          <a href="#">Polityka Prywatności</a>
+          <a href="#">Pliki Cookies</a>
+          <a href="#">Regulamin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Zgoda na pliki cookie">
+    <p>
+      Używamy plików cookies, aby zapewnić najlepsze doświadczenia na naszej stronie.
+      Klikając "Akceptuj", wyrażasz zgodę na ich użycie.
+      <a href="#">Dowiedz się więcej.</a>
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-accept" id="cookieAccept">Akceptuj</button>
+      <button class="cookie-decline" id="cookieDecline">Odrzuć</button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

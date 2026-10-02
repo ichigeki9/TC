@@ -21,7 +21,7 @@
   <!-- ANNOUNCEMENT BAR -->
   <div class="announcement-bar">
     🔥 NOWY PROGRAM: TC HYBRID PL — PIERWSZE 7 DNI GRATIS
-    <a href="#programy">Sprawdź teraz →</a>
+    <a href="#programy" data-link="plans">Sprawdź teraz →</a>
   </div>
 
   <!-- HEADER -->
@@ -60,15 +60,15 @@
         </div>
 
         <div class="nav-item">
-          <a href="#szkolenia" class="nav-link" data-section="szkolenia">
+          <a href="szkolenia.html" class="nav-link" data-section="szkolenia">
             Szkolenia & Campy <span class="chevron">▾</span>
           </a>
           <div class="dropdown">
-            <a href="#szkolenia">Trener Personalny</a>
-            <a href="#szkolenia">Żywienie Sportowe</a>
-            <a href="#szkolenia">CrossFit L1</a>
-            <a href="#szkolenia">Metodyka Treningu</a>
-            <a href="#szkolenia">Campy Treningowe</a>
+            <a href="szkolenia.html#trener-personalny">Trener Personalny</a>
+            <a href="szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a>
+            <a href="szkolenia.html#crossfit-l1">CrossFit L1</a>
+            <a href="szkolenia.html#metodyka-treningu">Metodyka Treningu</a>
+            <a href="szkolenia.html#campy">Campy Treningowe</a>
           </div>
         </div>
 
@@ -79,6 +79,21 @@
         <div class="nav-item">
           <a href="#porady" class="nav-link" data-section="porady">Blog & Porady</a>
         </div>
+
+        <div class="nav-item">
+          <a href="/ranking/" class="nav-link">Ranking</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/sklep/" class="nav-link" data-section="sklep">
+            Sklep <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+            <a href="/sklep/?kategoria=odziez">Odzież</a>
+            <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+          </div>
+        </div>
       </nav>
 
       <div class="nav-actions">
@@ -87,11 +102,16 @@
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
         </button>
-        <button class="nav-icon-btn" title="Moje konto" aria-label="Moje konto">
+        <a href="/konto/" class="nav-icon-btn" title="Moje konto" aria-label="Moje konto">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
-        </button>
+        </a>
+        <a href="/sklep/" class="nav-icon-btn" title="Sklep" aria-label="Sklep">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </a>
         <a href="#newsletter" class="nav-cta">Dołącz za darmo</a>
         <button class="hamburger" aria-label="Menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -131,15 +151,27 @@
       Szkolenia & Campy <span class="m-arrow" style="transition:transform 0.2s">›</span>
     </div>
     <div class="mobile-submenu" id="mob-szkol">
-      <a href="#szkolenia">Trener Personalny</a>
-      <a href="#szkolenia">Żywienie Sportowe</a>
-      <a href="#szkolenia">CrossFit L1</a>
-      <a href="#szkolenia">Metodyka Treningu</a>
-      <a href="#szkolenia">Campy Treningowe</a>
+      <a href="szkolenia.html#trener-personalny">Trener Personalny</a>
+      <a href="szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a>
+      <a href="szkolenia.html#crossfit-l1">CrossFit L1</a>
+      <a href="szkolenia.html#metodyka-treningu">Metodyka Treningu</a>
+      <a href="szkolenia.html#campy">Campy Treningowe</a>
+      <a href="szkolenia.html">Wszystkie szkolenia i galeria</a>
     </div>
 
     <a href="#spolecznosc" class="mobile-nav-link">Społeczność</a>
     <a href="#porady" class="mobile-nav-link">Blog & Porady</a>
+    <a href="/ranking/" class="mobile-nav-link">Ranking</a>
+    <a href="/konto/" class="mobile-nav-link">Moje konto</a>
+    <div class="mobile-nav-link" data-toggle="mob-sklep">
+      Sklep <span class="m-arrow">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-sklep">
+      <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+      <a href="/sklep/?kategoria=odziez">Odzież</a>
+      <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+      <a href="/sklep/">Cały sklep</a>
+    </div>
 
     <div class="mobile-cta">
       <a href="#newsletter" class="btn-primary">Dołącz za darmo →</a>
@@ -167,7 +199,7 @@
         <a href="#programy" class="btn-primary">
           Przeglądaj programy →
         </a>
-        <a href="#newsletter" class="btn-secondary">
+        <a href="#programy" class="btn-secondary" data-link="plans">
           7 dni za darmo
         </a>
       </div>
@@ -501,11 +533,11 @@
           <div class="section-label">TC University</div>
           <h2 class="section-title">Szkol się z<br><span>Najlepszymi</span></h2>
         </div>
-        <a href="#szkolenia" class="btn-outline-accent">Wszystkie szkolenia →</a>
+        <a href="szkolenia.html" class="btn-outline-accent">Wszystkie szkolenia i galeria →</a>
       </div>
 
       <div class="courses-list">
-        <div class="course-item">
+        <a href="szkolenia.html#trener-personalny" class="course-item">
           <div class="course-item-num">01</div>
           <div class="course-item-icon">🏋️‍♂️</div>
           <div class="course-item-content">
@@ -514,9 +546,9 @@
           </div>
           <div class="course-item-badge">Bestseller</div>
           <div class="course-item-arrow">→</div>
-        </div>
+        </a>
 
-        <div class="course-item">
+        <a href="szkolenia.html#zywienie-sportowe" class="course-item">
           <div class="course-item-num">02</div>
           <div class="course-item-icon">🥦</div>
           <div class="course-item-content">
@@ -525,9 +557,9 @@
           </div>
           <div class="course-item-badge">Nowość</div>
           <div class="course-item-arrow">→</div>
-        </div>
+        </a>
 
-        <div class="course-item">
+        <a href="szkolenia.html#crossfit-l1" class="course-item">
           <div class="course-item-num">03</div>
           <div class="course-item-icon">🎽</div>
           <div class="course-item-content">
@@ -536,9 +568,9 @@
           </div>
           <div class="course-item-badge">Polecany</div>
           <div class="course-item-arrow">→</div>
-        </div>
+        </a>
 
-        <div class="course-item">
+        <a href="szkolenia.html#metodyka-treningu" class="course-item">
           <div class="course-item-num">04</div>
           <div class="course-item-icon">📐</div>
           <div class="course-item-content">
@@ -547,9 +579,9 @@
           </div>
           <div class="course-item-badge">Popularny</div>
           <div class="course-item-arrow">→</div>
-        </div>
+        </a>
 
-        <div class="course-item">
+        <a href="szkolenia.html#psychologia-sportu" class="course-item">
           <div class="course-item-num">05</div>
           <div class="course-item-icon">🧠</div>
           <div class="course-item-content">
@@ -557,7 +589,7 @@
             <div class="course-item-meta">5 tygodni · Online + Live sesje · Grupowe mentorstwo</div>
           </div>
           <div class="course-item-arrow">→</div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -575,7 +607,7 @@
 
         <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
           <a href="#newsletter" class="btn-primary">Dołącz teraz →</a>
-          <a href="#newsletter" class="btn-secondary">Wypróbuj 7 dni za darmo</a>
+          <a href="#programy" class="btn-secondary" data-link="plans">Wypróbuj 7 dni za darmo</a>
         </div>
 
         <div class="cult-socials">
@@ -697,30 +729,34 @@
       </div>
 
       <div class="shop-grid">
-        <div class="shop-card">
+        <a href="/sklep/?kategoria=odziez" class="shop-card">
           <div class="shop-card-icon">👕</div>
           <h3 class="shop-card-title">Koszulki</h3>
           <p class="shop-card-desc">Lekkie, oddychające koszulki treningowe TC. Idealne na każdy trening.</p>
           <span class="program-card-cta">Zobacz kolekcję</span>
-        </div>
-        <div class="shop-card">
+        </a>
+        <a href="/sklep/?kategoria=obuwie" class="shop-card">
           <div class="shop-card-icon">👟</div>
           <h3 class="shop-card-title">Buty</h3>
           <p class="shop-card-desc">Buty do CrossFitu, weightliftingu i treningu ogólnego. Stabilność i performance.</p>
           <span class="program-card-cta">Zobacz kolekcję</span>
-        </div>
-        <div class="shop-card">
+        </a>
+        <a href="/sklep/?kategoria=odziez" class="shop-card">
           <div class="shop-card-icon">🧥</div>
           <h3 class="shop-card-title">Bluzy</h3>
           <p class="shop-card-desc">Bluzy i skarpety TC — komfort i styl na siłowni i poza nią.</p>
           <span class="program-card-cta">Zobacz kolekcję</span>
-        </div>
-        <div class="shop-card">
+        </a>
+        <a href="/sklep/?kategoria=akcesoria" class="shop-card">
           <div class="shop-card-icon">🎽</div>
           <h3 class="shop-card-title">Akcesoria</h3>
           <p class="shop-card-desc">Pasy, owijki, skakanka, worki chalk i inne akcesoria treningowe.</p>
           <span class="program-card-cta">Zobacz kolekcję</span>
-        </div>
+        </a>
+      </div>
+
+      <div class="shop-footer">
+        <a href="/sklep/" class="btn-primary">Przejdź do sklepu →</a>
       </div>
     </div>
   </section>
@@ -805,17 +841,29 @@
         <div class="footer-col">
           <h4>Szkolenia & Campy</h4>
           <ul>
-            <li><a href="#szkolenia">Trener Personalny</a></li>
-            <li><a href="#szkolenia">Żywienie Sportowe</a></li>
-            <li><a href="#szkolenia">CrossFit L1</a></li>
-            <li><a href="#szkolenia">Metodyka Treningu</a></li>
-            <li><a href="#szkolenia">Campy Treningowe</a></li>
+            <li><a href="szkolenia.html#trener-personalny">Trener Personalny</a></li>
+            <li><a href="szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a></li>
+            <li><a href="szkolenia.html#crossfit-l1">CrossFit L1</a></li>
+            <li><a href="szkolenia.html#metodyka-treningu">Metodyka Treningu</a></li>
+            <li><a href="szkolenia.html#campy">Campy Treningowe</a></li>
+            <li><a href="szkolenia.html#galeria">Galeria</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sklep</h4>
+          <ul>
+            <li><a href="/sklep/?kategoria=obuwie">Obuwie</a></li>
+            <li><a href="/sklep/?kategoria=odziez">Odzież</a></li>
+            <li><a href="/sklep/?kategoria=akcesoria">Akcesoria</a></li>
+            <li><a href="#programy" data-link="plans">Plany treningowe</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Firma</h4>
           <ul>
+            <li><a href="/ranking/">Ranking</a></li>
             <li><a href="#porady">Blog & Porady</a></li>
             <li><a href="#spolecznosc">Społeczność</a></li>
             <li><a href="mailto:info@trainingculture.pl">Kontakt</a></li>
@@ -877,11 +925,12 @@
             <p id="modalWhyFor"></p>
           </div>
         </div>
-        <a href="#newsletter" class="btn-primary program-modal-cta" id="modalCta">Wypróbuj 7 dni za darmo →</a>
+        <a href="#programy" class="btn-primary program-modal-cta" id="modalCta" data-link="plans">Wypróbuj 7 dni za darmo →</a>
       </div>
     </div>
   </div>
 
+  <script src="js/config.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

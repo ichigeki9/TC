@@ -1,0 +1,11 @@
+<a href="{{ product.get_absolute_url }}" class="tc-product">
+  <div class="tc-product-image">
+    {% if product.image %}<img src="{{ product.image }}" alt="{{ product.name }}" loading="lazy" />{% else %}<span class="tc-product-placeholder">TC</span>{% endif %}
+    {% if product.badge %}<span class="tc-product-badge">{{ product.badge }}</span>{% endif %}
+  </div>
+  <div class="tc-product-body">
+    <span class="tc-product-category">{{ product.category.name }}</span>
+    <span class="tc-product-name">{{ product.name }}</span>
+    {% include "shop/_price.html" %}
+  </div>
+</a>

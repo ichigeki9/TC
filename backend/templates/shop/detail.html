@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — Sklep{% endblock %}
+{% block description %}{{ product.name }} — {{ product.description|truncatechars:150 }}{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% url 'shop:list' %}?kategoria={{ product.category.slug }}" class="tc-back">← {{ product.category.name }}</a>
+
+    <div class="tc-product-detail">
+      <div class="tc-product-image tc-product-image-large">
+        {% if product.image %}<img src="{{ product.image }}" alt="{{ product.name }}" />{% else %}<span class="tc-product-placeholder">TC</span>{% endif %}
+        {% if product.badge %}<span class="tc-product-badge">{{ product.badge }}</span>{% endif %}
+      </div>
+
+      <div class="tc-product-info">
+        <div class="section-label">{{ product.category.name }}</div>
+        <h1 class="section-title">{{ product.name }}</h1>
+        <div class="tc-product-price-large">{% include "shop/_price.html" %}</div>
+
+        {% if product.size_list %}
+        <div class="tc-subtitle">Dostępne rozmiary</div>
+        <ul class="tc-sizes">
+          {% for size in product.size_list %}<li>{{ size }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if product.description %}<div class="tc-description">{{ product.description|linebreaks }}</div>{% endif %}
+
+        <div class="tc-actions">
+          {% if product.buy_url %}
+          <a href="{{ product.buy_url }}" class="btn-primary" target="_blank" rel="noopener">Kup w sklepie →</a>
+          {% else %}
+          <span class="btn-secondary tc-disabled">Dostępne wkrótce</span>
+          {% endif %}
+        </div>
+        {% if product.buy_url %}<p class="tc-muted tc-note">Rozmiar, płatność i dostawę wybierasz w naszym sklepie internetowym.</p>{% endif %}
+      </div>
+    </div>
+
+    {% if related %}
+    <div class="tc-related">
+      <div class="tc-subtitle">Zobacz też</div>
+      <div class="tc-products">
+        {% for product in related %}{% include "shop/_card.html" %}{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

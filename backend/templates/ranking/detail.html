@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}{{ workout.name }} — Ranking{% endblock %}
+{% block description %}Ranking treningu {{ workout.name }} ({{ workout.program }}) — Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% url 'ranking:list' %}" class="tc-back">← Wszystkie rankingi</a>
+    <div class="section-label">{{ workout.program }}</div>
+    <h1 class="section-title">{{ workout.name }}</h1>
+    {% if workout.description %}<div class="tc-description">{{ workout.description|linebreaks }}</div>{% endif %}
+
+    <div class="tc-grid-2 tc-grid-board">
+      <div class="tc-card">
+        <div class="tc-tabs">
+          <a href="?" class="tc-tab{% if not gender_key %} active{% endif %}">Wszyscy</a>
+          <a href="?plec=kobiety" class="tc-tab{% if gender_key == 'kobiety' %} active{% endif %}">Kobiety</a>
+          <a href="?plec=mezczyzni" class="tc-tab{% if gender_key == 'mezczyzni' %} active{% endif %}">Mężczyźni</a>
+        </div>
+
+        {% if board %}
+        <table class="tc-table tc-board">
+          <thead><tr><th>#</th><th>Zawodnik</th><th>Wynik</th></tr></thead>
+          <tbody>
+            {% for row in board %}
+            <tr class="{% if row.user_id == user.id %}is-me{% endif %}{% if row.place <= 3 %} top-{{ row.place }}{% endif %}">
+              <td class="tc-place">{{ row.place }}</td>
+              <td>{{ row.name }}</td>
+              <td class="tc-score">{{ row.display }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p class="tc-muted">Nikt jeszcze nie wpisał wyniku. Bądź pierwszy!</p>
+        {% endif %}
+      </div>
+
+      <div class="tc-card">
+        {% if form %}
+        <h2 class="tc-card-title">Dodaj wynik</h2>
+        <form method="post" class="tc-form" novalidate>
+          {% csrf_token %}
+          {% include "_form_errors.html" %}
+          {% with field=form.score %}{% include "_field.html" %}{% endwith %}
+          {% with field=form.performed_on %}{% include "_field.html" %}{% endwith %}
+          {% with field=form.note %}{% include "_field.html" %}{% endwith %}
+          <button type="submit" class="btn-primary">Dodaj wynik →</button>
+        </form>
+
+        {% if my_results %}
+        <h3 class="tc-subtitle">Moje wyniki</h3>
+        <ul class="tc-my-results">
+          {% for result in my_results %}
+          <li>
+            <span class="tc-score">{{ result.display_value }}</span>
+            <span class="tc-muted">{{ result.performed_on|date:"d.m.Y" }}{% if result.note %} · {{ result.note }}{% endif %}</span>
+            <form method="post" action="{% url 'ranking:delete_result' result.pk %}" onsubmit="return confirm('Usunąć ten wynik?')">
+              {% csrf_token %}
+              <button type="submit" class="tc-link-btn">Usuń</button>
+            </form>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% else %}
+        <h2 class="tc-card-title">Chcesz się wpisać?</h2>
+        <p class="tc-muted">Wyniki mogą dodawać tylko zalogowani zawodnicy.</p>
+        <div class="tc-actions">
+          <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}" class="btn-primary">Zaloguj się →</a>
+          <a href="{% url 'accounts:register' %}" class="btn-secondary">Załóż konto</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

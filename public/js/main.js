@@ -1,3 +1,13 @@
+// ===== EXTERNAL LINKS (sklep, plany) =====
+// Dopóki adres w js/config.js jest pusty, link zostaje przy swoim href (kotwica na stronie).
+document.querySelectorAll('[data-link]').forEach(link => {
+  const base = typeof TC_LINKS !== 'undefined' ? TC_LINKS[link.dataset.link] : '';
+  if (!base) return;
+  link.href = link.dataset.path ? base.replace(/\/$/, '') + link.dataset.path : base;
+  link.target = '_blank';
+  link.rel = 'noopener';
+});
+
 // ===== HAMBURGER MENU =====
 const hamburger = document.querySelector('.hamburger');
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -6,6 +16,15 @@ hamburger?.addEventListener('click', () => {
   hamburger.classList.toggle('open');
   mobileMenu.classList.toggle('open');
   document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+
+// Zamknij menu po kliknięciu linku (m.in. kotwice na tej samej stronie)
+mobileMenu?.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger?.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
 });
 
 // Mobile submenu toggles
@@ -254,6 +273,7 @@ function openProgramModal(index) {
 }
 
 function closeProgramModal() {
+  if (!programModal?.classList.contains('open')) return;
   programModal.classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -274,6 +294,67 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.querySelector('.program-modal-cta')?.addEventListener('click', closeProgramModal);
+
+// ===== GALLERY + LIGHTBOX (szkolenia.html) =====
+const gallery = document.getElementById('gallery');
+const lightbox = document.getElementById('lightbox');
+const galleryItems = typeof TC_GALLERY !== 'undefined' ? TC_GALLERY : [];
+let lightboxIndex = 0;
+
+if (gallery) {
+  if (galleryItems.length) {
+    gallery.innerHTML = galleryItems.map((item, index) => `
+      <button class="gallery-item" data-index="${index}" aria-label="Powiększ zdjęcie: ${item.alt || ''}">
+        <img src="${item.src}" alt="${item.alt || ''}" loading="lazy" />
+        ${item.caption ? `<span class="gallery-caption">${item.caption}</span>` : ''}
+      </button>
+    `).join('');
+
+    gallery.querySelectorAll('.gallery-item').forEach(button => {
+      button.addEventListener('click', () => openLightbox(Number(button.dataset.index)));
+    });
+  } else {
+    gallery.innerHTML = Array.from({ length: 6 }, () => `
+      <div class="gallery-item gallery-placeholder"><span>Zdjęcie wkrótce</span></div>
+    `).join('');
+  }
+}
+
+function showLightboxImage(index) {
+  lightboxIndex = (index + galleryItems.length) % galleryItems.length;
+  const item = galleryItems[lightboxIndex];
+  const img = document.getElementById('lightboxImg');
+  img.src = item.src;
+  img.alt = item.alt || '';
+  document.getElementById('lightboxCaption').textContent = item.caption || '';
+}
+
+function openLightbox(index) {
+  showLightboxImage(index);
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  if (!lightbox?.classList.contains('open')) return;
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev')?.addEventListener('click', () => showLightboxImage(lightboxIndex - 1));
+document.getElementById('lightboxNext')?.addEventListener('click', () => showLightboxImage(lightboxIndex + 1));
+
+lightbox?.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!lightbox?.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') showLightboxImage(lightboxIndex - 1);
+  if (e.key === 'ArrowRight') showLightboxImage(lightboxIndex + 1);
+});
 
 // ===== HEADER SCROLL EFFECT =====
 const header = document.querySelector('header');

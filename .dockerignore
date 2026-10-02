@@ -1,0 +1,9 @@
+.git
+.venv
+.env
+**/__pycache__
+backend/db.sqlite3
+backend/staticfiles
+*.md
+*.txt
+!requirements.txt

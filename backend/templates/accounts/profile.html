@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Moje konto{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <div class="section-label">Moje konto</div>
+    <h1 class="section-title">Cześć, <span>{{ user.display_name }}</span></h1>
+    <p class="tc-muted">{{ user.email }}</p>
+
+    <div class="tc-grid-2">
+      <div class="tc-card">
+        <h2 class="tc-card-title">Moje wyniki</h2>
+        {% if results %}
+        <table class="tc-table">
+          <thead><tr><th>Trening</th><th>Wynik</th><th>Data</th><th></th></tr></thead>
+          <tbody>
+            {% for result in results %}
+            <tr>
+              <td><a href="{{ result.workout.get_absolute_url }}">{{ result.workout.name }}</a></td>
+              <td class="tc-score">{{ result.display_value }}</td>
+              <td>{{ result.performed_on|date:"d.m.Y" }}</td>
+              <td>
+                <form method="post" action="{% url 'ranking:delete_result' result.pk %}" onsubmit="return confirm('Usunąć ten wynik?')">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="profile" />
+                  <button type="submit" class="tc-link-btn">Usuń</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p class="tc-muted">Nie masz jeszcze wyników. <a href="{% url 'ranking:list' %}">Wybierz trening →</a></p>
+        {% endif %}
+      </div>
+
+      <div class="tc-card">
+        <h2 class="tc-card-title">Profil</h2>
+        <form method="post" class="tc-form" novalidate>
+          {% csrf_token %}
+          {% for field in form %}{% include "_field.html" %}{% endfor %}
+          <button type="submit" class="btn-primary">Zapisz</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Rejestracja{% endblock %}
+
+{% block content %}
+<section class="tc-auth">
+  <div class="tc-card">
+    <div class="section-label">Dołącz do rankingu</div>
+    <h1 class="section-title">Załóż <span>konto</span></h1>
+    <p class="tc-muted">Wpisuj swoje wyniki i porównuj się z innymi zawodnikami Training Culture.</p>
+
+    <form method="post" class="tc-form" novalidate>
+      {% csrf_token %}
+      {% include "_form_errors.html" %}
+      {% for field in form %}{% include "_field.html" %}{% endfor %}
+      <button type="submit" class="btn-primary">Załóż konto →</button>
+    </form>
+
+    <p class="tc-muted tc-switch">Masz już konto? <a href="{% url 'accounts:login' %}">Zaloguj się</a></p>
+  </div>
+</section>
+{% endblock %}

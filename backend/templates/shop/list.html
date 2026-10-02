@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{% if current %}{{ current.name }} — {% endif %}Sklep{% endblock %}
+{% block description %}Sklep Training Culture — obuwie, odzież i akcesoria treningowe.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <div class="programs-header">
+      <div>
+        <div class="section-label">Sklep TC</div>
+        <h1 class="section-title">{% if current %}{{ current.name }}{% else %}Odzież<br><span>& Obuwie</span>{% endif %}</h1>
+      </div>
+      <p class="section-lead">Koszulki, bluzy, buty i akcesoria treningowe — wszystko stworzone dla sportowców.</p>
+    </div>
+
+    <nav class="tc-tabs" aria-label="Kategorie">
+      <a href="{% url 'shop:list' %}" class="tc-tab{% if not current %} active{% endif %}">Wszystko</a>
+      {% for category in categories %}
+      <a href="?kategoria={{ category.slug }}" class="tc-tab{% if current == category %} active{% endif %}">{{ category.name }}</a>
+      {% endfor %}
+    </nav>
+
+    {% if products %}
+    <div class="tc-products">
+      {% for product in products %}{% include "shop/_card.html" %}{% endfor %}
+    </div>
+    {% else %}
+    <div class="tc-card tc-empty">
+      <p class="tc-muted">Produkty pojawią się tu już wkrótce.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

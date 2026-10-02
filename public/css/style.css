@@ -178,6 +178,8 @@ header {
 }
 
 .nav-logo {
+  white-space: nowrap;
+  flex-shrink: 0;
   font-size: 18px;
   font-weight: 900;
   letter-spacing: 0.05em;
@@ -275,6 +277,7 @@ header {
 }
 
 .nav-cta {
+  white-space: nowrap;
   background: var(--accent);
   color: var(--black);
   font-size: 11px;
@@ -1442,6 +1445,240 @@ header {
   flex: 1;
 }
 
+.shop-card:focus-visible,
+.course-item:focus-visible,
+.gallery-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.shop-footer {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== PODSTRONA: SZKOLENIA ===== */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 140px 0 120px;
+  background: var(--black);
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.page-hero .section-title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+}
+
+.page-hero-sub {
+  max-width: 560px;
+  margin: 24px 0 40px;
+  color: var(--gray-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.section-lead {
+  max-width: 360px;
+  color: var(--gray-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.courses-details {
+  background: var(--dark);
+}
+
+.course-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.course-detail {
+  background: var(--dark);
+  padding: 40px 48px;
+  scroll-margin-top: 100px;
+}
+
+.course-detail:target {
+  background: var(--dark-2);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.course-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.course-detail-body {
+  margin-left: 112px;
+  margin-top: 20px;
+  max-width: 720px;
+}
+
+.course-detail-body p {
+  color: var(--off-white);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.course-detail-points {
+  margin: 20px 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-detail-points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  color: var(--gray-muted);
+}
+
+.course-detail-points li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+#campy {
+  scroll-margin-top: 80px;
+}
+
+.gallery-section {
+  padding: 120px 0;
+  background: var(--dark);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--dark-2);
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+  color: inherit;
+  font: inherit;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 16px 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.gallery-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  border: 1px dashed rgba(255,255,255,0.12);
+  color: var(--gray-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 72px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-figure {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.lightbox-figure img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.lightbox-figure figcaption {
+  font-size: 13px;
+  color: var(--gray-muted);
+}
+
+.lightbox-btn {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white);
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lightbox-btn:hover {
+  background: var(--accent);
+  color: var(--black);
+}
+
+.lightbox-close { top: 16px; right: 16px; }
+.lightbox-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 16px; top: 50%; transform: translateY(-50%); }
+
 /* ===== FOOTER ===== */
 footer {
   background: var(--dark-2);
@@ -1451,7 +1688,7 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr repeat(4, 1fr);
   gap: 48px;
   margin-bottom: 64px;
 }
@@ -1804,6 +2041,27 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1280px) {
+  .nav-menu {
+    gap: 0;
+  }
+
+  .nav-link {
+    padding: 8px 10px;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 1100px) {
+  .nav-menu, .nav-actions .nav-cta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
 @media (max-width: 1024px) {
   .programs-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1887,6 +2145,42 @@ footer {
     display: none;
   }
 
+  .course-detail {
+    padding: 28px 24px;
+  }
+
+  .course-detail-head {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .course-detail-head .course-item-content {
+    flex-basis: 100%;
+  }
+
+  .course-detail-body {
+    margin-left: 0;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-hero {
+    padding: 96px 0 80px;
+  }
+
+  .lightbox {
+    padding: 72px 12px;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+
   .hero-scroll {
     display: none;
   }
@@ -1913,6 +2207,23 @@ footer {
 }
 
 @media (max-width: 480px) {
+  .nav-wrapper {
+    padding: 0 16px;
+  }
+
+  .nav-logo {
+    font-size: 15px;
+  }
+
+  /* Wyszukiwarka jeszcze nie działa — na telefonie robimy miejsce na menu */
+  .nav-actions .nav-icon-btn[aria-label="Wyszukaj"] {
+    display: none;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
   .newsletter-form-group {
     flex-direction: column;
   }

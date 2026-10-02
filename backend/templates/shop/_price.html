@@ -1,0 +1,5 @@
+{% if product.is_on_sale %}
+<span class="tc-price"><span class="tc-price-sale">{{ product.sale_price|floatformat:"-2" }} zł</span> <s>{{ product.price|floatformat:"-2" }} zł</s></span>
+{% else %}
+<span class="tc-price">{{ product.price|floatformat:"-2" }} zł</span>
+{% endif %}

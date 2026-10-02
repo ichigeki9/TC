@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block description %}Ranking wyników Training Culture — wpisz swój wynik i porównaj się z innymi.{% endblock %}" />
+  <title>{% block title %}Ranking{% endblock %} – Training Culture</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    🔥 NOWY PROGRAM: TC HYBRID PL — PIERWSZE 7 DNI GRATIS
+    <a href="/#programy" data-link="plans">Sprawdź teraz →</a>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-wrapper">
+      <a href="/" class="nav-logo">Training <span>Culture</span> PL</a>
+
+      <nav class="nav-menu" aria-label="Główna nawigacja">
+        <div class="nav-item">
+          <a href="/#programy" class="nav-link">
+            Programy <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/#programy">CrossFit</a>
+            <a href="/#programy">Hybrydowy</a>
+            <a href="/#programy">Hyrox</a>
+            <a href="/#programy">Trening Siłowy</a>
+            <a href="/#programy">Gimnastyka</a>
+            <a href="/#programy">Weightlifting</a>
+            <a href="/#programy">Mobility</a>
+            <a href="/#programy">Rehab</a>
+            <a href="/#programy">Bieganie</a>
+            <a href="/#programy">Trening Chwytu</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/#dieta" class="nav-link">
+            Żywienie <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/#dieta">Plany Dietetyczne</a>
+            <a href="/#dieta">Suplementacja</a>
+            <a href="/#dieta">Kalkulatory</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/szkolenia.html" class="nav-link">
+            Szkolenia & Campy <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/szkolenia.html#trener-personalny">Trener Personalny</a>
+            <a href="/szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a>
+            <a href="/szkolenia.html#crossfit-l1">CrossFit L1</a>
+            <a href="/szkolenia.html#metodyka-treningu">Metodyka Treningu</a>
+            <a href="/szkolenia.html#campy">Campy Treningowe</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="/#spolecznosc" class="nav-link">Społeczność</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="/#porady" class="nav-link">Blog & Porady</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="{% url 'ranking:list' %}" class="nav-link{% if request.resolver_match.app_name == 'ranking' %} active{% endif %}">Ranking</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="{% url 'shop:list' %}" class="nav-link{% if request.resolver_match.app_name == 'shop' %} active{% endif %}">
+            Sklep <span class="chevron">▾</span>
+          </a>
+          <div class="dropdown">
+            <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+            <a href="/sklep/?kategoria=odziez">Odzież</a>
+            <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" title="Wyszukaj" aria-label="Wyszukaj">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <a href="{% url 'accounts:profile' %}" class="nav-icon-btn{% if user.is_authenticated %} is-logged{% endif %}" title="{% if user.is_authenticated %}{{ user.display_name }}{% else %}Zaloguj się{% endif %}" aria-label="Moje konto">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="/sklep/" class="nav-icon-btn" title="Sklep" aria-label="Sklep">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </a>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button type="submit" class="nav-cta">Wyloguj</button></form>
+        {% else %}
+        <a href="{% url 'accounts:login' %}" class="nav-cta">Zaloguj się</a>
+        {% endif %}
+        <button class="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" role="dialog" aria-label="Menu mobilne">
+    <div class="mobile-nav-link" data-toggle="mob-programy">
+      Programy <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-programy">
+      <a href="/#programy">CrossFit</a>
+      <a href="/#programy">Hybrydowy</a>
+      <a href="/#programy">Hyrox</a>
+      <a href="/#programy">Trening Siłowy</a>
+      <a href="/#programy">Gimnastyka</a>
+      <a href="/#programy">Weightlifting</a>
+      <a href="/#programy">Mobility</a>
+      <a href="/#programy">Rehab</a>
+      <a href="/#programy">Bieganie</a>
+      <a href="/#programy">Trening Chwytu</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-dieta">
+      Żywienie <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-dieta">
+      <a href="/#dieta">Plany Dietetyczne</a>
+      <a href="/#dieta">Suplementacja</a>
+      <a href="/#dieta">Kalkulatory</a>
+    </div>
+
+    <div class="mobile-nav-link" data-toggle="mob-szkol">
+      Szkolenia & Campy <span class="m-arrow" style="transition:transform 0.2s">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-szkol">
+      <a href="/szkolenia.html#trener-personalny">Trener Personalny</a>
+      <a href="/szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a>
+      <a href="/szkolenia.html#crossfit-l1">CrossFit L1</a>
+      <a href="/szkolenia.html#metodyka-treningu">Metodyka Treningu</a>
+      <a href="/szkolenia.html#campy">Campy Treningowe</a>
+      <a href="/szkolenia.html">Wszystkie szkolenia i galeria</a>
+    </div>
+
+    <a href="/#spolecznosc" class="mobile-nav-link">Społeczność</a>
+    <a href="/#porady" class="mobile-nav-link">Blog & Porady</a>
+    <a href="/ranking/" class="mobile-nav-link">Ranking</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'accounts:profile' %}" class="mobile-nav-link">Moje konto</a>
+    <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button type="submit" class="mobile-nav-link mobile-nav-button">Wyloguj</button></form>
+    {% else %}
+    <a href="{% url 'accounts:login' %}" class="mobile-nav-link">Zaloguj się</a>
+    {% endif %}
+    <div class="mobile-nav-link" data-toggle="mob-sklep">
+      Sklep <span class="m-arrow">›</span>
+    </div>
+    <div class="mobile-submenu" id="mob-sklep">
+      <a href="/sklep/?kategoria=obuwie">Obuwie</a>
+      <a href="/sklep/?kategoria=odziez">Odzież</a>
+      <a href="/sklep/?kategoria=akcesoria">Akcesoria</a>
+      <a href="/sklep/">Cały sklep</a>
+    </div>
+
+    <div class="mobile-cta">
+      {% if user.is_authenticated %}
+      <a href="{% url 'ranking:list' %}" class="btn-primary">Ranking →</a>
+      {% else %}
+      <a href="{% url 'accounts:register' %}" class="btn-primary">Załóż konto →</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <main class="tc-page">
+    {% if messages %}
+    <div class="container">
+      <ul class="tc-messages">
+        {% for message in messages %}<li class="tc-message tc-message-{{ message.tags }}">{{ message }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Training <span>Culture</span> PL</h3>
+          <p>
+            Polska społeczność sportowców — od amatorów po zawodowców.
+            Trenujemy razem, rozwijamy się razem, wygrywamy razem.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" title="Instagram" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="YouTube" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="TikTok" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.67a8.16 8.16 0 0 0 4.77 1.52V6.7a4.86 4.86 0 0 1-1-.01z"/>
+              </svg>
+            </a>
+            <a href="#" class="footer-social" title="Spotify" aria-label="Spotify Podcast">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 13.5a8 8 0 0 1 8 0M6.5 10a11 11 0 0 1 11 0M9.5 17a5 5 0 0 1 5 0"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programy</h4>
+          <ul>
+            <li><a href="/#programy">CrossFit</a></li>
+            <li><a href="/#programy">Hybrydowy</a></li>
+            <li><a href="/#programy">Hyrox</a></li>
+            <li><a href="/#programy">Trening Siłowy</a></li>
+            <li><a href="/#programy">Weightlifting</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Szkolenia & Campy</h4>
+          <ul>
+            <li><a href="/szkolenia.html#trener-personalny">Trener Personalny</a></li>
+            <li><a href="/szkolenia.html#zywienie-sportowe">Żywienie Sportowe</a></li>
+            <li><a href="/szkolenia.html#crossfit-l1">CrossFit L1</a></li>
+            <li><a href="/szkolenia.html#metodyka-treningu">Metodyka Treningu</a></li>
+            <li><a href="/szkolenia.html#campy">Campy Treningowe</a></li>
+            <li><a href="/szkolenia.html#galeria">Galeria</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sklep</h4>
+          <ul>
+            <li><a href="/sklep/?kategoria=obuwie">Obuwie</a></li>
+            <li><a href="/sklep/?kategoria=odziez">Odzież</a></li>
+            <li><a href="/sklep/?kategoria=akcesoria">Akcesoria</a></li>
+            <li><a href="/#programy" data-link="plans">Plany treningowe</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Firma</h4>
+          <ul>
+            <li><a href="/ranking/">Ranking</a></li>
+            <li><a href="/#porady">Blog & Porady</a></li>
+            <li><a href="/#spolecznosc">Społeczność</a></li>
+            <li><a href="mailto:info@trainingculture.pl">Kontakt</a></li>
+            <li><a href="#">Partnerstwa</a></li>
+            <li><a href="#">Prasa</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2025 Training Culture Polska. Wszelkie prawa zastrzeżone.
+          Kontakt: <a href="mailto:info@trainingculture.pl">info@trainingculture.pl</a>
+        </div>
+        <div class="footer-legal">
+          <a href="#">Polityka Prywatności</a>
+          <a href="#">Pliki Cookies</a>
+          <a href="#">Regulamin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Zgoda na pliki cookie">
+    <p>
+      Używamy plików cookies, aby zapewnić najlepsze doświadczenia na naszej stronie.
+      Klikając "Akceptuj", wyrażasz zgodę na ich użycie.
+      <a href="#">Dowiedz się więcej.</a>
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-accept" id="cookieAccept">Akceptuj</button>
+      <button class="cookie-decline" id="cookieDecline">Odrzuć</button>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

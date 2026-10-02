@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Ranking{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <div class="programs-header">
+      <div>
+        <div class="section-label">Training Culture Results</div>
+        <h1 class="section-title">Ranking<br><span>Zawodników</span></h1>
+      </div>
+      <p class="section-lead">
+        Wybierz trening, wpisz swój wynik i sprawdź, na którym miejscu jesteś.
+        {% if not user.is_authenticated %}Aby dodać wynik, <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}">zaloguj się</a>.{% endif %}
+      </p>
+    </div>
+
+    {% for program, workouts in programs %}
+    <div class="tc-program">
+      <h2 class="tc-program-title">{{ program }}</h2>
+      <div class="tc-workouts">
+        {% for workout in workouts %}
+        <a href="{{ workout.get_absolute_url }}" class="tc-workout">
+          <span class="tc-workout-name">{{ workout.name }}</span>
+          <span class="tc-workout-meta">{{ workout.get_score_type_display }} · {{ workout.athletes }} {% if workout.athletes == 1 %}zawodnik{% else %}zawodników{% endif %}</span>
+          <span class="course-item-arrow">→</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% empty %}
+    <div class="tc-card"><p class="tc-muted">Rankingi pojawią się wkrótce.</p></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
