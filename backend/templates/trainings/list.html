@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block title %}Szkolenia i Campy{% endblock %}
+{% block description %}Szkolenia dla trenerów i zawodników oraz campy treningowe Training Culture. Opisy kursów i galeria zdjęć.{% endblock %}
+{% block head_extra %}<meta property="og:title" content="Szkolenia i Campy – Training Culture" />
+  <meta property="og:type" content="website" />{% endblock %}
+
+{% block content %}
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container page-hero-content">
+      <div class="section-label">TC University · Szkolenia & Campy</div>
+      <h1 class="section-title">Szkol się z<br><span>Najlepszymi</span></h1>
+      <p class="page-hero-sub">
+        Kursy dla trenerów i zawodników oraz campy treningowe, na których trenujesz, uczysz się
+        i poznajesz ludzi z tą samą zajawką. Zobacz, co robimy — i dołącz do kolejnej edycji.
+      </p>
+      <div class="hero-actions">
+        <a href="#lista" class="btn-primary">Zobacz szkolenia →</a>
+        <a href="#galeria" class="btn-secondary">Galeria zdjęć</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES DETAILS -->
+  <section class="courses-section courses-details" id="lista">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <div class="section-label">Szkolenia</div>
+          <h2 class="section-title">Wybierz<br><span>Szkolenie</span></h2>
+        </div>
+        <p class="section-lead">
+          Każde szkolenie łączy wiedzę teoretyczną z praktyką na sali. Prowadzą je trenerzy z wieloletnim doświadczeniem zawodniczym i szkoleniowym.
+        </p>
+      </div>
+
+      <div class="course-details-list">
+        {% for training in courses %}{% include "trainings/_item.html" %}
+        {% empty %}
+        <p class="tc-muted">Nowe szkolenia ogłosimy wkrótce.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPS -->
+  <section class="why-section" id="campy">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-visual">
+          <div class="why-visual-main">
+            <div class="why-big-number">🏕️</div>
+            <div class="why-big-label">Campy Training Culture</div>
+          </div>
+          <div class="why-badges">
+            <div class="why-badge">
+              <div class="why-badge-icon">📅</div>
+              <div class="why-badge-value"><span>10+</span></div>
+              <div class="why-badge-label">Lat doświadczenia</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">👥</div>
+              <div class="why-badge-value"><span>2K+</span></div>
+              <div class="why-badge-label">Zawodników na świecie</div>
+            </div>
+            <div class="why-badge">
+              <div class="why-badge-icon">📋</div>
+              <div class="why-badge-value"><span>30+</span></div>
+              <div class="why-badge-label">Programów</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-content">
+          <div>
+            <div class="section-label">Campy treningowe</div>
+            <h2 class="section-title">Co nas<br><span>wyróżnia</span></h2>
+          </div>
+
+          <div class="why-features">
+            <div class="why-feature">
+              <div class="why-feature-num">01</div>
+              <div class="why-feature-body">
+                <h4>Trening na najwyższym poziomie</h4>
+                <p>Kilka jednostek dziennie pod okiem trenerów TC — siła, gimnastyka, weightlifting, wytrzymałość i mobility.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">02</div>
+              <div class="why-feature-body">
+                <h4>Wiedza, którą zabierasz do domu</h4>
+                <p>Wykłady i warsztaty z techniki, programowania, żywienia i regeneracji — nie tylko trenujesz, ale rozumiesz dlaczego.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">03</div>
+              <div class="why-feature-body">
+                <h4>Indywidualna korekta</h4>
+                <p>Małe grupy, analiza wideo i uwagi do Twojej techniki. Wyjeżdżasz z planem pracy na kolejne miesiące.</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-num">04</div>
+              <div class="why-feature-body">
+                <h4>Ludzie i atmosfera</h4>
+                <p>Społeczność zawodników z całego świata. Wspólne treningi, rywalizacja i znajomości na lata.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="mailto:info@trainingculture.pl?subject=Campy%20treningowe" class="btn-primary">Zapytaj o najbliższy camp →</a>
+          </div>
+        </div>
+      </div>
+
+      {% if camps %}
+      <div class="camps-list">
+        <div class="section-label">Najbliższe campy</div>
+        <div class="course-details-list">
+          {% for training in camps %}{% include "trainings/_item.html" %}{% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="galeria">
+    <div class="container">
+      <div class="programs-header">
+        <div>
+          <div class="section-label">Galeria</div>
+          <h2 class="section-title">Z naszych<br><span>Szkoleń i Campów</span></h2>
+        </div>
+        <p class="section-lead">
+          Kliknij zdjęcie, aby je powiększyć.
+        </p>
+      </div>
+
+      <!-- Zdjęcia dodaje się w public/js/config.js (TC_GALLERY), pliki w public/images/szkolenia/ -->
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cult-section">
+    <div class="container">
+      <div class="cult-content">
+        <div class="section-label" style="display:inline-block; margin-bottom:20px;">Kontakt</div>
+        <h2 class="cult-title">Dołącz do<br><span>Kolejnej Edycji</span></h2>
+        <p class="cult-sub">
+          Napisz do nas — podamy najbliższe terminy, ceny i odpowiemy na wszystkie pytania.
+        </p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="mailto:info@trainingculture.pl?subject=Szkolenia%20i%20campy" class="btn-primary">Napisz do nas →</a>
+          <a href="/#programy" class="btn-secondary">Zobacz programy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block after_main %}
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia">
+    <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Zamknij">×</button>
+    <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Poprzednie zdjęcie">‹</button>
+    <figure class="lightbox-figure">
+      <img id="lightboxImg" src="" alt="" />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Następne zdjęcie">›</button>
+  </div>
+{% endblock %}

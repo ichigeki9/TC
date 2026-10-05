@@ -1,10 +1,16 @@
 from django.contrib import admin
 
-from .models import Result, Workout
+from .models import Exercise, Result, Workout
+
+
+class ExerciseInline(admin.TabularInline):
+    model = Exercise
+    extra = 3
 
 
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
+    inlines = (ExerciseInline,)
     list_display = ('name', 'program', 'score_type', 'is_active', 'order')
     list_filter = ('program', 'score_type', 'is_active')
     list_editable = ('is_active', 'order')

@@ -2215,11 +2215,6 @@ footer {
     font-size: 15px;
   }
 
-  /* Wyszukiwarka jeszcze nie działa — na telefonie robimy miejsce na menu */
-  .nav-actions .nav-icon-btn[aria-label="Wyszukaj"] {
-    display: none;
-  }
-
   .gallery {
     grid-template-columns: 1fr;
   }

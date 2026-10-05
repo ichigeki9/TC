@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-from .models import User
+from .models import AVATARS, User
 
 
 class RegisterForm(UserCreationForm):
@@ -22,6 +22,8 @@ class LoginForm(AuthenticationForm):
 
 
 class ProfileForm(forms.ModelForm):
+    avatar = forms.ChoiceField(label='Avatar', choices=[(emoji, emoji) for emoji in AVATARS], widget=forms.RadioSelect)
+
     class Meta:
         model = User
-        fields = ('display_name', 'gender')
+        fields = ('avatar', 'display_name', 'gender')

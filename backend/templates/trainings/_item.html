@@ -1,0 +1,26 @@
+        <article class="course-detail{% if not training.is_active %} is-hidden-preview{% endif %}" id="{{ training.slug }}">
+          <div class="course-detail-head">
+            <div class="course-item-num">{{ forloop.counter|stringformat:"02d" }}</div>
+            <div class="course-item-icon">{{ training.icon }}</div>
+            <div class="course-item-content">
+              <h3 class="course-item-title">{{ training.title }}</h3>
+              {% if training.meta %}<div class="course-item-meta">{{ training.meta }}</div>{% endif %}
+            </div>
+            {% if not training.is_active %}<div class="course-item-badge tc-badge-hidden">Ukryte — podgląd</div>{% elif training.badge %}<div class="course-item-badge">{{ training.badge }}</div>{% endif %}
+          </div>
+          <div class="course-detail-body">
+            {% if training.image %}<img src="{{ training.image.url }}" alt="{{ training.title }}" class="course-detail-image" loading="lazy" />{% endif %}
+            {% if training.details %}
+            <dl class="course-detail-facts">
+              {% for label, value in training.details %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+            </dl>
+            {% endif %}
+            {{ training.description|linebreaks }}
+            {% if training.point_list %}
+            <ul class="course-detail-points">
+              {% for point in training.point_list %}<li>{{ point }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+            <a href="{{ training.contact_url }}" class="btn-outline-accent">Zapytaj o termin →</a>
+          </div>
+        </article>

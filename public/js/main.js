@@ -295,7 +295,37 @@ document.addEventListener('keydown', (e) => {
 
 document.querySelector('.program-modal-cta')?.addEventListener('click', closeProgramModal);
 
-// ===== GALLERY + LIGHTBOX (szkolenia.html) =====
+// ===== LISTA SZKOLEŃ I CAMPÓW (strona główna) =====
+// Wpisy dodaje się w panelu /admin/ → Szkolenia i campy.
+const coursesList = document.getElementById('coursesList');
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+
+if (coursesList) {
+  fetch('/szkolenia/lista.json')
+    .then(response => response.ok ? response.json() : Promise.reject())
+    .then(data => {
+      coursesList.innerHTML = data.items.map((item, index) => `
+        <a href="${escapeHtml(item.url)}" class="course-item">
+          <div class="course-item-num">${String(index + 1).padStart(2, '0')}</div>
+          <div class="course-item-icon">${escapeHtml(item.icon)}</div>
+          <div class="course-item-content">
+            <div class="course-item-title">${escapeHtml(item.title)}</div>
+            <div class="course-item-meta">${escapeHtml(item.meta)}</div>
+          </div>
+          ${item.badge ? `<div class="course-item-badge">${escapeHtml(item.badge)}</div>` : ''}
+          <div class="course-item-arrow">→</div>
+        </a>
+      `).join('');
+    })
+    .catch(() => { coursesList.hidden = true; });
+}
+
+// ===== GALLERY + LIGHTBOX (/szkolenia/) =====
 const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const galleryItems = typeof TC_GALLERY !== 'undefined' ? TC_GALLERY : [];

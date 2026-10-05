@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% block title %}Zamówienie{% endblock %}
+{% block description %}Zamówienie — sklep Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% url 'shop:cart' %}" class="tc-back">← Koszyk</a>
+    <div class="section-label">Sklep TC</div>
+    <h1 class="section-title">Dane do <span>zamówienia</span></h1>
+    {% if not user.is_authenticated %}
+    <p class="tc-muted tc-guest-note">
+      Kupujesz jako gość — konto nie jest potrzebne.
+      Masz konto? <a href="{% url 'accounts:login' %}?next={% url 'shop:checkout' %}">Zaloguj się</a>,
+      a zamówienie pojawi się w Twoim profilu.
+    </p>
+    {% endif %}
+
+    <form method="post" class="tc-grid-2 tc-grid-checkout" novalidate>
+      {% csrf_token %}
+      <div class="tc-card">
+        <h2 class="tc-card-title">Odbiorca</h2>
+        <div class="tc-form">
+          {% include "_form_errors.html" %}
+          {% with field=form.full_name %}{% include "_field.html" %}{% endwith %}
+          {% with field=form.email %}{% include "_field.html" %}{% endwith %}
+          {% with field=form.phone %}{% include "_field.html" %}{% endwith %}
+          {% with field=form.street %}{% include "_field.html" %}{% endwith %}
+          <div class="tc-field-row">
+            {% with field=form.postal_code %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.city %}{% include "_field.html" %}{% endwith %}
+          </div>
+          {% with field=form.note %}{% include "_field.html" %}{% endwith %}
+        </div>
+
+        <h2 class="tc-card-title tc-card-title-next">Dostawa</h2>
+        <fieldset class="tc-radio-list">
+          <legend class="tc-visually-hidden">Sposób dostawy</legend>
+          {% for method in form.shipping.field.queryset %}
+          <label class="tc-radio">
+            <input type="radio" name="shipping" value="{{ method.pk }}" data-price="{{ method.price|unlocalize }}"{% if form.shipping.value|stringformat:"s" == method.pk|stringformat:"s" %} checked{% endif %} />
+            <span class="tc-radio-name">{{ method.name }}</span>
+            <span class="tc-price">{{ method.price|floatformat:"-2" }} zł</span>
+          </label>
+          {% empty %}
+          <p class="tc-error">Brak dostępnych sposobów dostawy — napisz do nas: info@trainingculture.pl</p>
+          {% endfor %}
+          {% for error in form.shipping.errors %}<small class="tc-error">{{ error }}</small>{% endfor %}
+        </fieldset>
+      </div>
+
+      <div class="tc-card">
+        <h2 class="tc-card-title">Twoje zamówienie</h2>
+        <ul class="tc-order-lines">
+          {% for line in lines %}
+          <li>
+            <span>{{ line.quantity }} × {{ line.product.name }}{% if line.size %} <span class="tc-muted">({{ line.size }})</span>{% endif %}</span>
+            <span>{{ line.total|floatformat:"-2" }} zł</span>
+          </li>
+          {% endfor %}
+        </ul>
+        <dl class="tc-summary">
+          <div><dt>Produkty</dt><dd>{{ items_total|floatformat:"-2" }} zł</dd></div>
+          <div><dt>Dostawa</dt><dd id="shippingCost">—</dd></div>
+          <div class="tc-summary-total"><dt>Do zapłaty</dt><dd id="orderTotal" data-items="{{ items_total|unlocalize }}">{{ items_total|floatformat:"-2" }} zł</dd></div>
+        </dl>
+        <div class="tc-actions tc-actions-stack">
+          <button type="submit" class="btn-primary">Zamawiam i płacę →</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Suma na żywo po wyborze dostawy; serwer i tak liczy ją sam
+  (function () {
+    var total = document.getElementById('orderTotal');
+    var cost = document.getElementById('shippingCost');
+    var format = function (value) {
+      return value.toLocaleString('pl-PL', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' zł';
+    };
+    var update = function () {
+      var checked = document.querySelector('input[name="shipping"]:checked');
+      if (!checked) return;
+      var price = parseFloat(checked.dataset.price);
+      cost.textContent = format(price);
+      total.textContent = format(parseFloat(total.dataset.items) + price);
+    };
+    document.querySelectorAll('input[name="shipping"]').forEach(function (input) {
+      input.addEventListener('change', update);
+    });
+    update();
+  })();
+</script>
+{% endblock %}

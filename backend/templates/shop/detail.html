@@ -5,11 +5,14 @@
 {% block content %}
 <section class="tc-section">
   <div class="container">
+    {% if not product.is_active %}
+    <div class="tc-preview-bar">Podgląd — ten produkt jest ukryty i klienci go nie widzą. Zaznacz „widoczny” w panelu, żeby go opublikować.</div>
+    {% endif %}
     <a href="{% url 'shop:list' %}?kategoria={{ product.category.slug }}" class="tc-back">← {{ product.category.name }}</a>
 
     <div class="tc-product-detail">
       <div class="tc-product-image tc-product-image-large">
-        {% if product.image %}<img src="{{ product.image }}" alt="{{ product.name }}" />{% else %}<span class="tc-product-placeholder">TC</span>{% endif %}
+        {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}" />{% else %}<span class="tc-product-placeholder">TC</span>{% endif %}
         {% if product.badge %}<span class="tc-product-badge">{{ product.badge }}</span>{% endif %}
       </div>
 
@@ -18,23 +21,29 @@
         <h1 class="section-title">{{ product.name }}</h1>
         <div class="tc-product-price-large">{% include "shop/_price.html" %}</div>
 
-        {% if product.size_list %}
-        <div class="tc-subtitle">Dostępne rozmiary</div>
-        <ul class="tc-sizes">
-          {% for size in product.size_list %}<li>{{ size }}</li>{% endfor %}
-        </ul>
+        {% if product.is_active %}
+        <form method="post" action="{% url 'shop:cart_add' product.slug %}" class="tc-buy">
+          {% csrf_token %}
+          {% if product.size_list %}
+          <fieldset class="tc-size-options">
+            <legend class="tc-subtitle">Rozmiar</legend>
+            {% for size in product.size_list %}
+            <label><input type="radio" name="size" value="{{ size }}" required /><span>{{ size }}</span></label>
+            {% endfor %}
+          </fieldset>
+          {% endif %}
+
+          <div class="tc-buy-row">
+            <label class="tc-quantity">
+              <span class="tc-subtitle">Ilość</span>
+              <input type="number" name="quantity" value="1" min="1" max="20" inputmode="numeric" />
+            </label>
+            <button type="submit" class="btn-primary">Dodaj do koszyka →</button>
+          </div>
+        </form>
         {% endif %}
 
         {% if product.description %}<div class="tc-description">{{ product.description|linebreaks }}</div>{% endif %}
-
-        <div class="tc-actions">
-          {% if product.buy_url %}
-          <a href="{{ product.buy_url }}" class="btn-primary" target="_blank" rel="noopener">Kup w sklepie →</a>
-          {% else %}
-          <span class="btn-secondary tc-disabled">Dostępne wkrótce</span>
-          {% endif %}
-        </div>
-        {% if product.buy_url %}<p class="tc-muted tc-note">Rozmiar, płatność i dostawę wybierasz w naszym sklepie internetowym.</p>{% endif %}
       </div>
     </div>
 

@@ -1,9 +1,9 @@
 # Training Culture
 
-- `public/` — statyczna strona (index.html, szkolenia.html, css, js, images).
+- `public/` — statyczna strona główna (index.html, css, js, images).
   Adres planów treningowych oraz galeria szkoleń: `public/js/config.js`.
-- `backend/` — Django: katalog sklepu (`/sklep/`), konta (logowanie e-mailem), ranking wyników (`/ranking/`, `/konto/`)
-  i panel admina (`/admin/`).
+- `backend/` — Django: sklep z koszykiem i zamówieniami (`/sklep/`), szkolenia i campy (`/szkolenia/`),
+  konta (logowanie e-mailem, `/konto/`), ranking wyników (`/ranking/`) i panel admina (`/admin/`).
   Django serwuje też całą stronę z `public/` (WhiteNoise), więc wszystko działa pod jedną domeną.
 
 ## Uruchomienie lokalnie
@@ -15,6 +15,7 @@ cd backend
 export DJANGO_DEBUG=1
 ../.venv/bin/python manage.py migrate
 ../.venv/bin/python manage.py createsuperuser   # konto do panelu /admin/
+../.venv/bin/python manage.py seed_demo         # przykładowe produkty ze zdjęciami (opcjonalnie)
 ../.venv/bin/python manage.py runserver
 ```
 
@@ -26,15 +27,31 @@ Testy: `DJANGO_DEBUG=1 ../.venv/bin/python manage.py test`
 
 Panel `/admin/` → **Treningi** → Dodaj. Typ wyniku decyduje o sortowaniu:
 czas (mniej = lepiej), powtórzenia lub kg (więcej = lepiej).
+Pod formularzem treningu jest tabela **Ćwiczenia** — każdy wiersz to jedno ćwiczenie (nazwa + „ile / jak”,
+np. „Wall balls — 50 powtórzeń”). Lista pokazuje się na stronie rankingu tego treningu.
 W panelu można też usuwać wyniki (**Wyniki**) i blokować konta (**Użytkownicy** → odznacz „aktywny”).
 
-## Sklep (katalog)
+## Sklep
 
 Panel `/admin/` → **Produkty** → Dodaj: nazwa, kategoria (Obuwie / Odzież / Akcesoria), cena, opcjonalnie cena
-promocyjna, rozmiary, etykieta i opis. **Zdjęcie**: adres obrazka (np. skopiowany z produktu w Shoperze) albo plik
-wrzucony do `public/images/sklep/` wpisany jako `/images/sklep/nazwa.jpg`. **Link do zakupu**: adres produktu
-w Shoperze. Bez niego przycisk pokazuje „Dostępne wkrótce”.
-Koszyk, płatności i wysyłka są w Shoperze; u nas jest tylko katalog.
+promocyjna, zdjęcie (plik z dysku), rozmiary, etykieta i opis.
+
+**Podgląd przed publikacją:** odznacz „widoczny”, zapisz i kliknij **Pokaż na stronie** (prawy górny róg formularza).
+Ukryty produkt widzi tylko zalogowana obsługa. Gdy wygląda dobrze — zaznacz „widoczny”.
+
+Klient może kupić bez konta (jako gość) albo zalogowany — wtedy zamówienie widzi w swoim profilu.
+Zamówienia są w panelu w **Zamówienia** (filtr po statusie, akcja „Oznacz jako wysłane”),
+ceny dostawy w **Sposoby dostawy**.
+
+**Płatności są na razie testowe** — po złożeniu zamówienia klient trafia na ekran „Płatność testowa”
+i sam wybiera, czy płatność się udała. Żadne pieniądze nie są pobierane, więc przed startem sprzedaży trzeba
+podpiąć prawdziwą bramkę: nowa klasa w `backend/shop/payments.py` + zmienna `PAYMENT_PROVIDER`.
+
+## Szkolenia i campy
+
+Panel `/admin/` → **Szkolenia i campy** → Dodaj. Rodzaj (szkolenie / camp) decyduje, w której sekcji strony
+`/szkolenia/` pojawi się wpis; lista na stronie głównej pobiera się sama. Podgląd ukrytych wpisów działa jak w sklepie.
+Galeria zdjęć na dole strony: `public/js/config.js` (`TC_GALLERY`).
 
 ## Wdrożenie na Northflank
 
@@ -45,5 +62,8 @@ Koszyk, płatności i wysyłka są w Shoperze; u nas jest tylko katalog.
    - `DJANGO_ALLOWED_HOSTS` i `DJANGO_CSRF_TRUSTED_ORIGINS` — domena serwisu (`…code.run`) i docelowa domena,
    - `DATABASE_URL` — adres połączenia z addonu Postgres (Northflank: połącz sekrety addonu z serwisem
      i przypisz jego connection URI do `DATABASE_URL`).
-4. Migracje uruchamiają się same przy starcie. Konto admina: w Northflanku otwórz **Shell** kontenera i uruchom
+4. **Volume** (trwały dysk) podpięty do serwisu, zamontowany w `/app/media`, oraz zmienna
+   `DJANGO_MEDIA_ROOT=/app/media`. Tam trafiają zdjęcia wgrywane w panelu — bez wolumenu znikają przy każdym wdrożeniu.
+5. Migracje uruchamiają się same przy starcie. Konto admina: w Northflanku otwórz **Shell** kontenera i uruchom
    `python manage.py createsuperuser`.
+   Przykładowe produkty ze zdjęciami: `python manage.py seed_demo`.

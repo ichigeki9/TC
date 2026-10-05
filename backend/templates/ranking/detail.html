@@ -10,6 +10,19 @@
     <h1 class="section-title">{{ workout.name }}</h1>
     {% if workout.description %}<div class="tc-description">{{ workout.description|linebreaks }}</div>{% endif %}
 
+    {% if workout.exercises.all %}
+    <div class="tc-subtitle">Ćwiczenia</div>
+    <ol class="tc-exercises">
+      {% for exercise in workout.exercises.all %}
+      <li>
+        <span class="tc-exercise-num">{{ forloop.counter|stringformat:"02d" }}</span>
+        <span class="tc-exercise-name">{{ exercise.name }}</span>
+        {% if exercise.details %}<span class="tc-exercise-details">{{ exercise.details }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+
     <div class="tc-grid-2 tc-grid-board">
       <div class="tc-card">
         <div class="tc-tabs">
@@ -25,7 +38,7 @@
             {% for row in board %}
             <tr class="{% if row.user_id == user.id %}is-me{% endif %}{% if row.place <= 3 %} top-{{ row.place }}{% endif %}">
               <td class="tc-place">{{ row.place }}</td>
-              <td>{{ row.name }}</td>
+              <td><span class="tc-avatar" aria-hidden="true">{{ row.avatar }}</span>{{ row.name }}</td>
               <td class="tc-score">{{ row.display }}</td>
             </tr>
             {% endfor %}

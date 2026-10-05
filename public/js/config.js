@@ -1,16 +1,16 @@
 // ===== LINKI ZEWNĘTRZNE =====
 // Adres planów treningowych. Linki w HTML oznaczone są atrybutem data-link="plans".
-// Produkty sklepu (i ich linki do Shopera) dodaje się w panelu /admin/ → Sklep.
+// Produkty sklepu oraz szkolenia i campy dodaje się w panelu /admin/.
 const TC_LINKS = {
   // Strona partnera sprzedającego plany treningowe.
   // Pusty adres = linki prowadzą do sekcji #programy.
   plans: 'https://traincult.com/es/',
 };
 
-// ===== GALERIA SZKOLEŃ I CAMPÓW (szkolenia.html) =====
+// ===== GALERIA SZKOLEŃ I CAMPÓW (/szkolenia/) =====
 // Wrzuć zdjęcia do folderu images/szkolenia/ i dopisz je poniżej.
 // Dopóki lista jest pusta, galeria pokazuje miejsca na zdjęcia.
 // Przykład:
-//   { src: 'images/szkolenia/camp-2025-01.jpg', alt: 'Trening weightliftingu na campie 2025', caption: 'Camp TC 2025' },
+//   { src: '/images/szkolenia/camp-2025-01.jpg', alt: 'Trening weightliftingu na campie 2025', caption: 'Camp TC 2025' },
 const TC_GALLERY = [
 ];

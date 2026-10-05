@@ -25,6 +25,11 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+# Emotki do wyboru jako avatar (profil, ranking, nawigacja)
+AVATARS = ['💪', '🏋️', '🏃', '🤸', '🚴', '🥇', '🔥', '⚡', '🦍', '🐺', '🦁', '🦅', '🐻', '🦈', '🤖', '👽', '💀', '😎', '🥷', '🧔']
+DEFAULT_AVATAR = AVATARS[0]
+
+
 class User(AbstractUser):
     """Użytkownik logujący się e-mailem. Nazwa w rankingu to display_name."""
 
@@ -36,6 +41,7 @@ class User(AbstractUser):
     email = models.EmailField('e-mail', unique=True)
     display_name = models.CharField('nazwa w rankingu', max_length=40)
     gender = models.CharField('płeć', max_length=1, choices=Gender.choices, blank=True)
+    avatar = models.CharField('avatar', max_length=8, default=DEFAULT_AVATAR)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

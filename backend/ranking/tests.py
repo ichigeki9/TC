@@ -8,7 +8,7 @@ from django.utils import timezone
 from accounts.models import User
 
 from .forms import ResultForm
-from .models import Result, Workout
+from .models import Exercise, Result, Workout
 from .views import leaderboard
 
 
@@ -134,3 +134,42 @@ class AccountTests(TestCase):
     def test_profile_requires_login(self):
         response = self.client.get(reverse('accounts:profile'))
         self.assertRedirects(response, f"{reverse('accounts:login')}?next={reverse('accounts:profile')}")
+
+
+class ExerciseTests(RankingTestCase):
+    def test_workout_page_lists_exercises_in_order(self):
+        Exercise.objects.create(workout=self.run, name='Wall balls', details='50 powtórzeń', order=2)
+        Exercise.objects.create(workout=self.run, name='Bieg', details='1 km', order=1)
+        Exercise.objects.create(workout=self.deadlift, name='Martwy ciąg', details='1 RM')
+
+        response = self.client.get(self.run.get_absolute_url())
+
+        self.assertEqual([e.name for e in response.context['workout'].exercises.all()], ['Bieg', 'Wall balls'])
+        self.assertContains(response, '50 powtórzeń')
+        self.assertNotContains(response, 'Martwy ciąg')
+
+    def test_workout_without_exercises_has_no_section(self):
+        response = self.client.get(self.run.get_absolute_url())
+        self.assertNotContains(response, 'tc-exercises')
+
+
+class AvatarTests(RankingTestCase):
+    def test_new_user_has_default_avatar_shown_on_board(self):
+        self.add(self.anna, self.run, 600)
+
+        response = self.client.get(self.run.get_absolute_url())
+
+        self.assertEqual(self.anna.avatar, '💪')
+        self.assertEqual(response.context['board'][0]['avatar'], '💪')
+
+    def test_user_can_change_avatar_only_to_listed_emoji(self):
+        self.client.force_login(self.anna)
+        data = {'display_name': 'Anna', 'gender': 'F'}
+
+        self.client.post(reverse('accounts:profile'), {**data, 'avatar': '🦁'})
+        self.anna.refresh_from_db()
+        self.assertEqual(self.anna.avatar, '🦁')
+
+        self.client.post(reverse('accounts:profile'), {**data, 'avatar': '<b>x</b>'})
+        self.anna.refresh_from_db()
+        self.assertEqual(self.anna.avatar, '🦁')

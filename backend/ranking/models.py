@@ -62,6 +62,26 @@ class Workout(models.Model):
         return f'{int(value)}'
 
 
+class Exercise(models.Model):
+    """Jedno ćwiczenie w treningu, np. „Wall balls — 50 powtórzeń, 9 kg”."""
+
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE, related_name='exercises', verbose_name='trening')
+    name = models.CharField('ćwiczenie', max_length=120)
+    details = models.CharField(
+        'ile / jak', max_length=160, blank=True,
+        help_text='Np. 50 powtórzeń, 1 km, 5 × 100 kg, 2 min przerwy.',
+    )
+    order = models.PositiveIntegerField('kolejność', default=0)
+
+    class Meta:
+        ordering = ('order', 'pk')
+        verbose_name = 'ćwiczenie'
+        verbose_name_plural = 'ćwiczenia'
+
+    def __str__(self):
+        return f'{self.name} — {self.details}' if self.details else self.name
+
+
 class Result(models.Model):
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE, related_name='results', verbose_name='trening')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='results', verbose_name='zawodnik')

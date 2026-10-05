@@ -6,7 +6,7 @@
   <div class="tc-card">
     <div class="section-label">Moje konto</div>
     <h1 class="section-title">Zaloguj <span>się</span></h1>
-    <p class="tc-muted">Zaloguj się, aby wpisywać swoje wyniki do rankingu.</p>
+    <p class="tc-muted">Zaloguj się, aby wpisywać wyniki do rankingu i kupować w sklepie.</p>
 
     <form method="post" class="tc-form" novalidate>
       {% csrf_token %}
@@ -16,7 +16,7 @@
       <button type="submit" class="btn-primary">Zaloguj się →</button>
     </form>
 
-    <p class="tc-muted tc-switch">Nie masz konta? <a href="{% url 'accounts:register' %}">Załóż konto</a></p>
+    <p class="tc-muted tc-switch">Nie masz konta? <a href="{% url 'accounts:register' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Załóż konto</a></p>
   </div>
 </section>
 {% endblock %}

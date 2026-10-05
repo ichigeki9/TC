@@ -28,7 +28,7 @@ def leaderboard(workout, gender=None):
 
     best = Min('value') if workout.lower_is_better else Max('value')
     rows = (
-        results.values('user_id', 'user__display_name', 'user__gender')
+        results.values('user_id', 'user__display_name', 'user__gender', 'user__avatar')
         .annotate(best=best)
         .order_by('best' if workout.lower_is_better else '-best', 'user__display_name')
     )
@@ -40,6 +40,7 @@ def leaderboard(workout, gender=None):
             'place': place,
             'user_id': row['user_id'],
             'name': row['user__display_name'],
+            'avatar': row['user__avatar'],
             'best': row['best'],
             'display': workout.format_value(row['best']),
         })
@@ -47,7 +48,7 @@ def leaderboard(workout, gender=None):
 
 
 def workout_detail(request, slug):
-    workout = get_object_or_404(Workout, slug=slug, is_active=True)
+    workout = get_object_or_404(Workout.objects.prefetch_related('exercises'), slug=slug, is_active=True)
     gender_key = request.GET.get('plec', '')
     board = leaderboard(workout, GENDER_FILTERS.get(gender_key))
 

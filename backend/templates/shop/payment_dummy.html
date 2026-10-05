@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Płatność testowa{% endblock %}
+{% block description %}Płatność za zamówienie — sklep Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-auth">
+  <div class="tc-card">
+    <div class="section-label">Płatność testowa</div>
+    <h1 class="section-title">Zamówienie <span>{{ order.number }}</span></h1>
+    <p class="tc-muted">
+      To ekran zastępczy zamiast prawdziwej bramki płatności. Nie pobieramy żadnych pieniędzy —
+      wybierz, jak ma się zakończyć płatność.
+    </p>
+
+    <dl class="tc-summary">
+      <div class="tc-summary-total"><dt>Do zapłaty</dt><dd>{{ order.total|floatformat:"-2" }} zł</dd></div>
+    </dl>
+
+    <form method="post" class="tc-actions tc-actions-stack">
+      {% csrf_token %}
+      <button type="submit" name="action" value="pay" class="btn-primary">Zapłać (symulacja) →</button>
+      <button type="submit" name="action" value="cancel" class="btn-secondary">Anuluj płatność</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

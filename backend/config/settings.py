@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'accounts',
     'ranking',
     'shop',
+    'trainings',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shop.context_processors.cart',
             ],
         },
     },
@@ -106,6 +108,14 @@ STORAGES = {
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
     'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
 }
+
+# Zdjęcia wgrywane w panelu (produkty, szkolenia). Na Northflanku katalog musi leżeć
+# na trwałym wolumenie, inaczej pliki znikają przy każdym wdrożeniu.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path(os.environ.get('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
+
+# Bramka płatności: 'dummy' = płatność testowa bez pieniędzy (patrz shop/payments.py)
+PAYMENT_PROVIDER = os.environ.get('PAYMENT_PROVIDER', 'dummy')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

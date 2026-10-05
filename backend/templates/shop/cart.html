@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Koszyk{% endblock %}
+{% block description %}Koszyk — sklep Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <div class="section-label">Sklep TC</div>
+    <h1 class="section-title">Twój <span>koszyk</span></h1>
+
+    {% if lines %}
+    <div class="tc-grid-2 tc-grid-checkout">
+      <div class="tc-card">
+        <ul class="tc-cart">
+          {% for line in lines %}
+          <li class="tc-cart-line">
+            <a href="{{ line.product.get_absolute_url }}" class="tc-cart-thumb">
+              {% if line.product.image %}<img src="{{ line.product.image.url }}" alt="" />{% else %}<span>TC</span>{% endif %}
+            </a>
+            <div class="tc-cart-info">
+              <a href="{{ line.product.get_absolute_url }}" class="tc-product-name">{{ line.product.name }}</a>
+              <span class="tc-muted">{% if line.size %}Rozmiar: {{ line.size }} · {% endif %}{{ line.unit_price|floatformat:"-2" }} zł / szt.</span>
+            </div>
+            <form method="post" action="{% url 'shop:cart_update' %}" class="tc-cart-qty">
+              {% csrf_token %}
+              <input type="hidden" name="key" value="{{ line.key }}" />
+              <input type="number" name="quantity" value="{{ line.quantity }}" min="1" max="20" inputmode="numeric" aria-label="Ilość: {{ line.product.name }}" />
+              <button type="submit" class="tc-link-btn tc-link-neutral tc-cart-apply">Zmień</button>
+            </form>
+            <span class="tc-price tc-cart-total">{{ line.total|floatformat:"-2" }} zł</span>
+            <form method="post" action="{% url 'shop:cart_update' %}">
+              {% csrf_token %}
+              <input type="hidden" name="key" value="{{ line.key }}" />
+              <input type="hidden" name="quantity" value="0" />
+              <button type="submit" class="tc-link-btn" aria-label="Usuń z koszyka: {{ line.product.name }}">Usuń</button>
+            </form>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="tc-card">
+        <h2 class="tc-card-title">Podsumowanie</h2>
+        <dl class="tc-summary">
+          <div><dt>Produkty</dt><dd>{{ total|floatformat:"-2" }} zł</dd></div>
+          <div><dt>Dostawa</dt><dd>wybierzesz w następnym kroku</dd></div>
+        </dl>
+        <div class="tc-actions tc-actions-stack">
+          <a href="{% url 'shop:checkout' %}" class="btn-primary">Przejdź do zamówienia →</a>
+          <a href="{% url 'shop:list' %}" class="btn-secondary">Wróć do sklepu</a>
+        </div>
+        {% if not user.is_authenticated %}<p class="tc-muted tc-note">Możesz kupić bez zakładania konta albo <a href="{% url 'accounts:login' %}?next={% url 'shop:checkout' %}">zalogować się</a>, żeby mieć zamówienia w jednym miejscu.</p>{% endif %}
+      </div>
+    </div>
+    {% else %}
+    <div class="tc-card tc-empty">
+      <p class="tc-muted">Koszyk jest pusty.</p>
+      <div class="tc-actions"><a href="{% url 'shop:list' %}" class="btn-primary">Przejdź do sklepu →</a></div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  // Zmiana ilości od razu przelicza koszyk; bez JavaScriptu zostaje przycisk „Zmień”
+  document.querySelectorAll('.tc-cart-qty').forEach(function (form) {
+    form.querySelector('.tc-cart-apply').hidden = true;
+    form.querySelector('input[name="quantity"]').addEventListener('change', function () {
+      if (this.value === '' || Number(this.value) < 1) this.value = 1;
+      form.submit();
+    });
+  });
+</script>
+{% endblock %}

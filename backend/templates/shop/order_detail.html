@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Zamówienie {{ order.number }}{% endblock %}
+{% block description %}Szczegóły zamówienia — sklep Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    {% if user.is_authenticated %}<a href="{% url 'accounts:profile' %}" class="tc-back">← Moje konto</a>{% else %}<a href="{% url 'shop:list' %}" class="tc-back">← Sklep</a>{% endif %}
+    <div class="section-label">Zamówienie z {{ order.created_at|date:"d.m.Y" }}</div>
+    <h1 class="section-title">{{ order.number }}</h1>
+    <p><span class="tc-status tc-status-{{ order.status }}">{{ order.get_status_display }}</span></p>
+
+    <div class="tc-grid-2 tc-grid-checkout">
+      <div class="tc-card">
+        <h2 class="tc-card-title">Produkty</h2>
+        <ul class="tc-order-lines">
+          {% for item in order.items.all %}
+          <li>
+            <span>{{ item.quantity }} × {{ item.name }}{% if item.size %} <span class="tc-muted">({{ item.size }})</span>{% endif %}</span>
+            <span>{{ item.total|floatformat:"-2" }} zł</span>
+          </li>
+          {% endfor %}
+        </ul>
+        <dl class="tc-summary">
+          <div><dt>Produkty</dt><dd>{{ order.items_total|floatformat:"-2" }} zł</dd></div>
+          <div><dt>Dostawa — {{ order.shipping_name }}</dt><dd>{{ order.shipping_price|floatformat:"-2" }} zł</dd></div>
+          <div class="tc-summary-total"><dt>Razem</dt><dd>{{ order.total|floatformat:"-2" }} zł</dd></div>
+        </dl>
+        {% if payment_url %}
+        <div class="tc-actions"><a href="{{ payment_url }}" class="btn-primary">Zapłać teraz →</a></div>
+        {% endif %}
+      </div>
+
+      <div class="tc-card">
+        <h2 class="tc-card-title">Dostawa</h2>
+        <address class="tc-address">
+          {{ order.full_name }}<br />
+          {{ order.street }}<br />
+          {{ order.postal_code }} {{ order.city }}<br />
+          tel. {{ order.phone }}<br />
+          {{ order.email }}
+        </address>
+        {% if order.note %}<p class="tc-muted tc-note">Uwagi: {{ order.note }}</p>{% endif %}
+        {% if not order.user_id %}<p class="tc-muted tc-note">Zamówienie złożone bez konta — zapisz jego numer. Ta strona otworzy się tylko w tej przeglądarce.</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
