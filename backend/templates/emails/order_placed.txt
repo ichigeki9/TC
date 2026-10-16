@@ -1,0 +1,11 @@
+{% autoescape off %}Przyjęliśmy zamówienie {{ order.number }}
+Cześć {{ order.full_name }},
+
+dziękujemy za zamówienie w sklepie Training Culture. Wyślemy je, gdy tylko zaksięgujemy płatność.
+
+{% include "emails/_order_summary.txt" %}
+{% if url %}
+Status zamówienia: {{ url }}
+{% endif %}
+Training Culture
+{% endautoescape %}

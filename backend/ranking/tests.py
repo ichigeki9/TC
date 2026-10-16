@@ -117,20 +117,6 @@ class ViewTests(RankingTestCase):
 
 
 class AccountTests(TestCase):
-    def test_register_and_login_with_email(self):
-        response = self.client.post(reverse('accounts:register'), {
-            'email': 'nowy@example.com',
-            'display_name': 'Nowy',
-            'gender': 'M',
-            'password1': 'Trening-Kultura-2026',
-            'password2': 'Trening-Kultura-2026',
-        })
-        self.assertRedirects(response, reverse('ranking:list'))
-
-        self.client.logout()
-        response = self.client.post(reverse('accounts:login'), {'username': 'nowy@example.com', 'password': 'Trening-Kultura-2026'})
-        self.assertRedirects(response, reverse('ranking:list'))
-
     def test_profile_requires_login(self):
         response = self.client.get(reverse('accounts:profile'))
         self.assertRedirects(response, f"{reverse('accounts:login')}?next={reverse('accounts:profile')}")

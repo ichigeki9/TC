@@ -4,3 +4,4 @@ dj-database-url>=2.3
 gunicorn>=23
 psycopg[binary]>=3.2
 Pillow>=11
+python-dotenv>=1.0

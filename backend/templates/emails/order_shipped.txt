@@ -1,0 +1,11 @@
+{% autoescape off %}Zamówienie {{ order.number }} wysłane
+Cześć {{ order.full_name }},
+
+Twoje zamówienie jest w drodze ({{ order.shipping_name }}).
+
+{% include "emails/_order_summary.txt" %}
+{% if url %}
+Status zamówienia: {{ url }}
+{% endif %}
+Training Culture
+{% endautoescape %}

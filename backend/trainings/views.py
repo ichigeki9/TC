@@ -1,7 +1,24 @@
+from urllib.parse import quote
+
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Training
+
+# Galeria: każde zdjęcie wrzucone do tego folderu pojawia się na stronie, kolejność według nazwy pliku
+GALLERY_DIR = settings.PUBLIC_DIR / 'images' / 'szkolenia'
+IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp'}
+
+
+def gallery_photos():
+    if not GALLERY_DIR.is_dir():
+        return []
+    files = sorted(f.name for f in GALLERY_DIR.iterdir() if f.suffix.lower() in IMAGE_EXTENSIONS)
+    return [
+        {'src': f'/images/szkolenia/{quote(name)}', 'alt': 'Zdjęcie ze szkoleń i campów Training Culture'}
+        for name in files
+    ]
 
 
 def visible_trainings(request):
@@ -17,6 +34,7 @@ def training_list(request):
     return render(request, 'trainings/list.html', {
         'courses': [t for t in trainings if t.kind == Training.Kind.COURSE],
         'camps': [t for t in trainings if t.kind == Training.Kind.CAMP],
+        'gallery': gallery_photos(),
     })
 
 

@@ -1,0 +1,13 @@
+Zamówienie {{ order.number }} z {{ order.created_at|date:"d.m.Y H:i" }}
+
+{% for item in order.items.all %}{{ item.quantity }} × {{ item.name }}{% if item.size %} (rozmiar {{ item.size }}){% endif %} — {{ item.total|floatformat:"-2" }} zł
+{% endfor %}
+Dostawa — {{ order.shipping_name }}: {{ order.shipping_price|floatformat:"-2" }} zł
+Razem: {{ order.total|floatformat:"-2" }} zł
+
+Adres dostawy:
+{{ order.full_name }}
+{{ order.street }}
+{{ order.postal_code }} {{ order.city }}
+tel. {{ order.phone }}{% if order.note %}
+Uwagi: {{ order.note }}{% endif %}

@@ -1,7 +1,7 @@
 # Training Culture
 
 - `public/` — statyczna strona główna (index.html, css, js, images).
-  Adres planów treningowych oraz galeria szkoleń: `public/js/config.js`.
+  Adres planów treningowych: `public/js/config.js`.
 - `backend/` — Django: sklep z koszykiem i zamówieniami (`/sklep/`), szkolenia i campy (`/szkolenia/`),
   konta (logowanie e-mailem, `/konto/`), ranking wyników (`/ranking/`) i panel admina (`/admin/`).
   Django serwuje też całą stronę z `public/` (WhiteNoise), więc wszystko działa pod jedną domeną.
@@ -11,8 +11,8 @@
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
+cp .env.example .env    # potem w .env ustaw DJANGO_DEBUG=1 i wpisz dane poczty
 cd backend
-export DJANGO_DEBUG=1
 ../.venv/bin/python manage.py migrate
 ../.venv/bin/python manage.py createsuperuser   # konto do panelu /admin/
 ../.venv/bin/python manage.py seed_demo         # przykładowe produkty ze zdjęciami (opcjonalnie)
@@ -21,7 +21,7 @@ export DJANGO_DEBUG=1
 
 Strona: http://localhost:8000 · Ranking: http://localhost:8000/ranking/ · Panel: http://localhost:8000/admin/
 
-Testy: `DJANGO_DEBUG=1 ../.venv/bin/python manage.py test`
+Testy: `../.venv/bin/python manage.py test`
 
 ## Dodawanie treningów do rankingu
 
@@ -51,7 +51,19 @@ podpiąć prawdziwą bramkę: nowa klasa w `backend/shop/payments.py` + zmienna 
 
 Panel `/admin/` → **Szkolenia i campy** → Dodaj. Rodzaj (szkolenie / camp) decyduje, w której sekcji strony
 `/szkolenia/` pojawi się wpis; lista na stronie głównej pobiera się sama. Podgląd ukrytych wpisów działa jak w sklepie.
-Galeria zdjęć na dole strony: `public/js/config.js` (`TC_GALLERY`).
+Galeria zdjęć na dole strony: wrzuć pliki (.jpg, .jpeg, .png, .webp) do `public/images/szkolenia/` — kolejność według nazwy pliku.
+Zdjęcia kart „Znajdź swój program”: `public/images/programy/<program>.jpeg` (np. `crossfit.jpeg`, `trening-silowy.jpeg`).
+
+## Maile (Gmail)
+
+Strona wysyła maile: link aktywacyjny po rejestracji (konto działa dopiero po kliknięciu), reset hasła,
+potwierdzenie przyjęcia zamówienia, potwierdzenie płatności i informację o wysyłce
+(akcja „Oznacz jako wysłane” albo zmiana statusu w formularzu zamówienia). Na `SHOP_NOTIFY_EMAIL`
+przychodzi powiadomienie o każdym opłaconym zamówieniu. Treści maili: `backend/templates/emails/`.
+
+Gmail wymaga **hasła aplikacji** zamiast zwykłego hasła: konto Google → Bezpieczeństwo → włącz weryfikację
+dwuetapową → Hasła aplikacji → utwórz. Zmienne `EMAIL_*` jak w `.env.example` — lokalnie wpisz je do pliku `.env`.
+Lokalnie bez `EMAIL_HOST` maile tylko wypisują się w terminalu z `runserver`.
 
 ## Wdrożenie na Northflank
 
@@ -60,6 +72,7 @@ Galeria zdjęć na dole strony: `public/js/config.js` (`TC_GALLERY`).
 3. Zmienne środowiskowe jak w `.env.example`:
    - `DJANGO_SECRET_KEY` — długi losowy ciąg (np. `python3 -c "import secrets; print(secrets.token_urlsafe(50))"`),
    - `DJANGO_ALLOWED_HOSTS` i `DJANGO_CSRF_TRUSTED_ORIGINS` — domena serwisu (`…code.run`) i docelowa domena,
+   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (jako sekret) — poczta Gmail,
    - `DATABASE_URL` — adres połączenia z addonu Postgres (Northflank: połącz sekrety addonu z serwisem
      i przypisz jego connection URI do `DATABASE_URL`).
 4. **Volume** (trwały dysk) podpięty do serwisu, zamontowany w `/app/media`, oraz zmienna

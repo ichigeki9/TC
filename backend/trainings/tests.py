@@ -1,3 +1,7 @@
+import tempfile
+from pathlib import Path
+from unittest import mock
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -50,3 +54,18 @@ class TrainingTests(TestCase):
     def test_old_static_address_redirects(self):
         response = self.client.get('/szkolenia.html')
         self.assertRedirects(response, reverse('trainings:list'), status_code=301)
+
+
+class GalleryTests(TestCase):
+    def test_gallery_lists_images_from_folder(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for name in ('b.jpeg', 'WhatsApp Image 1.jpg', 'notatka.txt'):
+                (Path(folder) / name).touch()
+            with mock.patch('trainings.views.GALLERY_DIR', Path(folder)):
+                response = self.client.get(reverse('trainings:list'))
+
+        self.assertEqual(
+            [photo['src'] for photo in response.context['gallery']],
+            ['/images/szkolenia/WhatsApp%20Image%201.jpg', '/images/szkolenia/b.jpeg'],
+        )
+        self.assertContains(response, 'id="gallery-data"')

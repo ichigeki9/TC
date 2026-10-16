@@ -1,0 +1,11 @@
+{% autoescape off %}Aktywuj konto Training Culture
+Cześć {{ user.display_name }},
+
+dziękujemy za założenie konta w Training Culture. Kliknij link, żeby je aktywować:
+
+{{ url }}
+
+Link jest ważny przez 3 dni. Jeśli to nie Ty zakładałeś konto, zignoruj tę wiadomość.
+
+Training Culture
+{% endautoescape %}

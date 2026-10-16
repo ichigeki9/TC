@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from .cart import Cart
+from .emails import send_order_email
 from .forms import CheckoutForm
 from .models import Category, Order, OrderItem, Product
 from .payments import get_provider
@@ -113,6 +114,7 @@ def checkout(request):
                 for line in lines
             ])
         cart.clear()
+        send_order_email(request, order, 'placed')
         if order.user is None:
             request.session[GUEST_ORDERS_KEY] = [*request.session.get(GUEST_ORDERS_KEY, []), str(order.token)]
         return redirect(provider.start(order))
@@ -150,6 +152,7 @@ def payment_dummy(request, token):
     if request.method == 'POST':
         if request.POST.get('action') == 'pay':
             order.mark_paid(payment_id=f'TEST-{order.number}')
+            send_order_email(request, order, 'paid')
             messages.success(request, 'Płatność testowa przyjęta. Dziękujemy za zamówienie!')
         else:
             order.cancel()

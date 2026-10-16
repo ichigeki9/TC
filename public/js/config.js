@@ -7,10 +7,5 @@ const TC_LINKS = {
   plans: 'https://traincult.com/es/',
 };
 
-// ===== GALERIA SZKOLEŃ I CAMPÓW (/szkolenia/) =====
-// Wrzuć zdjęcia do folderu images/szkolenia/ i dopisz je poniżej.
-// Dopóki lista jest pusta, galeria pokazuje miejsca na zdjęcia.
-// Przykład:
-//   { src: '/images/szkolenia/camp-2025-01.jpg', alt: 'Trening weightliftingu na campie 2025', caption: 'Camp TC 2025' },
-const TC_GALLERY = [
-];
+// Galeria szkoleń i campów (/szkolenia/) nie wymaga wpisów tutaj —
+// wystarczy wrzucić zdjęcia do folderu images/szkolenia/.

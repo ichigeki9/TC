@@ -618,36 +618,36 @@ header {
   transform: scale(1.05);
 }
 
-/* Program background gradients */
+/* Tło kart programów: zdjęcie z images/programy/<nazwa>.jpeg, a dopóki go nie ma — gradient */
 .program-card:nth-child(1) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #0d1a0d 40%, #0a1a0a 100%);
+  background: url('../images/programy/crossfit.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #0d1a0d 40%, #0a1a0a 100%);
 }
 .program-card:nth-child(2) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #1a100d 40%, #1a0d0d 100%);
+  background: url('../images/programy/hybrydowy.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a100d 40%, #1a0d0d 100%);
 }
 .program-card:nth-child(3) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #0d0d1a 40%, #0a0d1a 100%);
+  background: url('../images/programy/hyrox.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #0d0d1a 40%, #0a0d1a 100%);
 }
 .program-card:nth-child(4) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #1a1a0d 40%, #1a1a0a 100%);
+  background: url('../images/programy/trening-silowy.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a1a0d 40%, #1a1a0a 100%);
 }
 .program-card:nth-child(5) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #1a0d1a 40%, #160a16 100%);
+  background: url('../images/programy/gimnastyka.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a0d1a 40%, #160a16 100%);
 }
 .program-card:nth-child(6) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #0d1a1a 40%, #0a1616 100%);
+  background: url('../images/programy/weightlifting.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #0d1a1a 40%, #0a1616 100%);
 }
 .program-card:nth-child(7) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #0a1a14 40%, #081510 100%);
+  background: url('../images/programy/mobility.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #0a1a14 40%, #081510 100%);
 }
 .program-card:nth-child(8) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #1a0d10 40%, #160a0c 100%);
+  background: url('../images/programy/rehab.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a0d10 40%, #160a0c 100%);
 }
 .program-card:nth-child(9) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #101a0a 40%, #0c1608 100%);
+  background: url('../images/programy/bieganie.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #101a0a 40%, #0c1608 100%);
 }
 .program-card:nth-child(10) .program-card-bg {
-  background: linear-gradient(160deg, #1a1a1a 0%, #1a1208 40%, #160e05 100%);
+  background: url('../images/programy/trening-chwytu.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a1208 40%, #160e05 100%);
 }
 
 .program-card-overlay {

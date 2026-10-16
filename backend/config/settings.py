@@ -8,8 +8,12 @@ import os
 from pathlib import Path
 
 import dj_database_url
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Lokalnie zmienne z pliku .env w katalogu głównym. Na serwerze pliku nie ma (.dockerignore),
+# a zmienne ustawione w środowisku i tak mają pierwszeństwo.
+load_dotenv(BASE_DIR.parent / '.env')
 # Statyczna strona (index.html, szkolenia.html, css, js, images)
 PUBLIC_DIR = BASE_DIR.parent / 'public'
 
@@ -116,6 +120,27 @@ MEDIA_ROOT = Path(os.environ.get('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
 
 # Bramka płatności: 'dummy' = płatność testowa bez pieniędzy (patrz shop/payments.py)
 PAYMENT_PROVIDER = os.environ.get('PAYMENT_PROVIDER', 'dummy')
+
+# Poczta (SMTP, np. Gmail z hasłem aplikacji). Bez EMAIL_HOST maile wypisują się w konsoli zamiast być wysyłane.
+EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+if EMAIL_HOST:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', '1') == '1'
+    EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', '0') == '1'
+    # Bez limitu zawieszony serwer poczty blokowałby składanie zamówień
+    EMAIL_TIMEOUT = 15
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Gmail wysyła tylko z adresu skrzynki, więc domyślnie nadawcą jest EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = os.environ.get(
+    'DEFAULT_FROM_EMAIL', f'Training Culture <{EMAIL_HOST_USER or "info@trainingculture.pl"}>',
+)
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# Na ten adres przychodzi powiadomienie o każdym opłaconym zamówieniu (puste = bez powiadomień)
+SHOP_NOTIFY_EMAIL = os.environ.get('SHOP_NOTIFY_EMAIL', EMAIL_HOST_USER)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

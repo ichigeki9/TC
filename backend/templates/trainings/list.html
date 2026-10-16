@@ -140,8 +140,9 @@
         </p>
       </div>
 
-      <!-- Zdjęcia dodaje się w public/js/config.js (TC_GALLERY), pliki w public/images/szkolenia/ -->
+      <!-- Zdjęcia: wystarczy wrzucić plik do public/images/szkolenia/ -->
       <div class="gallery" id="gallery"></div>
+      {{ gallery|json_script:"gallery-data" }}
     </div>
   </section>
 

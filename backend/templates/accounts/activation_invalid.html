@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Link nieaktualny{% endblock %}
+
+{% block content %}
+<section class="tc-auth">
+  <div class="tc-card">
+    <div class="section-label">Aktywacja konta</div>
+    <h1 class="section-title">Link <span>nieaktualny</span></h1>
+    <p class="tc-muted">Ten link aktywacyjny wygasł albo był już użyty. Wyślij sobie nowy — jest ważny przez 3 dni.</p>
+    <div class="tc-actions"><a href="{% url 'accounts:resend_activation' %}" class="btn-primary">Wyślij nowy link →</a></div>
+  </div>
+</section>
+{% endblock %}

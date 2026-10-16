@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
+from .emails import send_order_email
 from .models import Category, Order, OrderItem, Product, ShippingMethod
 
 
@@ -80,6 +81,12 @@ class OrderAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        # Ręczna zmiana statusu w formularzu też wysyła maila o wysyłce
+        if 'status' in form.changed_data and obj.status == Order.Status.SHIPPED:
+            send_order_email(request, obj, 'shipped')
+
     @admin.display(description='numer', ordering='pk')
     def number(self, obj):
         return obj.number
@@ -90,5 +97,9 @@ class OrderAdmin(admin.ModelAdmin):
 
     @admin.action(description='Oznacz jako wysłane (tylko opłacone)')
     def mark_shipped(self, request, queryset):
-        updated = queryset.filter(status=Order.Status.PAID).update(status=Order.Status.SHIPPED)
-        self.message_user(request, f'Oznaczono jako wysłane: {updated}.')
+        orders = list(queryset.filter(status=Order.Status.PAID).prefetch_related('items'))
+        for order in orders:
+            order.status = Order.Status.SHIPPED
+            order.save(update_fields=['status'])
+            send_order_email(request, order, 'shipped')
+        self.message_user(request, f'Oznaczono jako wysłane: {len(orders)}. Klienci dostali maila.')

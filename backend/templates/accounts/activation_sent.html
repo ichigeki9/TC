@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Sprawdź skrzynkę{% endblock %}
+
+{% block content %}
+<section class="tc-auth">
+  <div class="tc-card">
+    <div class="section-label">Prawie gotowe</div>
+    <h1 class="section-title">Sprawdź <span>skrzynkę</span></h1>
+    {% if sent %}
+    <p class="tc-muted">Wysłaliśmy link aktywacyjny na <strong>{{ email }}</strong>. Kliknij go, żeby dokończyć zakładanie konta. Nie widzisz maila? Zajrzyj do folderu spam.</p>
+    {% else %}
+    <p class="tc-muted">Konto zostało założone, ale nie udało się wysłać maila aktywacyjnego na <strong>{{ email }}</strong>. Spróbuj wysłać go ponownie za chwilę.</p>
+    {% endif %}
+    <p class="tc-muted tc-switch">Link nie dotarł? <a href="{% url 'accounts:resend_activation' %}">Wyślij ponownie</a></p>
+  </div>
+</section>
+{% endblock %}

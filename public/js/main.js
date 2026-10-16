@@ -328,7 +328,9 @@ if (coursesList) {
 // ===== GALLERY + LIGHTBOX (/szkolenia/) =====
 const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
-const galleryItems = typeof TC_GALLERY !== 'undefined' ? TC_GALLERY : [];
+// Lista zdjęć przychodzi ze strony (Django czyta folder images/szkolenia/)
+const galleryData = document.getElementById('gallery-data');
+const galleryItems = galleryData ? JSON.parse(galleryData.textContent) : [];
 let lightboxIndex = 0;
 
 if (gallery) {

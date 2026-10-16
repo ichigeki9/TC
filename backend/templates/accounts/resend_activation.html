@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Link aktywacyjny{% endblock %}
+
+{% block content %}
+<section class="tc-auth">
+  <div class="tc-card">
+    <div class="section-label">Aktywacja konta</div>
+    <h1 class="section-title">Wyślij link <span>ponownie</span></h1>
+    <p class="tc-muted">Podaj e-mail, na który zakładałeś konto — wyślemy nowy link aktywacyjny.</p>
+
+    <form method="post" class="tc-form" novalidate>
+      {% csrf_token %}
+      {% include "_form_errors.html" %}
+      {% for field in form %}{% include "_field.html" %}{% endfor %}
+      <button type="submit" class="btn-primary">Wyślij link →</button>
+    </form>
+
+    <p class="tc-muted tc-switch"><a href="{% url 'accounts:login' %}">← Wróć do logowania</a></p>
+  </div>
+</section>
+{% endblock %}

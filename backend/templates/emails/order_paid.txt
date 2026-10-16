@@ -1,0 +1,11 @@
+{% autoescape off %}Płatność za zamówienie {{ order.number }} przyjęta
+Cześć {{ order.full_name }},
+
+otrzymaliśmy płatność za zamówienie. Kompletujemy paczkę — napiszemy, gdy zostanie wysłana.
+
+{% include "emails/_order_summary.txt" %}
+{% if url %}
+Status zamówienia: {{ url }}
+{% endif %}
+Training Culture
+{% endautoescape %}

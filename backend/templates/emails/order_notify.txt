@@ -1,0 +1,7 @@
+{% autoescape off %}Nowe opłacone zamówienie {{ order.number }} — {{ order.total|floatformat:"-2" }} zł
+Klient: {{ order.full_name }} <{{ order.email }}>{% if not order.user_id %} (gość){% endif %}
+
+{% include "emails/_order_summary.txt" %}
+
+Panel: {{ url }}
+{% endautoescape %}

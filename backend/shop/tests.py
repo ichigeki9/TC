@@ -1,10 +1,12 @@
 from decimal import Decimal
 from unittest import mock
 
-from django.test import TestCase
+from django.core import mail
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from accounts.models import User
+from accounts.tests import activation_link
 
 from .models import Category, Order, Product, ShippingMethod
 from .payments import PROVIDERS
@@ -151,25 +153,27 @@ class CheckoutTests(ShopTestCase):
         order.refresh_from_db()
         self.assertEqual(order.status, Order.Status.NEW)
 
-    def test_registration_returns_to_checkout(self):
+    def test_registration_returns_to_checkout_after_activation(self):
         self.add_to_cart(self.belt)
 
-        response = self.client.post(f"{reverse('accounts:register')}?next={reverse('shop:checkout')}", {
+        self.client.post(f"{reverse('accounts:register')}?next={reverse('shop:checkout')}", {
             'email': 'nowy@example.com', 'display_name': 'Nowy', 'gender': 'M',
             'password1': 'haslo-testowe-123', 'password2': 'haslo-testowe-123',
         })
+        response = self.client.get(activation_link(mail.outbox[0]))
 
         self.assertRedirects(response, reverse('shop:checkout'))
         # Koszyk przeżywa logowanie
         self.assertEqual(len(self.client.session['cart']), 1)
 
     def test_registration_ignores_foreign_next(self):
-        response = self.client.post(f"{reverse('accounts:register')}?next=https://zly.example.com/", {
+        self.client.post(f"{reverse('accounts:register')}?next=https://zly.example.com/", {
             'email': 'nowy@example.com', 'display_name': 'Nowy', 'gender': 'M',
             'password1': 'haslo-testowe-123', 'password2': 'haslo-testowe-123',
         })
 
-        self.assertRedirects(response, reverse('ranking:list'))
+        self.assertNotIn('zly.example.com', mail.outbox[0].body)
+        self.assertRedirects(self.client.get(activation_link(mail.outbox[0])), reverse('ranking:list'))
 
     def test_empty_cart_goes_back_to_cart(self):
         self.client.force_login(self.anna)
@@ -273,3 +277,69 @@ class PaymentTests(ShopTestCase):
     def test_order_is_listed_on_profile(self):
         response = self.client.get(reverse('accounts:profile'))
         self.assertContains(response, self.order.number)
+
+
+# Bez powiadomień dla sklepu, chyba że test włącza je sam — inaczej liczby maili zależą od .env
+@override_settings(SHOP_NOTIFY_EMAIL='')
+class OrderEmailTests(ShopTestCase):
+    def test_guest_gets_order_and_payment_emails_without_link(self):
+        self.add_to_cart(self.belt)
+        self.place_order()
+        order = Order.objects.get()
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['anna@example.com'])
+        self.assertIn(order.number, mail.outbox[0].subject)
+        self.assertIn('1 × Pas TC', mail.outbox[0].body)
+        self.assertNotIn('http', mail.outbox[0].body)
+
+        self.client.post(reverse('shop:payment_dummy', args=[order.token]), {'action': 'pay'})
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn('Płatność', mail.outbox[1].subject)
+
+    def test_customer_with_account_gets_order_link(self):
+        self.client.force_login(self.anna)
+        self.add_to_cart(self.belt)
+        self.place_order()
+        order = Order.objects.get()
+
+        self.assertIn(f'http://testserver{order.get_absolute_url()}', mail.outbox[0].body)
+
+    def test_cancelled_payment_sends_no_email(self):
+        self.add_to_cart(self.belt)
+        self.place_order()
+        order = Order.objects.get()
+
+        self.client.post(reverse('shop:payment_dummy', args=[order.token]), {'action': 'cancel'})
+        self.assertEqual(len(mail.outbox), 1)
+
+    @override_settings(SHOP_NOTIFY_EMAIL='sklep@example.com')
+    def test_shop_is_notified_about_paid_order(self):
+        self.add_to_cart(self.belt)
+        self.place_order()
+        order = Order.objects.get()
+        self.client.post(reverse('shop:payment_dummy', args=[order.token]), {'action': 'pay'})
+
+        notify = mail.outbox[-1]
+        self.assertEqual(notify.to, ['sklep@example.com'])
+        self.assertIn(reverse('admin:shop_order_change', args=[order.pk]), notify.body)
+
+    def test_admin_ship_action_emails_only_paid_orders(self):
+        self.add_to_cart(self.belt)
+        self.place_order()
+        paid = Order.objects.get()
+        paid.mark_paid('TEST')
+        self.add_to_cart(self.belt)
+        self.place_order(email='inny@example.com')
+        mail.outbox.clear()
+
+        admin = User.objects.create_superuser('admin@example.com', 'haslo-testowe-123')
+        self.client.force_login(admin)
+        self.client.post(reverse('admin:shop_order_changelist'), {
+            'action': 'mark_shipped', '_selected_action': [o.pk for o in Order.objects.all()],
+        })
+
+        paid.refresh_from_db()
+        self.assertEqual(paid.status, Order.Status.SHIPPED)
+        self.assertEqual([m.to for m in mail.outbox], [['anna@example.com']])
+        self.assertIn('wysłane', mail.outbox[0].subject)
