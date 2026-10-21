@@ -121,7 +121,7 @@ MEDIA_ROOT = Path(os.environ.get('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
 # Bramka płatności: 'dummy' = płatność testowa bez pieniędzy (patrz shop/payments.py)
 PAYMENT_PROVIDER = os.environ.get('PAYMENT_PROVIDER', 'dummy')
 
-# Poczta (SMTP, np. Gmail z hasłem aplikacji). Bez EMAIL_HOST maile wypisują się w konsoli zamiast być wysyłane.
+# Poczta (SMTP — Brevo, patrz .env.example). Bez EMAIL_HOST maile wypisują się w konsoli zamiast być wysyłane.
 EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 if EMAIL_HOST:
@@ -134,7 +134,7 @@ if EMAIL_HOST:
     EMAIL_TIMEOUT = 15
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# Gmail wysyła tylko z adresu skrzynki, więc domyślnie nadawcą jest EMAIL_HOST_USER
+# Domyślnie nadawcą jest EMAIL_HOST_USER — przy Brevo to login SMTP, więc ustaw DEFAULT_FROM_EMAIL
 DEFAULT_FROM_EMAIL = os.environ.get(
     'DEFAULT_FROM_EMAIL', f'Training Culture <{EMAIL_HOST_USER or "info@trainingculture.pl"}>',
 )

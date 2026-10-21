@@ -21,6 +21,17 @@ def gallery_photos():
     ]
 
 
+# Duży kafelek „Campy Training Culture”: pierwsze zdjęcie z tego folderu (dowolna nazwa pliku)
+CAMP_PHOTO_DIR = settings.PUBLIC_DIR / 'images' / 'campy'
+
+
+def camp_photo():
+    if not CAMP_PHOTO_DIR.is_dir():
+        return ''
+    files = sorted(f.name for f in CAMP_PHOTO_DIR.iterdir() if f.suffix.lower() in IMAGE_EXTENSIONS)
+    return f'/images/campy/{quote(files[0])}' if files else ''
+
+
 def visible_trainings(request):
     # Obsługa widzi też ukryte wpisy — to podgląd przed publikacją
     trainings = Training.objects.all()
@@ -35,6 +46,7 @@ def training_list(request):
         'courses': [t for t in trainings if t.kind == Training.Kind.COURSE],
         'camps': [t for t in trainings if t.kind == Training.Kind.CAMP],
         'gallery': gallery_photos(),
+        'camp_photo': camp_photo(),
     })
 
 

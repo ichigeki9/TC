@@ -1074,6 +1074,36 @@ button.nav-cta {
   margin-bottom: 24px;
 }
 
+/* Duży kafelek campów ze zdjęciem z public/images/campy/ */
+.why-visual-main.camp-photo {
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* napis przy samym dole zdjęcia */
+  padding: 24px 24px 20px;
+  /* bez ramki — pod nią prześwitywał jasny pasek nieprzyciemnionego zdjęcia */
+  border: none;
+}
+
+.why-visual-main.camp-photo::before {
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 35%, transparent 60%);
+}
+
+.why-visual-main.camp-photo .why-big-label {
+  color: var(--white);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+}
+
+@media (max-width: 768px) {
+  .why-visual-main.camp-photo {
+    min-height: 260px;
+  }
+}
+
 /* ===== AVATAR (emotka użytkownika) ===== */
 .tc-nav-avatar {
   font-size: 20px;

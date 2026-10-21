@@ -53,16 +53,19 @@ Panel `/admin/` → **Szkolenia i campy** → Dodaj. Rodzaj (szkolenie / camp) d
 `/szkolenia/` pojawi się wpis; lista na stronie głównej pobiera się sama. Podgląd ukrytych wpisów działa jak w sklepie.
 Galeria zdjęć na dole strony: wrzuć pliki (.jpg, .jpeg, .png, .webp) do `public/images/szkolenia/` — kolejność według nazwy pliku.
 Zdjęcia kart „Znajdź swój program”: `public/images/programy/<program>.jpeg` (np. `crossfit.jpeg`, `trening-silowy.jpeg`).
+Zdjęcie dużego kafelka „Campy Training Culture” na /szkolenia/: dowolny plik w `public/images/campy/`.
 
-## Maile (Gmail)
+## Maile (Brevo)
 
 Strona wysyła maile: link aktywacyjny po rejestracji (konto działa dopiero po kliknięciu), reset hasła,
 potwierdzenie przyjęcia zamówienia, potwierdzenie płatności i informację o wysyłce
 (akcja „Oznacz jako wysłane” albo zmiana statusu w formularzu zamówienia). Na `SHOP_NOTIFY_EMAIL`
 przychodzi powiadomienie o każdym opłaconym zamówieniu. Treści maili: `backend/templates/emails/`.
 
-Gmail wymaga **hasła aplikacji** zamiast zwykłego hasła: konto Google → Bezpieczeństwo → włącz weryfikację
-dwuetapową → Hasła aplikacji → utwórz. Zmienne `EMAIL_*` jak w `.env.example` — lokalnie wpisz je do pliku `.env`.
+Maile idą przez SMTP Brevo (darmowo 300 dziennie). W Brevo: **Senders** → dodaj i potwierdź adres nadawcy,
+potem **SMTP & API → SMTP** → skopiuj login i wygeneruj klucz SMTP. Zmienne `EMAIL_*`, `DEFAULT_FROM_EMAIL`
+i `SHOP_NOTIFY_EMAIL` jak w `.env.example` — lokalnie wpisz je do pliku `.env`.
+Test wysyłki: `python manage.py sendtestemail adres@example.com` (w katalogu `backend`).
 Lokalnie bez `EMAIL_HOST` maile tylko wypisują się w terminalu z `runserver`.
 
 ## Wdrożenie na Northflank
@@ -72,7 +75,8 @@ Lokalnie bez `EMAIL_HOST` maile tylko wypisują się w terminalu z `runserver`.
 3. Zmienne środowiskowe jak w `.env.example`:
    - `DJANGO_SECRET_KEY` — długi losowy ciąg (np. `python3 -c "import secrets; print(secrets.token_urlsafe(50))"`),
    - `DJANGO_ALLOWED_HOSTS` i `DJANGO_CSRF_TRUSTED_ORIGINS` — domena serwisu (`…code.run`) i docelowa domena,
-   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (jako sekret) — poczta Gmail,
+   - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (jako sekret),
+     `DEFAULT_FROM_EMAIL`, `SHOP_NOTIFY_EMAIL` — poczta Brevo,
    - `DATABASE_URL` — adres połączenia z addonu Postgres (Northflank: połącz sekrety addonu z serwisem
      i przypisz jego connection URI do `DATABASE_URL`).
 4. **Volume** (trwały dysk) podpięty do serwisu, zamontowany w `/app/media`, oraz zmienna

@@ -50,8 +50,9 @@
     <div class="container">
       <div class="why-grid">
         <div class="why-visual">
-          <div class="why-visual-main">
-            <div class="why-big-number">🏕️</div>
+          <!-- Zdjęcie: wrzuć plik do public/images/campy/ — zastąpi emotkę -->
+          <div class="why-visual-main{% if camp_photo %} camp-photo{% endif %}"{% if camp_photo %} style="background-image: url('{{ camp_photo }}')"{% endif %}>
+            {% if not camp_photo %}<div class="why-big-number">🏕️</div>{% endif %}
             <div class="why-big-label">Campy Training Culture</div>
           </div>
           <div class="why-badges">
