@@ -604,7 +604,7 @@ header {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 20px 22px 22px;
 }
 
@@ -670,18 +670,6 @@ header {
 
 .programs-swipe-hint span {
   color: var(--accent);
-}
-
-.program-card-icon {
-  position: relative;
-  font-size: 2rem;
-  opacity: 0.5;
-  transition: opacity 0.3s;
-  z-index: 2;
-}
-
-.program-card:hover .program-card-icon {
-  opacity: 0.9;
 }
 
 .program-card-number {
@@ -2126,10 +2114,6 @@ footer {
 
   .program-card-inner {
     padding: 22px 22px 24px;
-  }
-
-  .program-card-icon {
-    font-size: 1.75rem;
   }
 
   .program-card-number {
