@@ -650,10 +650,26 @@ header {
   background: url('../images/programy/trening-chwytu.jpeg') center / cover no-repeat, linear-gradient(160deg, #1a1a1a 0%, #1a1208 40%, #160e05 100%);
 }
 
+/* Ciemny gradient od dołu — tekst musi być czytelny także na jasnych zdjęciach */
 .program-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.1) 100%);
+}
+
+/* Podpowiedź „przesuń” — widoczna tylko, gdy kafelki są karuzelą (mobile/tablet) */
+.programs-swipe-hint {
+  display: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-muted);
+  margin-bottom: 16px;
+}
+
+.programs-swipe-hint span {
+  color: var(--accent);
 }
 
 .program-card-icon {
@@ -700,16 +716,18 @@ header {
   text-transform: uppercase;
   line-height: 1.1;
   margin-bottom: 8px;
+  overflow-wrap: anywhere;
 }
 
 .program-card-desc {
   font-size: 11px;
-  color: var(--gray-muted);
+  color: #c4c4c4;
   margin-bottom: 14px;
   line-height: 1.5;
 }
 
 .program-card-cta {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -952,6 +970,15 @@ header {
   background: var(--black);
 }
 
+.section-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
 .courses-list {
   margin-top: 64px;
   display: flex;
@@ -1097,6 +1124,13 @@ header {
 
 .cult-title span {
   color: var(--accent);
+}
+
+.cult-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .cult-sub {
@@ -2060,13 +2094,68 @@ footer {
   .hamburger {
     display: flex;
   }
+
+  /* Programy: karuzela przewijana palcem zamiast ściśniętej siatki */
+  .programs-swipe-hint {
+    display: block;
+  }
+
+  .programs-grid {
+    display: flex;
+    gap: 12px;
+    background: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* karty dochodzą do krawędzi ekranu, ale pierwsza zaczyna się w linii z treścią */
+    margin: 0 -24px;
+    padding: 0 24px 4px;
+    scroll-padding: 0 24px;
+  }
+
+  .programs-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .program-card {
+    flex: 0 0 min(78vw, 300px);
+    scroll-snap-align: start;
+  }
+
+  .program-card-inner {
+    padding: 22px 22px 24px;
+  }
+
+  .program-card-icon {
+    font-size: 1.75rem;
+  }
+
+  .program-card-number {
+    color: rgba(255,255,255,0.45);
+  }
+
+  .program-card-tag {
+    font-size: 10px;
+  }
+
+  .program-card-title {
+    font-size: 1.5rem;
+  }
+
+  .program-card-desc {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .program-card-cta {
+    font-size: 12px;
+    transform: none;
+  }
 }
 
 @media (max-width: 1024px) {
-  .programs-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .shop-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2096,20 +2185,74 @@ footer {
     display: flex;
   }
 
-  .programs-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Mniejsze odstępy między sekcjami — na telefonie 120px to pół ekranu pustki */
+  .programs-section,
+  .why-section,
+  .nutrition-section,
+  .courses-section,
+  .cult-section,
+  .testimonials-section,
+  .newsletter-section,
+  .shop-section,
+  .gallery-section {
+    padding: 72px 0;
   }
 
-  .shop-grid {
-    grid-template-columns: 1fr;
+  .programs-header,
+  .section-head-row {
+    margin-bottom: 32px;
+    gap: 20px;
   }
 
-  .hero-stats {
-    gap: 32px;
+  .nutrition-grid,
+  .courses-list,
+  .shop-grid,
+  .testimonials-track-wrap {
+    margin-top: 32px;
+  }
+
+  .section-head-row .btn-outline-accent {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Pasek ogłoszeń */
+  .announcement-bar {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 8px 16px;
+    line-height: 1.5;
+  }
+
+  .announcement-bar a {
+    white-space: nowrap;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-content {
+    padding: 56px 24px 64px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 11.5vw, 4.5rem);
+    margin-bottom: 20px;
+  }
+
+  .hero-title .line-outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.55);
+  }
+
+  .hero-subtitle {
+    margin-bottom: 32px;
   }
 
   .hero-actions {
     flex-direction: column;
+    margin-bottom: 48px;
   }
 
   .hero-actions .btn-primary,
@@ -2118,17 +2261,159 @@ footer {
     justify-content: center;
   }
 
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .hero-stat-number {
+    font-size: 1.9rem;
+  }
+
+  .hero-stat-label {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  /* Dlaczego my */
+  .why-grid {
+    gap: 40px;
+  }
+
+  .why-visual-main {
+    padding: 40px 24px;
+  }
+
+  .why-badges {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .why-badge {
+    padding: 18px 12px;
+  }
+
+  .why-badge-icon,
+  .why-badge-value {
+    font-size: 1.25rem;
+  }
+
+  .why-badge-label {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  .why-content {
+    gap: 32px;
+  }
+
+  .why-feature {
+    gap: 16px;
+    padding: 22px 0;
+  }
+
+  /* Żywienie */
+  .nutrition-card {
+    padding: 32px 24px;
+  }
+
+  .nutrition-card-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+
+  .nutrition-card-title {
+    font-size: 1.2rem;
+  }
+
+  .nutrition-card-text {
+    margin-bottom: 20px;
+  }
+
+  /* Społeczność */
+  .cult-actions {
+    flex-direction: column;
+  }
+
+  .cult-actions .btn-primary,
+  .cult-actions .btn-secondary {
+    justify-content: center;
+  }
+
+  .cult-sub {
+    margin-bottom: 32px;
+  }
+
   .cult-socials {
     flex-direction: column;
     align-items: stretch;
+    margin-top: 32px;
   }
 
   .cult-social-btn {
     justify-content: center;
   }
 
+  /* Opinie — węższe karty i krótsze wygaszenie, żeby nie zasłaniało tekstu */
+  .testimonial-card {
+    width: 280px;
+    padding: 24px;
+  }
+
+  .testimonials-track-wrap::before,
+  .testimonials-track-wrap::after {
+    width: 24px;
+  }
+
+  /* Sklep — 2 kolumny, zwarte karty */
+  .shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .shop-card {
+    padding: 24px 16px;
+    gap: 8px;
+  }
+
+  .shop-card-icon {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .shop-card-title {
+    font-size: 1.05rem;
+  }
+
+  .shop-card-desc {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .shop-card .program-card-cta {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    transform: none;
+  }
+
+  .shop-footer {
+    margin-top: 32px;
+  }
+
+  /* Stopka — kolumny linków po dwie obok siebie */
+  footer {
+    padding: 56px 0 32px;
+  }
+
   .footer-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 
   .footer-bottom {
@@ -2136,9 +2421,28 @@ footer {
     align-items: flex-start;
   }
 
-  .courses-list .course-item {
-    padding: 24px;
+  .footer-legal {
     flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+
+  /* Lista szkoleń na stronie głównej: ikona, tytuł i strzałka w jednym rzędzie */
+  .courses-list .course-item {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .courses-list .course-item-num {
+    display: none;
+  }
+
+  .courses-list .course-item-icon {
+    font-size: 1.5rem;
+    min-width: 32px;
+  }
+
+  .courses-list .course-item-title {
+    font-size: 0.95rem;
   }
 
   .course-item-badge {
@@ -2215,8 +2519,28 @@ footer {
     font-size: 15px;
   }
 
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .programs-grid {
+    margin: 0 -16px;
+    padding: 0 16px 4px;
+    scroll-padding: 0 16px;
+  }
+
   .gallery {
-    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .gallery-caption {
+    font-size: 10px;
+    padding: 20px 10px 8px;
   }
 
   .newsletter-form-group {
@@ -2230,9 +2554,5 @@ footer {
 
   .newsletter-submit {
     width: 100%;
-  }
-
-  .why-badges {
-    grid-template-columns: 1fr 1fr;
   }
 }
