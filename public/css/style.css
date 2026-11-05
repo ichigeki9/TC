@@ -1861,6 +1861,7 @@ footer {
 
 .program-modal-close {
   position: absolute;
+  z-index: 5;
   top: 16px;
   right: 16px;
   width: 36px;
@@ -1901,13 +1902,32 @@ footer {
 }
 
 .program-modal-image.has-photo {
-  height: 280px;
-  background-size: cover;
-  background-position: center;
+  height: min(60vh, 440px);
 }
 
-/* Przy zdjęciu: bez emotki, za to przyciemnienie u dołu, żeby przejście do treści było płynne */
+/* Spód: rozmyta wersja zdjęcia wypełnia boki */
+.program-modal-image.has-photo::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  background: var(--modal-photo) center / cover no-repeat;
+  filter: blur(24px) brightness(0.45);
+}
+
+/* Wierzch: całe zdjęcie, bez przycinania (większość jest pionowa) */
+.program-modal-image.has-photo::after {
+  background: var(--modal-photo) center / contain no-repeat;
+}
+
 .program-modal-image.has-photo .program-modal-img-icon {
+  display: none;
+}
+
+.program-modal-img-icon {
+  display: none;
+}
+
+.program-modal-img-icon {
   display: none;
 }
 
@@ -2500,9 +2520,12 @@ footer {
     padding: 24px 20px 28px;
   }
 
-  .program-modal-image,
+  .program-modal-image {
+    height: 160px;
+  }
+
   .program-modal-image.has-photo {
-    height: 180px;
+    height: 45vh;
   }
 
   .program-modal-img-icon {
