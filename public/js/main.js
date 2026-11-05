@@ -254,10 +254,16 @@ const programData = [
 const programModal = document.getElementById('programModal');
 const modalClose = document.getElementById('programModalClose');
 
-function openProgramModal(index) {
+function openProgramModal(index, card) {
   const data = programData[index];
   if (!data) return;
 
+  // To samo zdjęcie co na klikniętym kafelku (ustawione w css/style.css)
+  const cardBg = card?.querySelector('.program-card-bg');
+  const photo = cardBg ? getComputedStyle(cardBg).backgroundImage : 'none';
+  const modalImage = document.getElementById('modalImage');
+  modalImage.style.backgroundImage = photo;
+  modalImage.classList.toggle('has-photo', photo !== 'none');
   document.getElementById('modalIcon').textContent = data.icon;
   document.getElementById('modalTag').textContent = data.tag;
   document.getElementById('modalTitle').textContent = data.title;
@@ -280,7 +286,7 @@ function closeProgramModal() {
 
 document.querySelectorAll('.program-card').forEach((card, index) => {
   card.style.cursor = 'pointer';
-  card.addEventListener('click', () => openProgramModal(index));
+  card.addEventListener('click', () => openProgramModal(index, card));
 });
 
 modalClose?.addEventListener('click', closeProgramModal);
