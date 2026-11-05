@@ -2540,3 +2540,46 @@ footer {
     width: 100%;
   }
 }
+
+/* ===== W TRAKCIE BUDOWY (sekcje, które jeszcze nie ruszyły) ===== */
+.coming-soon {
+  position: relative;
+  min-height: 220px;
+}
+
+.coming-soon-content {
+  filter: blur(6px);
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.coming-soon-title {
+  display: inline-block;
+  padding: 10px 22px;
+  background: var(--accent);
+  color: var(--black);
+  font-size: clamp(14px, 2.4vw, 18px);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.coming-soon-text {
+  color: var(--off-white);
+  font-size: 15px;
+  font-weight: 600;
+}

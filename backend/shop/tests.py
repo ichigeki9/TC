@@ -17,6 +17,7 @@ ADDRESS = {
 }
 
 
+@override_settings(SHOP_OPEN=True)
 class ShopTestCase(TestCase):
     def setUp(self):
         # Kategorie tworzy migracja 0002, sposoby dostawy migracja 0004
@@ -343,3 +344,23 @@ class OrderEmailTests(ShopTestCase):
         self.assertEqual(paid.status, Order.Status.SHIPPED)
         self.assertEqual([m.to for m in mail.outbox], [['anna@example.com']])
         self.assertIn('wysłane', mail.outbox[0].subject)
+
+
+@override_settings(SHOP_OPEN=False)
+class ShopClosedTests(ShopTestCase):
+    def test_customers_see_coming_soon(self):
+        for url in (reverse('shop:list'), reverse('shop:detail', args=[self.belt.slug]), reverse('shop:cart')):
+            response = self.client.get(url)
+            self.assertContains(response, 'Już niedługo będzie')
+            self.assertNotContains(response, 'Pas TC')
+
+    def test_customers_cannot_order(self):
+        self.add_to_cart(self.belt)
+        self.place_order()
+        self.assertFalse(Order.objects.exists())
+
+    def test_staff_can_still_use_shop(self):
+        self.anna.is_staff = True
+        self.anna.save()
+        self.client.force_login(self.anna)
+        self.assertContains(self.client.get(reverse('shop:list')), 'Pas TC')

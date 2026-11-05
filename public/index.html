@@ -453,6 +453,13 @@
       <div class="section-label">Żywienie sportowe</div>
       <h2 class="section-title">Jedzenie to<br><span>Paliwo</span></h2>
 
+      <!-- W trakcie budowy: usuń wrapper .coming-soon, gdy sekcja będzie gotowa -->
+      <div class="coming-soon">
+        <div class="coming-soon-badge">
+          <span class="coming-soon-title">W trakcie budowy</span>
+          <span class="coming-soon-text">Już niedługo będzie</span>
+        </div>
+        <div class="coming-soon-content" inert>
       <div class="nutrition-grid">
         <div class="nutrition-card">
           <div class="nutrition-card-accent"></div>
@@ -499,6 +506,8 @@
           <span class="nutrition-card-tag">Umów bezpłatną rozmowę</span>
         </div>
       </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -510,11 +519,20 @@
           <div class="section-label">TC University</div>
           <h2 class="section-title">Szkol się z<br><span>Najlepszymi</span></h2>
         </div>
-        <a href="/szkolenia/" class="btn-outline-accent">Wszystkie szkolenia i galeria →</a>
       </div>
 
-      <!-- Lista szkoleń i campów z panelu /admin/ — wypełnia ją js/main.js -->
-      <div class="courses-list" id="coursesList"></div>
+      <!-- W trakcie budowy: usuń wrapper .coming-soon (i przywróć przycisk
+           <a href="/szkolenia/" class="btn-outline-accent">Wszystkie szkolenia i galeria →</a>), gdy sekcja będzie gotowa -->
+      <div class="coming-soon">
+        <div class="coming-soon-badge">
+          <span class="coming-soon-title">W trakcie budowy</span>
+          <span class="coming-soon-text">Już niedługo będzie</span>
+        </div>
+        <div class="coming-soon-content" inert>
+          <!-- Lista szkoleń i campów z panelu /admin/ — wypełnia ją js/main.js -->
+          <div class="courses-list" id="coursesList"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -649,6 +667,13 @@
         </p>
       </div>
 
+      <!-- W trakcie budowy: usuń wrapper .coming-soon, gdy sklep ruszy (i ustaw SHOP_OPEN=1) -->
+      <div class="coming-soon">
+        <div class="coming-soon-badge">
+          <span class="coming-soon-title">W trakcie budowy</span>
+          <span class="coming-soon-text">Już niedługo będzie</span>
+        </div>
+        <div class="coming-soon-content" inert>
       <div class="shop-grid">
         <a href="/sklep/?kategoria=odziez" class="shop-card">
           <div class="shop-card-icon">👕</div>
@@ -678,6 +703,8 @@
 
       <div class="shop-footer">
         <a href="/sklep/" class="btn-primary">Przejdź do sklepu →</a>
+      </div>
+        </div>
       </div>
     </div>
   </section>

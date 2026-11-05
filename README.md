@@ -47,6 +47,11 @@ ceny dostawy w **Sposoby dostawy**.
 i sam wybiera, czy płatność się udała. Żadne pieniądze nie są pobierane, więc przed startem sprzedaży trzeba
 podpiąć prawdziwą bramkę: nowa klasa w `backend/shop/payments.py` + zmienna `PAYMENT_PROVIDER`.
 
+**Sklep jest na razie zamknięty** — bez `SHOP_OPEN=1` klienci widzą pod `/sklep/` stronę „W trakcie budowy”,
+a zalogowana obsługa (staff) widzi sklep normalnie. Lokalnie dopisz `SHOP_OPEN=1` do `.env`, jeśli chcesz testować jako klient.
+Na stronie głównej sekcje Żywienie, „Szkol się z najlepszymi” i Sklep są przykryte napisem „W trakcie budowy”
+(wrapper `.coming-soon` w `public/index.html` — usuń go, gdy sekcja będzie gotowa).
+
 ## Szkolenia i campy
 
 Panel `/admin/` → **Szkolenia i campy** → Dodaj. Rodzaj (szkolenie / camp) decyduje, w której sekcji strony
@@ -77,6 +82,7 @@ Lokalnie bez `EMAIL_HOST` maile tylko wypisują się w terminalu z `runserver`.
    - `DJANGO_ALLOWED_HOSTS` i `DJANGO_CSRF_TRUSTED_ORIGINS` — domena serwisu (`…code.run`) i docelowa domena,
    - `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (jako sekret),
      `DEFAULT_FROM_EMAIL`, `SHOP_NOTIFY_EMAIL` — poczta Brevo,
+   - `SHOP_OPEN` — `0` (sklep „w trakcie budowy”) albo `1` (otwarty dla klientów),
    - `DATABASE_URL` — adres połączenia z addonu Postgres (Northflank: połącz sekrety addonu z serwisem
      i przypisz jego connection URI do `DATABASE_URL`).
 4. **Volume** (trwały dysk) podpięty do serwisu, zamontowany w `/app/media`, oraz zmienna

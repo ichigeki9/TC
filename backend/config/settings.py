@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'shop.middleware.ShopClosedMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -119,6 +120,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(os.environ.get('DJANGO_MEDIA_ROOT', BASE_DIR / 'media'))
 
 # Bramka płatności: 'dummy' = płatność testowa bez pieniędzy (patrz shop/payments.py)
+# Sklep otwarty dla wszystkich (SHOP_OPEN=1). Wyłączony — klienci widzą „w trakcie budowy”,
+# a zalogowana obsługa (staff) nadal może go oglądać i testować.
+SHOP_OPEN = os.environ.get('SHOP_OPEN', '0') == '1'
+
 PAYMENT_PROVIDER = os.environ.get('PAYMENT_PROVIDER', 'dummy')
 
 # Poczta (SMTP — Brevo, patrz .env.example). Bez EMAIL_HOST maile wypisują się w konsoli zamiast być wysyłane.
