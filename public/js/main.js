@@ -260,11 +260,21 @@ function openProgramModal(index, card) {
 
   // To samo zdjęcie co na klikniętym kafelku (ustawione w css/style.css)
   const cardBg = card?.querySelector('.program-card-bg');
-  // Tło kafelka to „url(zdjęcie), gradient” — bierzemy samo zdjęcie
-  const photo = cardBg ? (getComputedStyle(cardBg).backgroundImage.match(/url\([^)]*\)/) || [''])[0] : '';
+  // Tło kafelka to „url("zdjęcie"), gradient” — bierzemy sam adres zdjęcia
+  const bg = cardBg ? getComputedStyle(cardBg).backgroundImage : '';
+  const match = bg.match(/url\(["']?([^"')]+)["']?\)/);
+  const photo = match ? match[1] : '';
   const modalImage = document.getElementById('modalImage');
-  modalImage.style.setProperty('--modal-photo', photo || 'none');
+  const modalPhoto = document.getElementById('modalPhoto');
+  modalImage.style.setProperty('--modal-photo', photo ? `url("${photo}")` : 'none');
   modalImage.classList.toggle('has-photo', Boolean(photo));
+  modalPhoto.hidden = !photo;
+  if (photo) {
+    modalPhoto.src = photo;
+    modalPhoto.alt = data.title;
+  } else {
+    modalPhoto.removeAttribute('src');
+  }
   document.getElementById('modalIcon').textContent = data.icon;
   document.getElementById('modalTag').textContent = data.tag;
   document.getElementById('modalTitle').textContent = data.title;
