@@ -38,6 +38,18 @@ class ActivationTests(TestCase):
         self.client.logout()
         self.assertRedirects(self.login(), reverse('ranking:list'))
 
+    def test_emails_have_html_version_with_button(self):
+        self.register()
+        User.objects.create_user('anna@example.com', 'stare-haslo-123', display_name='Anna')
+        self.client.post(reverse('accounts:password_reset'), {'email': 'anna@example.com'})
+
+        for message, label in zip(mail.outbox, ('Aktywuj konto', 'Ustaw nowe hasło')):
+            html, mimetype = message.alternatives[0]
+            self.assertEqual(mimetype, 'text/html')
+            self.assertIn(label, html)
+            # Przycisk prowadzi pod ten sam adres co link w wersji tekstowej
+            self.assertIn(f'href="http://testserver{activation_link(message)}"', html)
+
     def test_link_works_only_once(self):
         self.register()
         link = activation_link(mail.outbox[0])

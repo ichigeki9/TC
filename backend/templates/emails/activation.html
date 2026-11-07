@@ -1,0 +1,10 @@
+{% extends "emails/_base.html" %}
+{% block preheader %}Jeszcze jeden krok — kliknij, żeby aktywować konto.{% endblock %}
+{% block content %}
+{% include "emails/_heading.html" with first="Aktywuj" second="konto" %}
+<p style="margin:0 0 16px 0;">Cześć {{ user.display_name }},</p>
+<p style="margin:0;">dziękujemy za dołączenie do Training Culture. Kliknij przycisk poniżej, żeby aktywować konto — potem możesz wpisywać swoje wyniki do rankingu.</p>
+{% include "emails/_button.html" with url=url label="Aktywuj konto" %}
+<p style="margin:0 0 24px 0; font-size:14px; color:#aaaaaa;">Link jest ważny przez 3 dni. Jeśli to nie Ty zakładałeś konto, po prostu zignoruj tę wiadomość.</p>
+{% include "emails/_fallback_link.html" with url=url %}
+{% endblock %}

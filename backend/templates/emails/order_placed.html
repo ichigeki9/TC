@@ -1,0 +1,9 @@
+{% extends "emails/_base.html" %}
+{% block preheader %}Zamówienie {{ order.number }}{% endblock %}
+{% block content %}
+{% include "emails/_heading.html" with first="Przyjęliśmy" second="zamówienie" %}
+<p style="margin:0 0 16px 0;">Cześć {{ order.full_name }},</p>
+<p style="margin:0;">dziękujemy za zamówienie w sklepie Training Culture. Wyślemy je, gdy tylko zaksięgujemy płatność.</p>
+{% include "emails/_order_summary.html" %}
+{% if url %}{% include "emails/_button.html" with url=url label="Status zamówienia" %}{% endif %}
+{% endblock %}

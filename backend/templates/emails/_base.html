@@ -1,0 +1,41 @@
+{% comment %}
+Wspólny wygląd maili HTML. Programy pocztowe nie czytają zewnętrznych styli, dlatego wszystko jest
+w atrybutach style, a układ na tabelach. Wersja tekstowa (.txt) idzie w tym samym mailu jako zapasowa.
+Bloki: preheader (podgląd w skrzynce), content (treść).
+{% endcomment %}<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<title>Training Culture</title>
+</head>
+<body style="margin:0; padding:0; background-color:#0a0a0a;">
+<div style="display:none; max-height:0; overflow:hidden; opacity:0; color:#0a0a0a;">{% block preheader %}{% endblock %}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0a0a0a;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">
+        <tr>
+          <td style="padding:0 0 24px 0; font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#ffffff;">
+            Training <span style="color:#e8ff00;">Culture</span> PL
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:#111111; border:1px solid #222222; border-top:4px solid #e8ff00; padding:40px 32px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:1.6; color:#e0e0e0;">
+            {% block content %}{% endblock %}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 8px 0 8px; font-family:Arial, Helvetica, sans-serif; font-size:12px; line-height:1.6; color:#777777; text-align:center;">
+            Training Culture Polska · <a href="https://www.traincultpoland.pl" style="color:#777777; text-decoration:underline;">traincultpoland.pl</a><br>
+            Ta wiadomość została wysłana automatycznie — nie odpowiadaj na nią.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

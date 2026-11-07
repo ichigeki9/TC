@@ -1,0 +1,9 @@
+{% extends "emails/_base.html" %}
+{% block preheader %}Zamówienie {{ order.number }}{% endblock %}
+{% block content %}
+{% include "emails/_heading.html" with first="Paczka" second="w drodze" %}
+<p style="margin:0 0 16px 0;">Cześć {{ order.full_name }},</p>
+<p style="margin:0;">Twoje zamówienie jest w drodze ({{ order.shipping_name }}).</p>
+{% include "emails/_order_summary.html" %}
+{% if url %}{% include "emails/_button.html" with url=url label="Status zamówienia" %}{% endif %}
+{% endblock %}
