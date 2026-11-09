@@ -1,0 +1,51 @@
+{% for day in days %}
+<details class="tc-day"{% if open_first and forloop.first %} open{% endif %}>
+  <summary>
+    <span class="tc-day-date">{{ day.date|date:"l" }}<small>{{ day.date|date:"j E" }}</small></span>
+    <span class="tc-day-title">{{ day.title }}</span>
+    <span class="tc-day-meta">{{ day.part_list|length }} {% if day.part_list|length == 1 %}część{% else %}części{% endif %}</span>
+    <span class="tc-chevron" aria-hidden="true">▾</span>
+  </summary>
+  <div class="tc-day-body">
+    <div class="tc-parts">
+      {% for part in day.part_list %}
+      <div class="tc-part">
+        <div class="tc-part-head">
+          <span class="tc-part-letter">{{ part.letter }}</span>
+          <span class="tc-part-name">{{ part.name }}</span>
+          <span class="tc-part-type">{{ part.get_score_type_display }}</span>
+        </div>
+        {% if part.description %}<p class="tc-part-desc">{{ part.description|linebreaksbr }}</p>{% endif %}
+        {% if part.preview %}
+        <table class="tc-table tc-board tc-board-compact">
+          <tbody>
+            {% for row in part.preview %}
+            <tr class="{% if row.user_id == user.id %}is-me{% endif %}{% if row.place <= 3 %} top-{{ row.place }}{% endif %}">
+              <td class="tc-place">{{ row.place }}</td>
+              <td><span class="tc-avatar" aria-hidden="true">{{ row.avatar }}</span>{{ row.name }}</td>
+              <td class="tc-score">{{ row.display }}</td>
+            </tr>
+            {% endfor %}
+            {% if part.my_row %}
+            <tr class="tc-board-gap"><td colspan="3">…</td></tr>
+            <tr class="is-me">
+              <td class="tc-place">{{ part.my_row.place }}</td>
+              <td><span class="tc-avatar" aria-hidden="true">{{ part.my_row.avatar }}</span>{{ part.my_row.name }}</td>
+              <td class="tc-score">{{ part.my_row.display }}</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+        {% if part.hidden_count %}<p class="tc-muted tc-part-more">+ {{ part.hidden_count }} w pełnym rankingu</p>{% endif %}
+        {% else %}
+        <p class="tc-muted tc-part-empty">Brak wyników.</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <a href="{{ day.get_absolute_url }}" class="tc-day-link">{% if user.is_authenticated %}Dodaj wynik i pełne rankingi{% else %}Pełne rankingi{% endif %} →</a>
+  </div>
+</details>
+{% empty %}
+<p class="tc-muted">Brak treningów w tym tygodniu.</p>
+{% endfor %}

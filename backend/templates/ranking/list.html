@@ -10,14 +10,49 @@
         <h1 class="section-title">Ranking<br><span>Zawodników</span></h1>
       </div>
       <p class="section-lead">
-        Wybierz trening, wpisz swój wynik i sprawdź, na którym miejscu jesteś.
+        Codziennie nowy trening, a w nim kilka części — każda ma osobny ranking.
         {% if not user.is_authenticated %}Aby dodać wynik, <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}">zaloguj się</a>.{% endif %}
       </p>
     </div>
 
+    {% if user.is_staff %}
+    <div class="tc-admin-bar">
+      <a href="{% url 'ranking:daily_add' %}" class="btn-primary">+ Dodaj trening dnia</a>
+      {% if planned %}
+      <div class="tc-planned">
+        <span class="tc-muted">Zaplanowane i ukryte (widzi tylko admin):</span>
+        {% for daily in planned %}
+        <a href="{{ daily.get_absolute_url }}" class="tc-tab">{{ daily.date|date:"D j.m" }}{% if not daily.is_published %} · ukryty{% endif %}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="tc-program">
+      <h2 class="tc-program-title">Ten tydzień · {{ week_label }}</h2>
+      <div class="tc-days">
+        {% include "ranking/_days.html" with days=days open_first=True %}
+      </div>
+    </div>
+
+    {% if earlier_url %}
+    <div class="tc-program">
+      <h2 class="tc-program-title">Wcześniejsze tygodnie</h2>
+      <div class="tc-weeks">
+        <button type="button" class="btn-secondary tc-load-more" data-load-more="{{ earlier_url }}">Pokaż wcześniejsze tygodnie</button>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if programs %}
+    <div class="tc-program">
+      <h2 class="tc-program-title">Treningi testowe</h2>
+    </div>
+    {% endif %}
     {% for program, workouts in programs %}
     <div class="tc-program">
-      <h2 class="tc-program-title">{{ program }}</h2>
+      <h3 class="tc-program-title tc-program-subtitle">{{ program }}</h3>
       <div class="tc-workouts">
         {% for workout in workouts %}
         <a href="{{ workout.get_absolute_url }}" class="tc-workout">
@@ -28,9 +63,9 @@
         {% endfor %}
       </div>
     </div>
-    {% empty %}
-    <div class="tc-card"><p class="tc-muted">Rankingi pojawią się wkrótce.</p></div>
     {% endfor %}
   </div>
 </section>
 {% endblock %}
+
+{% block scripts %}<script src="/js/ranking.js?v=1"></script>{% endblock %}

@@ -127,6 +127,7 @@
 
 .tc-field input,
 .tc-field select,
+.tc-field textarea,
 .tc-quantity input,
 .tc-cart-qty input {
   width: 100%;
@@ -148,6 +149,7 @@
 
 .tc-field input:hover,
 .tc-field select:hover,
+.tc-field textarea:hover,
 .tc-quantity input:hover,
 .tc-cart-qty input:hover {
   border-color: rgba(255,255,255,0.55);
@@ -155,6 +157,7 @@
 
 .tc-field input:focus,
 .tc-field select:focus,
+.tc-field textarea:focus,
 .tc-quantity input:focus,
 .tc-cart-qty input:focus {
   outline: none;
@@ -470,6 +473,391 @@ button.nav-cta {
   .tc-table th {
     padding-left: 6px;
     padding-right: 6px;
+  }
+}
+
+/* ===== TRENING DNIA: tygodnie → dni → części ===== */
+.tc-program-subtitle {
+  color: var(--gray-muted);
+}
+
+.tc-days,
+.tc-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.tc-weeks {
+  background: none;
+  gap: 8px;
+}
+
+.tc-day,
+.tc-week {
+  background: var(--dark);
+}
+
+.tc-day > summary,
+.tc-week > summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 32px;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.2s;
+}
+
+.tc-day > summary::-webkit-details-marker,
+.tc-week > summary::-webkit-details-marker {
+  display: none;
+}
+
+.tc-day > summary:hover,
+.tc-week > summary:hover {
+  background: var(--dark-2);
+}
+
+.tc-chevron {
+  color: var(--gray-muted);
+  transition: transform 0.2s;
+}
+
+details[open] > summary > .tc-chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+.tc-day-date,
+.tc-week-label {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tc-week-label {
+  flex: 1;
+}
+
+.tc-day-date {
+  min-width: 170px;
+}
+
+.tc-day-date small {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--gray-muted);
+}
+
+.tc-day-title {
+  flex: 1;
+  color: var(--off-white);
+  font-size: 14px;
+}
+
+.tc-day-meta {
+  font-size: 12px;
+  color: var(--gray-muted);
+  white-space: nowrap;
+}
+
+.tc-day-body {
+  padding: 8px 32px 28px;
+}
+
+/* Dni wewnątrz rozwiniętego tygodnia */
+.tc-week-body {
+  padding: 0 0 8px 16px;
+  border-left: 2px solid var(--accent);
+  margin: 0 0 16px 32px;
+}
+
+.tc-week-body > .tc-muted {
+  padding: 12px 0;
+}
+
+.tc-week-body .tc-day {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.tc-week-body .tc-day > summary {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.tc-week-body .tc-day-body {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.tc-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.tc-part {
+  padding: 20px;
+  background: var(--dark-2);
+}
+
+.tc-part-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tc-part-letter {
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.tc-part-name {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.tc-part-type {
+  font-size: 11px;
+  color: var(--gray-muted);
+}
+
+.tc-part-desc {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--off-white);
+}
+
+.tc-board-compact {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.tc-board-compact td {
+  padding: 8px 6px;
+}
+
+.tc-board-compact .tc-place {
+  width: 32px;
+}
+
+.tc-board-gap td {
+  padding: 2px 6px;
+  color: var(--gray-muted);
+  text-align: center;
+}
+
+.tc-part-more {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.tc-part-empty {
+  margin-top: 12px;
+}
+
+.tc-day-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.tc-load-more {
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.tc-load-more:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Strona dnia */
+.tc-day-tabs {
+  margin-top: 32px;
+  margin-bottom: 0;
+}
+
+.tc-day-part {
+  margin-top: 56px;
+  scroll-margin-top: 100px;
+}
+
+.tc-day-part > .tc-part-head .tc-part-letter,
+.tc-day-part > .tc-part-head .tc-part-name {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.tc-day-part .tc-grid-2 {
+  margin-top: 24px;
+}
+
+.tc-board-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--gray-muted);
+}
+
+.tc-delete-form {
+  margin-top: 16px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .tc-day > summary,
+  .tc-week > summary {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+
+  .tc-day-date {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .tc-day-title {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .tc-day-body {
+    padding: 4px 16px 20px;
+  }
+
+  .tc-week-body {
+    margin-left: 8px;
+    padding-left: 8px;
+  }
+
+  .tc-week-body .tc-day > summary,
+  .tc-week-body .tc-day-body {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .tc-parts {
+    grid-template-columns: 1fr;
+  }
+
+  .tc-part {
+    padding: 16px;
+  }
+}
+
+/* Dodawanie treningu przez admina na stronie */
+.tc-admin-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.tc-planned {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tc-badge-warn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--black);
+  background: var(--accent);
+}
+
+.tc-day-form {
+  margin-top: 40px;
+}
+
+.tc-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.tc-field textarea {
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.tc-check {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tc-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.tc-check .tc-help {
+  flex-basis: 100%;
+}
+
+.tc-check-danger {
+  color: var(--red);
+  font-size: 12px;
+}
+
+.tc-check-danger input {
+  accent-color: var(--red);
+}
+
+.tc-part-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tc-part-form .tc-form {
+  margin-top: 16px;
+}
+
+.tc-part-form-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tc-day-form .tc-actions {
+  margin-top: 32px;
+}
+
+.tc-delete-left {
+  text-align: left;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .tc-form-row {
+    grid-template-columns: 1fr;
   }
 }
 

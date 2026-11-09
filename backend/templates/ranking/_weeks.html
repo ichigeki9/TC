@@ -1,0 +1,15 @@
+{% for week in weeks %}
+<details class="tc-week" data-src="{% url 'ranking:week' week.start|date:'Y-m-d' %}">
+  <summary>
+    <span class="tc-week-label">{{ week.label }}</span>
+    <span class="tc-day-meta">{{ week.count }}</span>
+    <span class="tc-chevron" aria-hidden="true">▾</span>
+  </summary>
+  <div class="tc-week-body" data-lazy-body><p class="tc-muted">Ładowanie…</p></div>
+</details>
+{% empty %}
+<p class="tc-muted">Brak wcześniejszych treningów.</p>
+{% endfor %}
+{% if more_url %}
+<button type="button" class="btn-secondary tc-load-more" data-load-more="{{ more_url }}">Pokaż wcześniejsze tygodnie</button>
+{% endif %}

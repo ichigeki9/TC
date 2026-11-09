@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{% if daily %}Edycja treningu {{ daily.date|date:"j.m.Y" }}{% else %}Nowy trening{% endif %}{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% if daily %}{{ daily.get_absolute_url }}{% else %}{% url 'ranking:list' %}{% endif %}" class="tc-back">← {% if daily %}Wróć do treningu{% else %}Ranking{% endif %}</a>
+    <div class="section-label">Trening dnia</div>
+    <h1 class="section-title">{% if daily %}Edycja <span>{{ daily.date|date:"j.m.Y" }}</span>{% else %}Nowy <span>trening</span>{% endif %}</h1>
+
+    <form method="post" class="tc-day-form" novalidate>
+      {% csrf_token %}
+      <div class="tc-card">
+        {% include "_form_errors.html" %}
+        <div class="tc-form">
+          <div class="tc-form-row">
+            {% with field=form.date %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.title %}{% include "_field.html" %}{% endwith %}
+          </div>
+          {% with field=form.description %}{% include "_field.html" %}{% endwith %}
+          <label class="tc-check">{{ form.is_published }} {{ form.is_published.label|capfirst }}<small class="tc-help">{{ form.is_published.help_text }}</small></label>
+        </div>
+      </div>
+
+      <div class="tc-subtitle">Części treningu — każda ma osobny ranking</div>
+      {{ parts.management_form }}
+      {% for error in parts.non_form_errors %}<p class="tc-form-errors">{{ error }}</p>{% endfor %}
+      <div class="tc-part-forms">
+        {% for part_form in parts %}
+        <div class="tc-card tc-part-form">
+          {{ part_form.id }}
+          <div class="tc-part-form-head">
+            <span class="tc-part-letter">Część {{ forloop.counter }}</span>
+            {% if part_form.instance.pk %}
+            <label class="tc-check tc-check-danger">{{ part_form.DELETE }} Usuń część{% if part_form.has_results %} (razem z wynikami){% endif %}</label>
+            {% else %}
+            <span class="tc-muted">puste pole = pominięta</span>
+            {% endif %}
+          </div>
+          {% include "_form_errors.html" with form=part_form %}
+          <div class="tc-form">
+            <div class="tc-form-row">
+              {% with field=part_form.name %}{% include "_field.html" %}{% endwith %}
+              {% with field=part_form.score_type %}{% include "_field.html" %}{% endwith %}
+            </div>
+            {% with field=part_form.description %}{% include "_field.html" %}{% endwith %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% if not daily %}<p class="tc-muted">Potrzebujesz więcej części? Zapisz trening i wejdź w „Edytuj” — pojawi się kolejne puste pole.</p>{% endif %}
+
+      <div class="tc-actions">
+        <button type="submit" class="btn-primary">Zapisz trening →</button>
+        <a href="{% if daily %}{{ daily.get_absolute_url }}{% else %}{% url 'ranking:list' %}{% endif %}" class="btn-secondary">Anuluj</a>
+      </div>
+    </form>
+
+    {% if daily %}
+    <form method="post" action="{% url 'ranking:daily_delete' daily.date|date:'Y-m-d' %}" class="tc-delete-form tc-delete-left" onsubmit="return confirm('Usunąć cały trening razem ze wszystkimi wynikami?')">
+      {% csrf_token %}
+      <button type="submit" class="tc-link-btn">Usuń cały trening</button>
+    </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

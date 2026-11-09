@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Trening {{ daily.date|date:"j.m.Y" }} — Ranking{% endblock %}
+{% block description %}Trening dnia {{ daily.date|date:"j E Y" }} i rankingi poszczególnych części — Training Culture.{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% url 'ranking:list' %}" class="tc-back">← Ranking</a>
+    <div class="section-label">Trening dnia · {{ daily.date|date:"l, j E Y" }}</div>
+    <h1 class="section-title">{% if daily.title %}{{ daily.title }}{% else %}{{ daily.date|date:"l" }}{% endif %}</h1>
+    {% if daily.description %}<div class="tc-description">{{ daily.description|linebreaks }}</div>{% endif %}
+
+    {% if user.is_staff %}
+    <div class="tc-admin-bar">
+      <a href="{% url 'ranking:daily_edit' daily.date|date:'Y-m-d' %}" class="btn-secondary">Edytuj trening</a>
+      {% if not daily.is_published %}<span class="tc-badge-warn">Ukryty — zawodnicy go nie widzą</span>
+      {% elif daily.date > today %}<span class="tc-badge-warn">Zaplanowany — zawodnicy zobaczą go {{ daily.date|date:"j E" }}</span>{% endif %}
+    </div>
+    {% endif %}
+
+    <div class="tc-tabs tc-day-tabs">
+      <a href="?" class="tc-tab{% if not gender_key %} active{% endif %}">Wszyscy</a>
+      <a href="?plec=kobiety" class="tc-tab{% if gender_key == 'kobiety' %} active{% endif %}">Kobiety</a>
+      <a href="?plec=mezczyzni" class="tc-tab{% if gender_key == 'mezczyzni' %} active{% endif %}">Mężczyźni</a>
+    </div>
+
+    {% for part in daily.part_list %}
+    <div class="tc-day-part" id="czesc-{{ part.pk }}">
+      <div class="tc-part-head">
+        <span class="tc-part-letter">{{ part.letter }}</span>
+        <h2 class="tc-part-name">{{ part.name }}</h2>
+        <span class="tc-part-type">{{ part.get_score_type_display }}</span>
+      </div>
+      {% if part.description %}<div class="tc-description">{{ part.description|linebreaks }}</div>{% endif %}
+
+      <div class="tc-grid-2 tc-grid-board">
+        <div class="tc-card">
+          {% if part.board %}
+          <table class="tc-table tc-board">
+            <thead><tr><th>#</th><th>Zawodnik</th><th>Wynik</th></tr></thead>
+            <tbody>
+              {% for row in part.board %}
+              <tr class="{% if row.user_id == user.id %}is-me{% endif %}{% if row.place <= 3 %} top-{{ row.place }}{% endif %}">
+                <td class="tc-place">{{ row.place }}</td>
+                <td><span class="tc-avatar" aria-hidden="true">{{ row.avatar }}</span>{{ row.name }}{% if row.note %}<small class="tc-board-note">{{ row.note }}</small>{% endif %}</td>
+                <td class="tc-score">{{ row.display }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="tc-muted">Nikt jeszcze nie wpisał wyniku. Bądź pierwszy!</p>
+          {% endif %}
+        </div>
+
+        <div class="tc-card">
+          {% if part.form %}
+          <h3 class="tc-card-title">{% if part.my_result %}Mój wynik: {{ part.my_result.display_value }}{% else %}Dodaj wynik{% endif %}</h3>
+          <form method="post" action="#czesc-{{ part.pk }}" class="tc-form" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="part" value="{{ part.pk }}">
+            {% with form=part.form %}{% include "_form_errors.html" %}{% endwith %}
+            {% with field=part.form.score %}{% include "_field.html" %}{% endwith %}
+            {% with field=part.form.note %}{% include "_field.html" %}{% endwith %}
+            <button type="submit" class="btn-primary">{% if part.my_result %}Popraw wynik{% else %}Dodaj wynik{% endif %} →</button>
+          </form>
+          {% if part.my_result %}
+          <form method="post" action="{% url 'ranking:delete_part_result' part.my_result.pk %}" class="tc-delete-form" onsubmit="return confirm('Usunąć ten wynik?')">
+            {% csrf_token %}
+            <button type="submit" class="tc-link-btn">Usuń mój wynik</button>
+          </form>
+          {% endif %}
+          {% else %}
+          <h3 class="tc-card-title">Chcesz się wpisać?</h3>
+          <p class="tc-muted">Wyniki mogą dodawać tylko zalogowani zawodnicy.</p>
+          <div class="tc-actions">
+            <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}" class="btn-primary">Zaloguj się →</a>
+            <a href="{% url 'accounts:register' %}" class="btn-secondary">Załóż konto</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="tc-card"><p class="tc-muted">Ten trening nie ma jeszcze części.</p></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
