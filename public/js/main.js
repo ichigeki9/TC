@@ -313,7 +313,7 @@ document.addEventListener('keydown', (e) => {
 document.querySelector('.program-modal-cta')?.addEventListener('click', closeProgramModal);
 
 // ===== LISTA SZKOLEŃ I CAMPÓW (strona główna) =====
-// Wpisy dodaje się w panelu /admin/ → Szkolenia i campy.
+// Wpisy dodaje admin na stronie /szkolenia/ (przyciski „+ Dodaj”) albo w panelu /admin/.
 const coursesList = document.getElementById('coursesList');
 
 function escapeHtml(text) {

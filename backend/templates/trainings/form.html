@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{% if training %}Edycja: {{ training.title }}{% else %}Nowe szkolenie / camp{% endif %}{% endblock %}
+
+{% block content %}
+<section class="tc-section">
+  <div class="container">
+    <a href="{% if training %}{{ training.get_absolute_url }}{% else %}{% url 'trainings:list' %}{% endif %}" class="tc-back">← Szkolenia i campy</a>
+    <div class="section-label">Szkolenia & Campy</div>
+    <h1 class="section-title">{% if training %}Edycja <span>{{ training.title }}</span>{% else %}Nowy <span>wpis</span>{% endif %}</h1>
+
+    <form method="post" enctype="multipart/form-data" class="tc-day-form" novalidate>
+      {% csrf_token %}
+      <div class="tc-card">
+        {% include "_form_errors.html" %}
+        <div class="tc-form">
+          <div class="tc-form-row">
+            {% with field=form.kind %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.title %}{% include "_field.html" %}{% endwith %}
+          </div>
+          {% with field=form.description %}{% include "_field.html" %}{% endwith %}
+          {% if training.image %}
+          <div class="tc-training-current">
+            <img src="{{ training.image.url }}" alt="Obecne zdjęcie" class="tc-training-thumb" />
+            <label class="tc-check tc-check-danger">{{ form.remove_image }} {{ form.remove_image.label }}</label>
+          </div>
+          {% endif %}
+          {% with field=form.image %}{% include "_field.html" %}{% endwith %}
+        </div>
+      </div>
+
+      <details class="tc-card tc-more"{% if form.errors %} open{% endif %}>
+        <summary>Więcej szczegółów (opcjonalne): termin, miejsce, cena…</summary>
+        <div class="tc-form">
+          <div class="tc-form-row">
+            {% with field=form.date_text %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.place %}{% include "_field.html" %}{% endwith %}
+          </div>
+          <div class="tc-form-row">
+            {% with field=form.price %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.badge %}{% include "_field.html" %}{% endwith %}
+          </div>
+          <div class="tc-form-row">
+            {% with field=form.meta %}{% include "_field.html" %}{% endwith %}
+            {% with field=form.icon %}{% include "_field.html" %}{% endwith %}
+          </div>
+          {% with field=form.points %}{% include "_field.html" %}{% endwith %}
+          <div class="tc-form-row">
+            {% with field=form.order %}{% include "_field.html" %}{% endwith %}
+          </div>
+        </div>
+      </details>
+
+      <label class="tc-check tc-more-check">{{ form.is_active }} {{ form.is_active.label|capfirst }}<small class="tc-help">{{ form.is_active.help_text }}</small></label>
+
+      <div class="tc-actions">
+        <button type="submit" class="btn-primary">Zapisz →</button>
+        <a href="{% if training %}{{ training.get_absolute_url }}{% else %}{% url 'trainings:list' %}{% endif %}" class="btn-secondary">Anuluj</a>
+      </div>
+    </form>
+
+    {% if training %}
+    <form method="post" action="{% url 'trainings:delete' training.pk %}" class="tc-delete-form tc-delete-left" onsubmit="return confirm('Usunąć ten wpis razem ze zdjęciem?')">
+      {% csrf_token %}
+      <button type="submit" class="tc-link-btn">Usuń wpis</button>
+    </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

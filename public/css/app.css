@@ -1444,6 +1444,93 @@ details[open] > summary > .tc-chevron {
   margin-top: 0;
 }
 
+/* Dodawanie szkoleń i campów przez admina */
+.tc-admin-bar-tight {
+  margin: 0 0 24px;
+}
+
+.tc-item-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.tc-link-danger {
+  color: var(--red);
+}
+
+.tc-upload-btn {
+  cursor: pointer;
+}
+
+.tc-photo-admin {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.tc-photo-manage {
+  margin-top: 32px;
+}
+
+.tc-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.tc-photo-tile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.tc-photo-tile .tc-link-btn {
+  margin-top: 6px;
+}
+
+.tc-training-current {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tc-field input[type="file"] {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.tc-training-thumb {
+  display: block;
+  max-width: 240px;
+  max-height: 160px;
+  object-fit: cover;
+}
+
+.tc-more {
+  margin-top: 16px;
+}
+
+.tc-more summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tc-more[open] summary {
+  margin-bottom: 20px;
+}
+
+.tc-more-check {
+  margin-top: 24px;
+}
+
 .course-detail.is-hidden-preview {
   opacity: 0.6;
 }

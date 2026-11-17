@@ -391,5 +391,7 @@ class StaffDailyEditTests(DailyWorkoutTestCase):
 
     def test_admin_deletes_training(self):
         self.client.force_login(self.admin)
+        delete_url = reverse('ranking:daily_delete', args=[self.today.isoformat()])
+        self.assertContains(self.client.get(self.daily.get_absolute_url()), delete_url)
         self.client.post(reverse('ranking:daily_delete', args=[self.today.isoformat()]))
         self.assertFalse(DailyWorkout.objects.exists())

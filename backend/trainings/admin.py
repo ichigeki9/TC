@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from shop.admin import thumbnail
 
-from .models import Training
+from .models import Photo, Training
 
 
 @admin.register(Training)
@@ -28,3 +28,13 @@ class TrainingAdmin(admin.ModelAdmin):
     @admin.display(description='podgląd zdjęcia')
     def image_large(self, obj):
         return thumbnail(obj.image, 240)
+
+
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('image_small', 'place', 'uploaded_at')
+    list_filter = ('place',)
+
+    @admin.display(description='zdjęcie')
+    def image_small(self, obj):
+        return thumbnail(obj.image, 48)

@@ -22,5 +22,13 @@
             </ul>
             {% endif %}
             <a href="{{ training.contact_url }}" class="btn-outline-accent">Zapytaj o termin →</a>
+            {% if user.is_staff %}
+            <div class="tc-item-admin">
+              <a href="{% url 'trainings:edit' training.pk %}" class="tc-link-btn">Edytuj wpis</a>
+              <form method="post" action="{% url 'trainings:delete' training.pk %}" onsubmit="return confirm('Usunąć „{{ training.title|escapejs }}” razem ze zdjęciem?')">
+                {% csrf_token %}<button type="submit" class="tc-link-btn tc-link-danger">Usuń</button>
+              </form>
+            </div>
+            {% endif %}
           </div>
         </article>

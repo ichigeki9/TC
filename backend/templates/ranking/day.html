@@ -13,6 +13,9 @@
     {% if user.is_staff %}
     <div class="tc-admin-bar">
       <a href="{% url 'ranking:daily_edit' daily.date|date:'Y-m-d' %}" class="btn-secondary">Edytuj trening</a>
+      <form method="post" action="{% url 'ranking:daily_delete' daily.date|date:'Y-m-d' %}" onsubmit="return confirm('Usunąć cały trening razem ze wszystkimi wynikami?')">
+        {% csrf_token %}<button type="submit" class="tc-link-btn tc-link-danger">Usuń trening</button>
+      </form>
       {% if not daily.is_published %}<span class="tc-badge-warn">Ukryty — zawodnicy go nie widzą</span>
       {% elif daily.date > today %}<span class="tc-badge-warn">Zaplanowany — zawodnicy zobaczą go {{ daily.date|date:"j E" }}</span>{% endif %}
     </div>

@@ -36,6 +36,12 @@
         </p>
       </div>
 
+      {% if user.is_staff %}
+      <div class="tc-admin-bar tc-admin-bar-tight">
+        <a href="{% url 'trainings:add' %}" class="btn-primary">+ Dodaj szkolenie</a>
+      </div>
+      {% endif %}
+
       <div class="course-details-list">
         {% for training in courses %}{% include "trainings/_item.html" %}
         {% empty %}
@@ -50,11 +56,26 @@
     <div class="container">
       <div class="why-grid">
         <div class="why-visual">
-          <!-- Zdjęcie: wrzuć plik do public/images/campy/ — zastąpi emotkę -->
+          {# Zdjęcie: wgrywa admin na stronie albo plik w public/images/campy/ #}
           <div class="why-visual-main{% if camp_photo %} camp-photo{% endif %}"{% if camp_photo %} style="background-image: url('{{ camp_photo }}')"{% endif %}>
             {% if not camp_photo %}<div class="why-big-number">🏕️</div>{% endif %}
             <div class="why-big-label">Campy Training Culture</div>
           </div>
+          {% if user.is_staff %}
+          <div class="tc-photo-admin">
+            <form method="post" action="{% url 'trainings:camp_cover_upload' %}" enctype="multipart/form-data" class="tc-upload-form">
+              {% csrf_token %}
+              <label class="btn-secondary tc-upload-btn">{% if camp_photo %}Zmień zdjęcie{% else %}Dodaj zdjęcie{% endif %}
+                <input type="file" name="image" accept="image/*" onchange="this.form.submit()" hidden />
+              </label>
+            </form>
+            {% if camp_cover %}
+            <form method="post" action="{% url 'trainings:photo_delete' camp_cover.pk %}" onsubmit="return confirm('Usunąć zdjęcie kafelka?')">
+              {% csrf_token %}<button type="submit" class="tc-link-btn tc-link-danger">Usuń zdjęcie</button>
+            </form>
+            {% endif %}
+          </div>
+          {% endif %}
           <div class="why-badges">
             <div class="why-badge">
               <div class="why-badge-icon">📅</div>
@@ -117,9 +138,14 @@
         </div>
       </div>
 
-      {% if camps %}
+      {% if camps or user.is_staff %}
       <div class="camps-list">
         <div class="section-label">Najbliższe campy</div>
+        {% if user.is_staff %}
+        <div class="tc-admin-bar tc-admin-bar-tight">
+          <a href="{% url 'trainings:add' %}?rodzaj=camp" class="btn-primary">+ Dodaj camp</a>
+        </div>
+        {% endif %}
         <div class="course-details-list">
           {% for training in camps %}{% include "trainings/_item.html" %}{% endfor %}
         </div>
@@ -141,9 +167,37 @@
         </p>
       </div>
 
-      <!-- Zdjęcia: wystarczy wrzucić plik do public/images/szkolenia/ -->
+      {# Zdjęcia: wgrywa admin na stronie albo pliki w public/images/szkolenia/ #}
+      {% if user.is_staff %}
+      <div class="tc-admin-bar tc-admin-bar-tight">
+        <form method="post" action="{% url 'trainings:gallery_upload' %}" enctype="multipart/form-data" class="tc-upload-form">
+          {% csrf_token %}
+          <label class="btn-primary tc-upload-btn">+ Dodaj zdjęcia
+            <input type="file" name="images" accept="image/*" multiple onchange="this.form.submit()" hidden />
+          </label>
+        </form>
+        <span class="tc-muted">Możesz zaznaczyć kilka plików naraz.</span>
+      </div>
+      {% endif %}
+
       <div class="gallery" id="gallery"></div>
       {{ gallery|json_script:"gallery-data" }}
+
+      {% if uploaded_photos %}
+      <div class="tc-photo-manage">
+        <div class="tc-muted">Zdjęcia wgrane na stronie (widzi tylko admin) — kliknij „Usuń”, żeby zdjąć z galerii:</div>
+        <div class="tc-photo-grid">
+          {% for photo in uploaded_photos %}
+          <div class="tc-photo-tile">
+            <img src="{{ photo.image.url }}" alt="" loading="lazy" />
+            <form method="post" action="{% url 'trainings:photo_delete' photo.pk %}" onsubmit="return confirm('Usunąć to zdjęcie z galerii?')">
+              {% csrf_token %}<button type="submit" class="tc-link-btn tc-link-danger">Usuń</button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </div>
   </section>
 

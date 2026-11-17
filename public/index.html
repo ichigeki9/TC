@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- ?v=… zwiększ po zmianie CSS/JS (tu i w backend/templates/base.html), żeby przeglądarki pobrały nowe pliki -->
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=4" />
 </head>
 <body>
 
@@ -54,9 +54,9 @@
             Żywienie <span class="chevron">▾</span>
           </a>
           <div class="dropdown">
-            <a href="#dieta">Plany Dietetyczne</a>
-            <a href="#dieta">Suplementacja</a>
-            <a href="#dieta">Kalkulatory</a>
+            <a href="#dieta">Konsultacja dietetyczna</a>
+            <a href="#dieta">Konsultacja online</a>
+            <a href="#dieta">Plany żywieniowe</a>
           </div>
         </div>
 
@@ -132,9 +132,9 @@
       Żywienie <span class="m-arrow" style="transition:transform 0.2s">›</span>
     </div>
     <div class="mobile-submenu" id="mob-dieta">
-      <a href="#dieta">Plany Dietetyczne</a>
-      <a href="#dieta">Suplementacja</a>
-      <a href="#dieta">Kalkulatory</a>
+      <a href="#dieta">Konsultacja dietetyczna</a>
+      <a href="#dieta">Konsultacja online</a>
+      <a href="#dieta">Plany żywieniowe</a>
     </div>
 
     <div class="mobile-nav-link" data-toggle="mob-szkol">
@@ -454,59 +454,50 @@
       <div class="section-label">Żywienie sportowe</div>
       <h2 class="section-title">Jedzenie to<br><span>Paliwo</span></h2>
 
-      <!-- W trakcie budowy: usuń wrapper .coming-soon, gdy sekcja będzie gotowa -->
-      <div class="coming-soon">
-        <div class="coming-soon-badge">
-          <span class="coming-soon-title">W trakcie budowy</span>
-          <span class="coming-soon-text">Już niedługo będzie</span>
+      <div class="nutrition-grid nutrition-grid-3">
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">👨‍⚕️</div>
+          <h3 class="nutrition-card-title">Konsultacja Dietetyczna</h3>
+          <p class="nutrition-card-text">
+            Spotkanie 1:1 z dietetykiem sportowym na miejscu. Wywiad żywieniowy, analiza składu ciała
+            i jasne zalecenia dopasowane do Twojego treningu i celu.
+          </p>
+          <span class="nutrition-card-tag">Spotkanie stacjonarne</span>
+          <div class="nutrition-card-actions">
+            <a href="mailto:info@trainingculture.pl?subject=Konsultacja%20Dietetyczna" class="btn-outline-accent">Umów się →</a>
+            <a href="tel:+48509639015" class="nutrition-card-phone">📞 509 639 015</a>
+          </div>
         </div>
-        <div class="coming-soon-content" inert>
-      <div class="nutrition-grid">
+
+        <div class="nutrition-card">
+          <div class="nutrition-card-accent"></div>
+          <div class="nutrition-card-icon">💻</div>
+          <h3 class="nutrition-card-title">Konsultacja Dietetyczna Online</h3>
+          <p class="nutrition-card-text">
+            Ta sama konsultacja przez wideorozmowę — z dowolnego miejsca.
+            Omówimy Twoje nawyki, wyniki i plan działania, a potem sprawdzimy postępy.
+          </p>
+          <span class="nutrition-card-tag">Wideorozmowa</span>
+          <div class="nutrition-card-actions">
+            <a href="mailto:info@trainingculture.pl?subject=Konsultacja%20Dietetyczna%20Online" class="btn-outline-accent">Umów się →</a>
+            <a href="tel:+48509639015" class="nutrition-card-phone">📞 509 639 015</a>
+          </div>
+        </div>
+
         <div class="nutrition-card">
           <div class="nutrition-card-accent"></div>
           <div class="nutrition-card-icon">🥗</div>
           <h3 class="nutrition-card-title">Plany Żywieniowe</h3>
           <p class="nutrition-card-text">
-            Spersonalizowane jadłospisy opracowane przez dietetyków sportowych.
-            Dostosowane do Twoich celów: masa, redukcja lub utrzymanie formy.
-            Pełna lista zakupów i przepisy w zestawie.
+            Spersonalizowane jadłospisy od dietetyka sportowego — pod masę, redukcję
+            lub utrzymanie formy. Z listą zakupów i przepisami.
           </p>
-          <span class="nutrition-card-tag">Od 99 zł / miesiąc</span>
-        </div>
-
-        <div class="nutrition-card">
-          <div class="nutrition-card-accent"></div>
-          <div class="nutrition-card-icon">💊</div>
-          <h3 class="nutrition-card-title">Suplementacja</h3>
-          <p class="nutrition-card-text">
-            Przewodnik po suplementach — co działa, co jest marketingiem,
-            a co może zaszkodzić. Oparte na badaniach naukowych, nie na reklamach.
-          </p>
-          <span class="nutrition-card-tag">Gratis w planie Premium</span>
-        </div>
-
-        <div class="nutrition-card">
-          <div class="nutrition-card-accent"></div>
-          <div class="nutrition-card-icon">📊</div>
-          <h3 class="nutrition-card-title">Kalkulatory & Narzędzia</h3>
-          <p class="nutrition-card-text">
-            Oblicz swoje zapotrzebowanie kaloryczne, makroskładniki i nawodnienie.
-            Interaktywne narzędzia dostępne 24/7 dla wszystkich użytkowników.
-          </p>
-          <span class="nutrition-card-tag">Dostęp bezpłatny</span>
-        </div>
-
-        <div class="nutrition-card">
-          <div class="nutrition-card-accent"></div>
-          <div class="nutrition-card-icon">👨‍⚕️</div>
-          <h3 class="nutrition-card-title">Konsultacje Online</h3>
-          <p class="nutrition-card-text">
-            Umów się na konsultację 1:1 z dietetykiem sportowym. Analiza składu ciała,
-            indywidualny plan i follow-up po 4 tygodniach.
-          </p>
-          <span class="nutrition-card-tag">Umów bezpłatną rozmowę</span>
-        </div>
-      </div>
+          <span class="nutrition-card-tag">Dopasowane do Twojego celu</span>
+          <div class="nutrition-card-actions">
+            <a href="mailto:info@trainingculture.pl?subject=Plany%20%C5%BBywieniowe" class="btn-outline-accent">Umów się →</a>
+            <a href="tel:+48509639015" class="nutrition-card-phone">📞 509 639 015</a>
+          </div>
         </div>
       </div>
     </div>

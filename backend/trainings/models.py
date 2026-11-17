@@ -58,3 +58,30 @@ class Training(models.Model):
     @property
     def contact_url(self):
         return f'mailto:{CONTACT_EMAIL}?subject={quote(f"{self.get_kind_display()}: {self.title}")}'
+
+
+class Photo(models.Model):
+    """Zdjęcie wgrane na stronie: do galerii albo jako duży kafelek campów."""
+
+    class Place(models.TextChoices):
+        GALLERY = 'gallery', 'Galeria'
+        CAMP_COVER = 'camp_cover', 'Kafelek campów'
+
+    place = models.CharField('miejsce', max_length=12, choices=Place.choices, default=Place.GALLERY)
+    image = models.ImageField('zdjęcie', upload_to='galeria/', max_length=255)
+    uploaded_at = models.DateTimeField('dodano', auto_now_add=True)
+
+    class Meta:
+        ordering = ('uploaded_at', 'pk')
+        verbose_name = 'zdjęcie'
+        verbose_name_plural = 'zdjęcia (galeria i campy)'
+
+    def __str__(self):
+        return f'{self.get_place_display()}: {self.image.name}'
+
+    def delete(self, *args, **kwargs):
+        image = self.image
+        result = super().delete(*args, **kwargs)
+        if image:
+            image.storage.delete(image.name)
+        return result

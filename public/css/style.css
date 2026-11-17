@@ -892,7 +892,14 @@ header {
   margin-top: 64px;
 }
 
+.nutrition-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .nutrition-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   background: var(--dark);
   padding: 48px;
   position: relative;
@@ -950,6 +957,28 @@ header {
   color: var(--accent);
   padding: 6px 14px;
   border: 1px solid rgba(232,255,0,0.2);
+}
+
+/* Przyciski na dole kafelka — równo we wszystkich kartach */
+.nutrition-card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.nutrition-card-phone {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--white);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.nutrition-card-phone:hover {
+  color: var(--accent);
 }
 
 /* ===== COURSES SECTION ===== */
