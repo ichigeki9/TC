@@ -3,7 +3,7 @@ from urllib.parse import quote
 from django.db import models
 from django.urls import reverse
 
-CONTACT_EMAIL = 'info@trainingculture.pl'
+CONTACT_EMAIL = 'traincultpolska@gmail.com'
 
 
 class Training(models.Model):

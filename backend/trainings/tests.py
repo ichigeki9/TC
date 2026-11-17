@@ -49,7 +49,7 @@ class TrainingTests(TestCase):
 
     def test_points_and_contact_link(self):
         self.assertEqual(self.camp.point_list, ['Trzy treningi dziennie', 'Analiza wideo'])
-        self.assertEqual(self.camp.contact_url, 'mailto:info@trainingculture.pl?subject=Camp%3A%20Camp%20Mazury')
+        self.assertEqual(self.camp.contact_url, 'mailto:traincultpolska@gmail.com?subject=Camp%3A%20Camp%20Mazury')
 
     def test_old_static_address_redirects(self):
         response = self.client.get('/szkolenia.html')

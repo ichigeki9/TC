@@ -141,7 +141,7 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Domyślnie nadawcą jest EMAIL_HOST_USER — przy Brevo to login SMTP, więc ustaw DEFAULT_FROM_EMAIL
 DEFAULT_FROM_EMAIL = os.environ.get(
-    'DEFAULT_FROM_EMAIL', f'Training Culture <{EMAIL_HOST_USER or "info@trainingculture.pl"}>',
+    'DEFAULT_FROM_EMAIL', f'Training Culture <{EMAIL_HOST_USER or "traincultpolska@gmail.com"}>',
 )
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 # Na ten adres przychodzi powiadomienie o każdym opłaconym zamówieniu (puste = bez powiadomień)
